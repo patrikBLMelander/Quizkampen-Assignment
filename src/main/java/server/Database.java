@@ -17,7 +17,7 @@ public class Database implements Serializable {
     Questions simon = new Questions("Hur gammal är Simon", "21", "18", "30", "25");
     Questions axel = new Questions("Hur gammal är Axel", "27", "25", "30", "20");
     Questions patrik = new Questions("Hur gammal är Patrik", "35", "40", "30", "25");
-    ArrayList<Questions> test =  new ArrayList<>();
+    ArrayList<Questions> test = new ArrayList<>();
 
     public Database() {
         test.add(sara);
@@ -27,4 +27,11 @@ public class Database implements Serializable {
 
     }
 
+    public boolean findCorrectAnswer(String s) {
+        for (Questions q : test) {
+            if (q.getCorrectAnswer().equalsIgnoreCase(s))
+                return true;
+        }
+        return false;
+    }
 }

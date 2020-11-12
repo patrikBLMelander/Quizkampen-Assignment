@@ -9,14 +9,18 @@ import java.io.Serializable;
  * Project: Quiskampen
  * Copyright: MIT
  */
-public class Resonse implements Serializable {
+public class Response implements Serializable {
     boolean success;
 
-    public Resonse(boolean answer) {
+    public Response(boolean answer) {
         this.success = answer;
     }
 
     public boolean isSuccess() {
         return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }
