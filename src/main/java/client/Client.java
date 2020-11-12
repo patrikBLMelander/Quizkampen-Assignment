@@ -13,6 +13,11 @@ public class Client {
 
             Object temp;
             String answer = "";
+
+
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

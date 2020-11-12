@@ -1,5 +1,7 @@
 package server;
 
+import java.io.Serializable;
+
 /**
  * Created by Patrik Melander
  * Date: 2020-11-12
@@ -7,7 +9,7 @@ package server;
  * Project: Quiskampen
  * Copyright: MIT
  */
-public class Questions {
+public class Questions implements Serializable {
     private String question;
     private String correctAnswer;
     private String wrongAnswer1;

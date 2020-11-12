@@ -27,15 +27,14 @@ public class MultiServer extends Thread {
              ObjectInputStream ois = new ObjectInputStream(connectionToClient.getInputStream())){
 
             String inputObject;
-            Object outputPerson;
+            Object outputList;
 
 
             Protocol p = new Protocol();
-            out.writeObject(p.processInput(null));
 
             while ((inputObject = (String)ois.readObject())!=null){
 
-                out.writeObject(p.processInput(inputObject));
+                 out.writeObject(p.processInput(inputObject));
             }
 
         } catch (IOException | ClassNotFoundException e) {
