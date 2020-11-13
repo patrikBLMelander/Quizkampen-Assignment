@@ -1,13 +1,16 @@
 package server;
 
+
 import server.Categories.Patrik;
 import server.Categories.Simon;
-
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Database implements Serializable {
+
+    List<User> userList = new ArrayList<>();
 
     Questions sara = new Questions("Hur gammal är Sara", "37", "25", "43", "32");
     Questions simon = new Questions("Hur gammal är Simon", "21", "18", "30", "25");
@@ -54,6 +57,7 @@ public class Database implements Serializable {
         return false;
     }
 
+
     public ArrayList chooseCategory(String buttonID) {
 
         switch (buttonID) {
@@ -67,5 +71,16 @@ public class Database implements Serializable {
                 System.out.println("error");
         }
         return null;
+
+    public void addUser(User u) {
+        userList.add(u);
+    }
+
+    public List<User> getUsers() {
+        return userList;
+    }
+
+    public void removeUser(User u) {
+        userList.remove(u);
     }
 }

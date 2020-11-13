@@ -4,4 +4,5 @@ module sample {
     requires javafx.fxml;
 
     opens server;
+    opens client.Controllers;
 }
