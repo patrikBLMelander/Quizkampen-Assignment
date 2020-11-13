@@ -12,7 +12,6 @@ public class Protocol {
     private int state = SEND_QUESTION;
 
     Database database = new Database();
-    Response response = new Response(false);
     String databaseResponse;
     String fromClient;
     Object output;
@@ -38,9 +37,8 @@ public class Protocol {
         } else if (state == CHECK_ANSWER) {
             boolean temp = database.findCorrectAnswer(object.toString());
             System.out.println(temp);
-            response.setSuccess(temp);
 
-            objectToSend = response;
+            objectToSend = new Response(temp);
             if (counter < 4) {
                 state = SEND_QUESTION;
                 counter++;
