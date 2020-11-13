@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Patrik Melander
@@ -34,17 +35,10 @@ public class MultiServer extends Thread {
 
             Protocol p = new Protocol();
 
-            while ((temp = ois.readObject())!=null){
-                System.out.println("tagit emot " + temp.toString());
+            while ((temp = (String)ois.readObject())!=null){
 
-                if (temp instanceof ArrayList){
+                    System.out.println("tagit emot " + temp.toString());
                     out.writeObject(p.processInput(temp));
-                }
-                else if (temp instanceof String)
-                    out.writeObject(p.processInput(temp));
-
-
-
 
             }
 
