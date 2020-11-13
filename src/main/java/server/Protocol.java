@@ -37,6 +37,7 @@ public class Protocol {
             state = CHECK_ANSWER;
         } else if (state == CHECK_ANSWER) {
             boolean temp = database.findCorrectAnswer(object.toString());
+            System.out.println(temp);
             response.setSuccess(temp);
 
             objectToSend = response;

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.List;
 import java.util.Scanner;
 
 public class Client {
@@ -32,18 +31,16 @@ public class Client {
                     out.writeObject(temp);
                 }
                 else if(temp instanceof Response){
-                    boolean answer = ((Response) temp).isSuccess();
+                    boolean answer = ((Response) temp).getSuccess();
                     System.out.println(answer);
 
-                    if(((Response) temp).isSuccess()){
+                    if(((Response) temp).getSuccess()){
                         System.out.println("Rätt svar");
-                        temp=null;
                         out.writeObject("vill ha ny fråga");
                     }
 
                     else {
                         System.out.println("Fel svar");
-                        temp=null;
                         out.writeObject("vill ha ny fråga");
                     }
                 }
