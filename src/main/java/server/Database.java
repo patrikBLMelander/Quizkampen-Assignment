@@ -71,6 +71,7 @@ public class Database implements Serializable {
                 System.out.println("error");
         }
         return null;
+    }
 
     public void addUser(User u) {
         userList.add(u);
