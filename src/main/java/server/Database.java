@@ -1,5 +1,6 @@
 package server;
 
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
  * Copyright: MIT
  */
 public class Database implements Serializable {
+
+    List<User> userList = new ArrayList<>();
 
     Questions sara = new Questions("Hur gammal är Sara", "37", "25", "43", "32");
     Questions simon = new Questions("Hur gammal är Simon", "21", "18", "30", "25");
@@ -33,5 +36,17 @@ public class Database implements Serializable {
                 return true;
         }
         return false;
+    }
+
+    public void addUser(User u) {
+        userList.add(u);
+    }
+
+    public List<User> getUsers() {
+        return userList;
+    }
+
+    public void removeUser(User u) {
+        userList.remove(u);
     }
 }
