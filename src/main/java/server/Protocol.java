@@ -5,7 +5,7 @@ public class Protocol {
     private static final int MAIN_MENU = 1;
     private static final int WAITING_FOR_OPPONENT = 2;
     private static final int SEND_QUESTION = 3;
-    private static final int CHECK_ANSWER1 = 4;
+    private static final int CHECK_ANSWER = 4;
     private static final int FINAL_SCORE = 5;
 
 
@@ -34,8 +34,8 @@ public class Protocol {
             System.out.println("Är i SendQuestion");
             objectToSend = database.test.get(counter);
 
-            state = CHECK_ANSWER1;
-        } else if (state == CHECK_ANSWER1) {
+            state = CHECK_ANSWER;
+        } else if (state == CHECK_ANSWER) {
             response.setSuccess(database.findCorrectAnswer(object.toString()));
             objectToSend = response;
             if (counter < 4) {
