@@ -39,6 +39,7 @@ public class MultiServer extends Thread {
 
                     System.out.println("tagit emot " + temp.toString());
                     out.writeObject(p.processInput(temp));
+                    out.flush();
 
 
             }
