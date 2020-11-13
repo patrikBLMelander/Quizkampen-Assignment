@@ -35,10 +35,11 @@ public class MultiServer extends Thread {
 
             Protocol p = new Protocol();
 
-            while ((temp = (String)ois.readObject())!=null){
+            while ((temp = ois.readObject())!=null){
 
                     System.out.println("tagit emot " + temp.toString());
                     out.writeObject(p.processInput(temp));
+
 
             }
 

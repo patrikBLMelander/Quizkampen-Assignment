@@ -21,18 +21,31 @@ public class Client {
             String name = "Sara";
 
 
+
             out.writeObject(name);
 
 
             while((temp=in.readObject())!=null) {
                 if (temp instanceof Questions){
                     System.out.println("Fråga : " + ((Questions) temp).getQuestion());
+                    temp=scan.nextLine();
+                    out.writeObject(temp);
                 }
                 else if(temp instanceof Response){
-                    if(((Response) temp).isSuccess())
+                    boolean answer = ((Response) temp).isSuccess();
+                    System.out.println(answer);
+
+                    if(((Response) temp).isSuccess()){
                         System.out.println("Rätt svar");
-                    else
+                        temp=null;
+                        out.writeObject("vill ha ny fråga");
+                    }
+
+                    else {
                         System.out.println("Fel svar");
+                        temp=null;
+                        out.writeObject("vill ha ny fråga");
+                    }
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
