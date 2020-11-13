@@ -50,11 +50,12 @@ public class Database implements Serializable {
     }
 
     public boolean findCorrectAnswer(String s) {
+        boolean temp = false;
         for (Questions q : test) {
             if (q.getCorrectAnswer().equalsIgnoreCase(s))
-                return true;
+                temp=  true;
         }
-        return false;
+        return temp;
     }
 
 
