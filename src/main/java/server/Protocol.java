@@ -12,9 +12,6 @@ public class Protocol {
     private int state = SEND_QUESTION;
 
     Database database = new Database();
-    String databaseResponse;
-    String fromClient;
-    Object output;
     int counter = 0;
 
 
@@ -26,9 +23,10 @@ public class Protocol {
             System.out.println(object.toString());
             state = SEND_QUESTION;
         } else if (state == MAIN_MENU) {
+            state = WAITING_FOR_OPPONENT;
 
         } else if (state == WAITING_FOR_OPPONENT) {
-
+            state = SEND_QUESTION;
         } else if (state == SEND_QUESTION) {
             System.out.println("Är i Send_Question");
             objectToSend = database.test.get(counter);
