@@ -37,16 +37,21 @@ public class Protocol {
         } else if (state == CHECK_ANSWER) {
             boolean temp = database.findCorrectAnswer(object.toString());
             System.out.println(temp);
+            System.out.println(counter);
 
             objectToSend = new Response(temp);
-            if (counter < 4) {
+            if (counter < 3) {
                 state = SEND_QUESTION;
                 counter++;
             } else
                 state = FINAL_SCORE;
 
-        } else if (state == FINAL_SCORE) {
 
+        } else if (state == FINAL_SCORE) {
+            System.out.println("Spelet slut!! \n Du fick " + object + " poäng");
+
+            //if ("spelaigenknappen" = true)
+                //state = WAITING_FOR_OPPONENT;
         }
 
 

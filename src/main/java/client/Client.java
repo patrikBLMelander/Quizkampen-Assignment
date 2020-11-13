@@ -18,6 +18,7 @@ public class Client {
 
             Object temp;
             String name = "Sara";
+            int pointCounter = 0;
 
 
 
@@ -36,12 +37,15 @@ public class Client {
 
                     if(((Response) temp).getSuccess()){
                         System.out.println("Rätt svar");
-                        out.writeObject("vill ha ny fråga");
+                        pointCounter++;
+                        String points = pointCounter + "";
+                        out.writeObject(points);
                     }
 
                     else {
                         System.out.println("Fel svar");
-                        out.writeObject("vill ha ny fråga");
+                        String points = pointCounter + "";
+                        out.writeObject(points);
                     }
                 }
             }
