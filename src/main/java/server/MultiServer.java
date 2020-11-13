@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Created by Patrik Melander
@@ -28,13 +29,23 @@ public class MultiServer extends Thread {
 
             String inputObject;
             Object outputList;
+            Object temp;
 
 
             Protocol p = new Protocol();
 
-            while ((inputObject = (String)ois.readObject())!=null){
+            while ((temp = ois.readObject())!=null){
+                System.out.println("tagit emot " + temp.toString());
 
-                 out.writeObject(p.processInput(inputObject));
+                if (temp instanceof ArrayList){
+                    out.writeObject(p.processInput(temp));
+                }
+                else if (temp instanceof String)
+                    out.writeObject(p.processInput(temp));
+
+
+
+
             }
 
         } catch (IOException | ClassNotFoundException e) {

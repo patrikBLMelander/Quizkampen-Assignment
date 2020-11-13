@@ -9,7 +9,7 @@ public class Protocol {
     private static final int FINAL_SCORE = 5;
 
 
-    private int state = LOGIN;
+    private int state = SEND_QUESTION;
 
     Database database = new Database();
     Response response = new Response(false);
@@ -31,7 +31,7 @@ public class Protocol {
         } else if (state == WAITING_FOR_OPPONENT) {
 
         } else if (state == SEND_QUESTION) {
-            System.out.println("Är i SendQuestion");
+            System.out.println("Är i Send_Question");
             objectToSend = database.test.get(counter);
 
             state = CHECK_ANSWER;
