@@ -38,11 +38,6 @@ public class Client {
                         System.out.println("Fel svar");
                 }
             }
-
-
-
-
-
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
