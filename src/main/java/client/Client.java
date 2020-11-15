@@ -27,6 +27,7 @@ public class Client {
             while((temp=in.readObject())!=null) {
                 if (temp instanceof Questions){
                     System.out.println("Fråga : " + ((Questions) temp).getQuestion());
+                    out.writeObject(scan.nextLine());
                 }
                 else if(temp instanceof Response){
                     if(((Response) temp).isSuccess())

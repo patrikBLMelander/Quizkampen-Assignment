@@ -39,10 +39,10 @@ public class MainMenuController{
             stage.close();
 
             Stage primaryStage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainMenuView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HowManyView.fxml"));
             Parent root = (Parent) loader.load();
-            MainMenuController controller = loader.getController();
-            controller.setUser(user);
+            //MainMenuController controller = loader.getController();
+            //controller.setUser(user);
 
             primaryStage.setTitle(user.getUserName());
             primaryStage.setScene(new Scene(root));
