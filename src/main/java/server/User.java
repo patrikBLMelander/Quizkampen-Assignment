@@ -1,4 +1,4 @@
-package server;
+package server.Categories;
 
 import java.io.Serializable;
 import java.net.InetAddress;

@@ -1,4 +1,5 @@
-module sample {
+module sample
+{
     requires javafx.controls;
     requires javafx.graphics;
     requires javafx.fxml;
@@ -6,4 +7,7 @@ module sample {
     opens server;
     opens client.Controllers;
     opens server.Categories;
+    
+    opens client to javafx.graphics, javafx.fxml;
+    
 }
