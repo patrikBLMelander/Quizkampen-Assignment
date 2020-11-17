@@ -11,13 +11,9 @@ public class Protocol {
     private static final int FINAL_SCORE = 7;
 
 
-    private int state = LOGIN;
+    private int state = SEND_QUESTION;
 
     Database database = new Database();
-    Response response = new Response(false);
-    String databaseResponse;
-    String fromClient;
-    Object output;
     int counter = 0;
     int roundCounter = 0;
     int userRoundCounter = 2;
@@ -34,20 +30,25 @@ public class Protocol {
             state = SEND_QUESTION;
         } else if (state == MAIN_MENU) {
             state = WAITING_FOR_OPPONENT;
+
         } else if (state == WAITING_FOR_OPPONENT) {
             state = OVERVIEW;
         } else if (state == OVERVIEW) {
             state = CHOOSE_CATEGORY;
         } else if (state == CHOOSE_CATEGORY) {
             objectToSend = database.chooseCategory(fromClient);
+
             state = SEND_QUESTION;
         } else if (state == SEND_QUESTION) {
-            System.out.println("Är i SendQuestion");
+            System.out.println("Är i Send_Question");
             objectToSend = database.test.get(counter);
             state = CHECK_ANSWER;
         } else if (state == CHECK_ANSWER) {
-            response.setSuccess(database.findCorrectAnswer(object.toString()));
-            objectToSend = response;
+            boolean temp = database.findCorrectAnswer(object.toString());
+            System.out.println(temp);
+            System.out.println(counter);
+
+            objectToSend = new Response(temp);
             if (counter < userQuestionCounter) {
                 state = SEND_QUESTION;
                 counter++;
@@ -60,8 +61,10 @@ public class Protocol {
                 state = FINAL_SCORE;
             }
 
+
         } else if (state == FINAL_SCORE) {
             state = MAIN_MENU;
+
         }
 
 

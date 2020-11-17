@@ -16,7 +16,7 @@ public class Response implements Serializable {
         this.success = answer;
     }
 
-    public boolean isSuccess() {
+    public boolean getSuccess() {
         return success;
     }
 

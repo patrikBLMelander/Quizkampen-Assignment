@@ -19,23 +19,35 @@ public class Client {
 
             Object temp;
             String name = "Sara";
+            int pointCounter = 0;
+
 
 
             out.writeObject(name);
 
 
             while((temp=in.readObject())!=null) {
-                if (temp instanceof List){
-                    for(var v : (List)temp)
-                    System.out.println(v);
-                    String answer = scan.nextLine();
-                    out.writeObject(answer);
+                if (temp instanceof Questions){
+                    System.out.println("Fråga : " + ((Questions) temp).getQuestion());
+                    temp=scan.nextLine();
+                    out.writeObject(temp);
                 }
                 else if(temp instanceof Response){
-                    if(((Response) temp).isSuccess())
+                    boolean answer = ((Response) temp).getSuccess();
+                    System.out.println(answer);
+
+                    if(((Response) temp).getSuccess()){
                         System.out.println("Rätt svar");
-                    else
+                        pointCounter++;
+                        String points = pointCounter + "";
+                        out.writeObject(points);
+                    }
+
+                    else {
                         System.out.println("Fel svar");
+                        String points = pointCounter + "";
+                        out.writeObject(points);
+                    }
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
