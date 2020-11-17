@@ -42,7 +42,17 @@ public class Protocol {
         } else if (state == SEND_QUESTION) {
             System.out.println("Är i Send_Question");
             objectToSend = database.test.get(counter);
-            state = CHECK_ANSWER;
+
+            if (counter < userQuestionCounter) {
+                counter++;
+            } else if (roundCounter < userRoundCounter){
+                state = OVERVIEW;
+                roundCounter++;
+                counter = 0;
+            }
+
+
+
         } else if (state == CHECK_ANSWER) {
             boolean temp = database.findCorrectAnswer(object.toString());
             System.out.println(temp);
