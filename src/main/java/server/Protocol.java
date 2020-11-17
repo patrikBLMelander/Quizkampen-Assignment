@@ -36,7 +36,7 @@ public class Protocol {
         } else if (state == OVERVIEW) {
             state = CHOOSE_CATEGORY;
         } else if (state == CHOOSE_CATEGORY) {
-            objectToSend = database.chooseCategory(fromClient);
+            //objectToSend = database.chooseCategory(fromClient);
 
             state = SEND_QUESTION;
         } else if (state == SEND_QUESTION) {

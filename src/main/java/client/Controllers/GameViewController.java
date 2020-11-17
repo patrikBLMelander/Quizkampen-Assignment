@@ -3,9 +3,11 @@ package client.Controllers;
 import client.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -47,6 +49,15 @@ public class GameViewController implements Initializable{
 
     @FXML
     private RadioButton rButton4;
+
+    @FXML
+    void rButtonClicked(ActionEvent event) {
+
+        if (((Control)event.getSource()) == buttonList.get(0))
+            System.out.println("win");
+        else
+            System.out.println("looser");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
