@@ -9,7 +9,7 @@ public class Server {
 
     public Server(){
 
-        try (ServerSocket server = new ServerSocket(55510)){
+        try (ServerSocket server = new ServerSocket(55000)){
             while (true) {
 
                 Socket connectionToClient = server.accept();

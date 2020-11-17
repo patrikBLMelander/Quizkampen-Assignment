@@ -1,5 +1,6 @@
 package client.Controllers;
 
+import client.Client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -20,8 +21,14 @@ public class ScreenNavigator {
 
     public static User user;
 
+    public static Client client;
+
     public void setUser(User user){
         this.user = user;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public void loadNewScreen(String fxml, Node node) throws IOException {
