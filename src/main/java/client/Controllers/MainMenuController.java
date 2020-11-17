@@ -1,19 +1,11 @@
 package client.Controllers;
 
-
-import client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import server.User;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +18,6 @@ import java.util.ResourceBundle;
  * Copywright: MIT
  */
 public class MainMenuController implements Initializable {
-    private User user;
     ScreenNavigator s = new ScreenNavigator();
 
     @FXML
@@ -46,13 +37,12 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void newGameViewAction(ActionEvent event) throws IOException {
-        s.loadNewScreen("ChooseNumersOfRoundsView.fxml", newGameBtn);
+        s.loadNewScreen(ScreenNavigator.NUMBER_OF_ROUNDS, newGameBtn);
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        helloText.setText("Hej " + name);
-
+        helloText.setText("Hej " + ScreenNavigator.user.getUserName());
     }
 }

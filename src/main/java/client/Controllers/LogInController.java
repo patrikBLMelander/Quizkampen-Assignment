@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import server.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,6 +33,8 @@ public class LogInController{
 
     @FXML
     void logInAction(ActionEvent event) throws Exception {
-        s.loadNewScreen("MainMenuView.fxml", logInButton);
+        User u = new User(logInName.getText());
+        s.setUser(u);
+        s.loadNewScreen(ScreenNavigator.MAIN_MENU, logInButton);
     }
 }

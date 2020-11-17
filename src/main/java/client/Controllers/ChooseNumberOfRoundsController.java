@@ -36,7 +36,7 @@ public class ChooseNumberOfRoundsController implements Initializable {
 
     @FXML
     void startNewGameAction(ActionEvent event) throws IOException {
-        s.loadNewScreen("GameView.fxml", startGameBtn);
+        s.loadNewScreen(ScreenNavigator.GAME_VIEW, startGameBtn);
 
     }
 
