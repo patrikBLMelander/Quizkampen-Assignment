@@ -22,13 +22,12 @@ public class Database implements Serializable {
     Questions s2 = new Questions("Hur gammal är Simon", "21", "18", "30", "25");
     Questions s3 = new Questions("Hur gammal är Axel", "27", "25", "30", "20");
     Questions s4 = new Questions("Hur gammal är Patrik", "35", "40", "30", "25");
+    ArrayList<Questions> simonList = new ArrayList<>();
 
     Questions p1 = new Questions("Hur gammal är Sara", "37", "25", "43", "32");
     Questions p2 = new Questions("Hur gammal är Simon", "21", "18", "30", "25");
     Questions p3 = new Questions("Hur gammal är Axel", "27", "25", "30", "20");
     Questions p4 = new Questions("Hur gammal är Patrik", "35", "40", "30", "25");
-
-    ArrayList<Questions> simonList = new ArrayList<>();
     ArrayList<Questions> patrikList = new ArrayList<>();
 
     public Database() {
