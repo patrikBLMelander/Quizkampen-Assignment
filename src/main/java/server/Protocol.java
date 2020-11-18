@@ -1,4 +1,4 @@
-package server.Categories;
+package server;
 
 public class Protocol {
     private static final int LOGIN = 0;

@@ -1,4 +1,4 @@
-package server.Categories;
+package server;
 
 import java.io.Serializable;
 
