@@ -20,6 +20,25 @@ import java.util.ResourceBundle;
  * Copywright: MIT
  */
 public class ChooseNumberOfRoundsController implements Initializable {
+    static int round;
+    static int questions;
+
+    public static void setRound(int round) {
+        ChooseNumberOfRoundsController.round = round;
+    }
+
+    public static void setQuestions(int questions) {
+        ChooseNumberOfRoundsController.questions = questions;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public int getQuestions() {
+        return questions;
+    }
+
     ScreenNavigator s = new ScreenNavigator();
 
     @FXML
@@ -36,6 +55,8 @@ public class ChooseNumberOfRoundsController implements Initializable {
 
     @FXML
     void startNewGameAction(ActionEvent event) throws IOException {
+        setRound(round = scrollRounds.getValue());;
+        setQuestions(questions = scrollQuestions.getValue());
         s.loadNewScreen(ScreenNavigator.GAME_VIEW, startGameBtn);
 
     }

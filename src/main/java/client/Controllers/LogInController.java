@@ -1,5 +1,4 @@
 package client.Controllers;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +33,6 @@ public class LogInController{
     void logInAction(ActionEvent event) throws Exception {
         User u = new User(logInName.getText());
         s.setUser(u);
-        s.loadNewScreen(ScreenNavigator.GAME_VIEW, logInButton);
+        s.loadNewScreen(ScreenNavigator.MAIN_MENU, logInButton);
     }
 }
