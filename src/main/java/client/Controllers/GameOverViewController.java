@@ -3,6 +3,7 @@ package client.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
@@ -15,8 +16,14 @@ public class GameOverViewController implements Initializable {
     private Text resultText;
 
     @FXML
-    void playAgainBtnClicked(ActionEvent event) throws IOException, ClassNotFoundException {
+    private Button playAgainBtn;
 
+    @FXML
+    private Button endGameBtn;
+
+    @FXML
+    void playAgainBtnClicked(ActionEvent event) throws IOException, ClassNotFoundException {
+        s.loadNewScreen(ScreenNavigator.MAIN_MENU, playAgainBtn);
     }
 
     @FXML
