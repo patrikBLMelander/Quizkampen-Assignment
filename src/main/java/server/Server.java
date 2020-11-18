@@ -15,7 +15,6 @@ public class Server {
             System.out.println("Server is Running");
 
             while (true) {
-                //ServerSideGame game = new ServerSideGame();
                 User player1 = new User("Player 1", server.accept(), 1);
                 System.out.println("Spelar 1 connected");
                 User player2 = new User("Player 2", server.accept(), 2);
@@ -23,11 +22,9 @@ public class Server {
 
                 player1.setOpponent(player2);
                 player2.setOpponent(player1);
-                //game.currentPlayer = playerX;
+
                 player1.start();
                 player2.start();
-
-
             }
         } catch (IOException e) {
             e.printStackTrace();

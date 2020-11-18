@@ -21,7 +21,6 @@ public class MultiServer extends Thread {
         this.connectionToClient = clientSocket;
     }
 
-
     public void run(){
 
 
@@ -31,17 +30,12 @@ public class MultiServer extends Thread {
             String inputObject;
             Object outputList;
             Object temp;
-
-
             Protocol p = new Protocol();
 
             while ((temp = ois.readObject())!=null){
-
-                    System.out.println("tagit emot " + temp.toString());
-                    out.writeObject(p.processInput(temp));
-                    out.flush();
-
-
+                System.out.println("tagit emot " + temp.toString());
+                out.writeObject(p.processInput(temp));
+                out.flush();
             }
 
         } catch (IOException | ClassNotFoundException e) {

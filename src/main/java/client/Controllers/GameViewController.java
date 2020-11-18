@@ -1,6 +1,5 @@
 package client.Controllers;
 
-import client.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,14 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
-import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import server.Questions;
-import server.Response;
-
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -77,27 +72,11 @@ public class GameViewController implements Initializable{
         pointCounter = 0;
         buttonList.addAll(rButton1, rButton2, rButton3, rButton4);
 
-
         try {
             in = ScreenNavigator.inputStreamer;
             out = ScreenNavigator.outputStreamer;
-            //connectToServer = ScreenNavigator.socket;
-            /*
-            connectToServer = new Socket("127.0.0.1", 55000);
-            out = new ObjectOutputStream(connectToServer.getOutputStream());
-            in = new ObjectInputStream(connectToServer.getInputStream());
 
-            out.writeObject(ScreenNavigator.user.getUserName());
-            Object temp;
-
-             */
-
-
-            if (questionsCounter < ChooseNumberOfRoundsController.questions)
-                updateGameWindow();
-            else
-                s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
-
+            updateGameWindow();
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -118,8 +97,6 @@ public class GameViewController implements Initializable{
             buttonList.get(3).setText(((Questions) temp).getWrongAnswer3());
         }else
             s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
-
-
     }
 }
 

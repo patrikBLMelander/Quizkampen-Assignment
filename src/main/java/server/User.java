@@ -35,7 +35,6 @@ public class User extends Thread implements Serializable {
         this.iadr = InetAddress.getLoopbackAddress();
         this.player = player;
 
-
         try {
             out = new ObjectOutputStream(connectionToClient.getOutputStream());
             in = new ObjectInputStream(connectionToClient.getInputStream());
@@ -86,13 +85,9 @@ public class User extends Thread implements Serializable {
 
         try {
             while ((temp = in.readObject()) != null) {
-
                 System.out.println("tagit emot " + temp.toString());
                 out.writeObject(p.processInput(temp));
                 out.flush();
-
-                //out.writeObject("MESSAGE All players connected");
-
             }
         }
         catch(IOException | ClassNotFoundException e){

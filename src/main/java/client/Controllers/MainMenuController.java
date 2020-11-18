@@ -50,11 +50,10 @@ public class MainMenuController implements Initializable {
         in = new ObjectInputStream(connectToServer.getInputStream());
         s.setInputStreamer(in);
         s.setOutputStreamer(out);
-        //s.setSocket(connectToServer);
+
         String temp;
         if ((temp=in.readObject().toString()).equals("1st player")) {
             System.out.println("Inne i 1st player");
-            //out.writeObject("4");
             s.loadNewScreen(ScreenNavigator.NUMBER_OF_ROUNDS, newGameBtn);
         }
         else {
@@ -62,16 +61,10 @@ public class MainMenuController implements Initializable {
             s.loadNewScreen(ScreenNavigator.GAME_VIEW, newGameBtn);
         }
 
-        /*else
-            System.out.println("Inne i 2nd player");
-            //out.writeObject("3");
-            s.loadNewScreen(ScreenNavigator.GAME_VIEW, newGameBtn);
-
-         */
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        helloText.setText("Hej " + ScreenNavigator.user.getUserName());
+        helloText.setText("Hej " + ScreenNavigator.name);
     }
 }

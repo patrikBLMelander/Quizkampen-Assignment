@@ -21,7 +21,6 @@ public class Protocol {
 
 
     public Object processInput(Object object) {
-        //state = Integer.parseInt(object.toString());
         Object objectToSend = null;
 
 
@@ -54,8 +53,6 @@ public class Protocol {
                 counter = 0;
             }
 
-
-
         } else if (state == CHECK_ANSWER) {
             boolean temp = database.findCorrectAnswer(object.toString());
             System.out.println(temp);
@@ -77,7 +74,6 @@ public class Protocol {
 
         } else if (state == FINAL_SCORE) {
             state = MAIN_MENU;
-
         }
 
         return objectToSend;

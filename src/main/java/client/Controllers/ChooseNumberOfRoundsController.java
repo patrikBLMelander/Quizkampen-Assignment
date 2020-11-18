@@ -63,9 +63,7 @@ public class ChooseNumberOfRoundsController implements Initializable {
         setRound(round = scrollRounds.getValue());;
         setQuestions(questions = scrollQuestions.getValue());
         s.loadNewScreen(ScreenNavigator.GAME_VIEW, startGameBtn);
-
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
