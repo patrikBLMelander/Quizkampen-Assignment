@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="screen4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.Controllers.GameViewController">
    <children>
-      <ImageView fx:id="gamebg" fitHeight="480.0" fitWidth="390.0" pickOnBounds="true" style="-fx-effect: hue (20);">
+      <ImageView fx:id="gamebg" fitHeight="480.0" fitWidth="390.0" pickOnBounds="true" style="-fx-effect: hue (20);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@anim-bg2.gif" />
          </image>
@@ -35,7 +35,7 @@
                 <RowConstraints maxHeight="65.8571559361049" minHeight="10.0" prefHeight="65.8571559361049" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text id="pointsCounter" fx:id="pointCounterText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Point counter" textAlignment="CENTER" wrappingWidth="80.97430419921875" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Text id="pointsCounter" fx:id="counterText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Point counter" textAlignment="CENTER" wrappingWidth="80.97430419921875" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <Text id="questionText" fx:id="questionText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="The question is supposed to be here. If you dont see the question, it's a woopsie then." textAlignment="CENTER" wrappingWidth="318.85723876953125" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font name="System Bold" size="16.0" />
