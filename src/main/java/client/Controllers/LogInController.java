@@ -1,7 +1,5 @@
 package client.Controllers;
 
-import client.Client;
-import client.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
