@@ -52,9 +52,6 @@ public class GameViewController implements Initializable {
     private Button rButton4;
 
     @FXML
-    private RadioButton rButton4;
-
-    @FXML
     void rButtonClicked(ActionEvent event) throws IOException, ClassNotFoundException {
 
         if (((Control) event.getSource()) == buttonList.get(0)) {
