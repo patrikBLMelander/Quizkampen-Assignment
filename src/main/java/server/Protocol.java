@@ -21,6 +21,7 @@ public class Protocol {
 
 
     public Object processInput(Object object) {
+        //state = Integer.parseInt(object.toString());
         Object objectToSend = null;
 
 
@@ -32,10 +33,12 @@ public class Protocol {
             state = WAITING_FOR_OPPONENT;
 
         } else if (state == WAITING_FOR_OPPONENT) {
+            System.out.println("Waiting for opponent");
             state = OVERVIEW;
         } else if (state == OVERVIEW) {
             state = CHOOSE_CATEGORY;
         } else if (state == CHOOSE_CATEGORY) {
+            System.out.println("Är i choose Category");
             //objectToSend = database.chooseCategory(fromClient);
 
             state = SEND_QUESTION;
@@ -76,11 +79,6 @@ public class Protocol {
             state = MAIN_MENU;
 
         }
-
-
-
-
-
 
         return objectToSend;
     }

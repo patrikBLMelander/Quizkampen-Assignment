@@ -24,9 +24,10 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class GameViewController implements Initializable{
+    ScreenNavigator s = new ScreenNavigator();
     ObjectInputStream in;
     ObjectOutputStream out;
-    Socket connectToServer;
+    //Socket connectToServer;
     ObservableList<RadioButton> buttonList = FXCollections.observableArrayList();
     int pointCounter = 0;
 
@@ -75,12 +76,17 @@ public class GameViewController implements Initializable{
 
 
         try {
+            in = ScreenNavigator.inputStreamer;
+            out = ScreenNavigator.outputStreamer;
+            //connectToServer = ScreenNavigator.socket;
+            /*
             connectToServer = new Socket("127.0.0.1", 55000);
             out = new ObjectOutputStream(connectToServer.getOutputStream());
             in = new ObjectInputStream(connectToServer.getInputStream());
 
-            out.writeObject(ScreenNavigator.user.getUserName());
-            Object temp;
+             */
+
+            //out.writeObject(ScreenNavigator.user.getUserName());
 
             updateGameWindow();
 

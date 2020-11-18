@@ -34,6 +34,6 @@ public class LogInController{
     void logInAction(ActionEvent event) throws Exception {
         User u = new User(logInName.getText());
         s.setUser(u);
-        s.loadNewScreen(ScreenNavigator.GAME_VIEW, logInButton);
+        s.loadNewScreen(ScreenNavigator.MAIN_MENU, logInButton);
     }
 }
