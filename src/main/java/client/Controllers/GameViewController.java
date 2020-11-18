@@ -32,6 +32,9 @@ public class GameViewController implements Initializable{
     private AnchorPane screen4;
 
     @FXML
+    private Text counterText;
+
+    @FXML
     private Text questionText;
 
     @FXML
@@ -90,6 +93,7 @@ public class GameViewController implements Initializable{
         Collections.shuffle(buttonList);
         if (temp instanceof Questions) {
             System.out.println("Fråga : " + ((Questions) temp).getQuestion());
+            counterText.setText(Integer.toString(pointCounter));
             questionText.setText(((Questions) temp).getQuestion());
             buttonList.get(0).setText(((Questions) temp).getCorrectAnswer());
             buttonList.get(1).setText(((Questions) temp).getWrongAnswer1());
