@@ -88,8 +88,10 @@ public class Database implements Serializable {
 
     static String randomCategory (){
         Random r = new Random();
-        int temp = r.nextInt(1,);
+        int temp = r.nextInt(4);
+        if (temp == 1)
+            return "s";
 
-        return
+        return"p";
     }
 }
