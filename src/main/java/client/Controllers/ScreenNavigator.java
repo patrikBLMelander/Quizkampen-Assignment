@@ -9,8 +9,15 @@ import javafx.stage.Stage;
 import server.User;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 public class ScreenNavigator {
+    public static ObjectInputStream inputStreamer;
+    public static ObjectOutputStream outputStreamer;
+    public static Socket socket;
+    public static String name;
 
     public static final String LOGIN = "LogInView.fxml";
     public static final String MAIN_MENU = "MainMenuView.fxml";
@@ -19,17 +26,34 @@ public class ScreenNavigator {
     public static final String GAME_VIEW = "GameView.fxml";
     public static final String GAME_OVERVIEW = "GameOverView.fxml";
 
-    public static User user;
-
-    public static Client client;
-
-    public void setUser(User user){
-        this.user = user;
+    public void setName(String name){
+        this.name = name;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public ObjectInputStream getInputStreamer() {
+        return inputStreamer;
     }
+
+    public void setInputStreamer(ObjectInputStream in) {
+            inputStreamer = in;
+    }
+
+    public ObjectOutputStream getOutputStreamer() {
+        return outputStreamer;
+    }
+
+    public void setOutputStreamer(ObjectOutputStream out) {
+        outputStreamer = out;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket connectToServer) {
+        socket = connectToServer;
+    }
+
 
     public void loadNewScreen(String fxml, Node node) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));

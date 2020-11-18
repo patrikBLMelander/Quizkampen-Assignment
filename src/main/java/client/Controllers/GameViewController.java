@@ -1,6 +1,5 @@
 package client.Controllers;
 
-import client.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,10 +10,7 @@ import javafx.scene.control.Control;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import server.Questions;
-import server.Response;
-
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -22,7 +18,7 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
-public class GameViewController implements Initializable {
+public class GameViewController implements Initializable{
     ScreenNavigator s = new ScreenNavigator();
     ObjectInputStream in;
     ObjectOutputStream out;
@@ -64,7 +60,6 @@ public class GameViewController implements Initializable {
             System.out.println("looser");
             String points = pointCounter + "";
             out.writeObject(points);
-
         }
         if (questionsCounter < ChooseNumberOfRoundsController.questions)
             updateGameWindow();
@@ -77,20 +72,11 @@ public class GameViewController implements Initializable {
         pointCounter = 0;
         buttonList.addAll(rButton1, rButton2, rButton3, rButton4);
 
-
         try {
-            connectToServer = new Socket("127.0.0.1", 55000);
-            out = new ObjectOutputStream(connectToServer.getOutputStream());
-            in = new ObjectInputStream(connectToServer.getInputStream());
+            in = ScreenNavigator.inputStreamer;
+            out = ScreenNavigator.outputStreamer;
 
-            out.writeObject(ScreenNavigator.user.getUserName());
-
-
-            if (questionsCounter < ChooseNumberOfRoundsController.questions)
-                updateGameWindow();
-            else
-                s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
-
+            updateGameWindow();
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -111,8 +97,6 @@ public class GameViewController implements Initializable {
             buttonList.get(3).setText(((Questions) temp).getWrongAnswer3());
         }else
             s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
-
-
     }
 }
 

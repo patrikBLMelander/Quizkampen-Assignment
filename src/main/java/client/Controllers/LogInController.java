@@ -32,8 +32,8 @@ public class LogInController{
 
     @FXML
     void logInAction(ActionEvent event) throws Exception {
-        User u = new User(logInName.getText());
-        s.setUser(u);
+        String name = logInName.getText();
+        s.setName(name);
         s.loadNewScreen(ScreenNavigator.MAIN_MENU, logInButton);
     }
 }

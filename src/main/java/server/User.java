@@ -1,7 +1,12 @@
 package server;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
+import java.net.Socket;
+import java.util.Properties;
 
 /**
  * Created by Sara Carlsson
@@ -10,15 +15,42 @@ import java.net.InetAddress;
  * Project: Quizkampen1
  * Copywright: MIT
  */
-public class User implements Serializable {
+public class User extends Thread implements Serializable {
     private String userName;
+    private int player;
     private InetAddress iadr;
     private int points;
     private User opponent;
+    private Socket connectionToClient;
+    ObjectOutputStream out;
+    ObjectInputStream in;
 
     public User(String userName) {
         this.userName = userName;
+    }
+
+    public User(String userName, Socket socket, int player) {
+        connectionToClient = socket;
+        this.userName = userName;
         this.iadr = InetAddress.getLoopbackAddress();
+        this.player = player;
+
+        try {
+            out = new ObjectOutputStream(connectionToClient.getOutputStream());
+            in = new ObjectInputStream(connectionToClient.getInputStream());
+
+            System.out.println("WELCOME " + getUserName());
+            if(getPlayer()==1)
+                out.writeObject("1st player");
+            else out.writeObject(" ");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getPlayer() {
+        return player;
     }
 
     public String getUserName() {
@@ -43,5 +75,23 @@ public class User implements Serializable {
 
     public void setOpponent(User opponent) {
         this.opponent = opponent;
+    }
+
+    public void run() {
+        System.out.println("MESSAGE All players connected");
+        Protocol p = new Protocol();
+
+        Object temp;
+
+        try {
+            while ((temp = in.readObject()) != null) {
+                System.out.println("tagit emot " + temp.toString());
+                out.writeObject(p.processInput(temp));
+                out.flush();
+            }
+        }
+        catch(IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
     }
 }

@@ -32,10 +32,12 @@ public class Protocol {
             state = WAITING_FOR_OPPONENT;
 
         } else if (state == WAITING_FOR_OPPONENT) {
+            System.out.println("Waiting for opponent");
             state = OVERVIEW;
         } else if (state == OVERVIEW) {
             state = CHOOSE_CATEGORY;
         } else if (state == CHOOSE_CATEGORY) {
+            System.out.println("Är i choose Category");
             //objectToSend = database.chooseCategory(fromClient);
 
             state = SEND_QUESTION;
@@ -50,8 +52,6 @@ public class Protocol {
                 roundCounter++;
                 counter = 0;
             }
-
-
 
         } else if (state == CHECK_ANSWER) {
             boolean temp = database.findCorrectAnswer(object.toString());
@@ -74,13 +74,7 @@ public class Protocol {
 
         } else if (state == FINAL_SCORE) {
             state = MAIN_MENU;
-
         }
-
-
-
-
-
 
         return objectToSend;
     }
