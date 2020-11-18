@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import server.Questions;
@@ -22,7 +23,7 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
-public class GameViewController implements Initializable {
+public class GameViewController implements Initializable{
     ScreenNavigator s = new ScreenNavigator();
     ObjectInputStream in;
     ObjectOutputStream out;
@@ -64,7 +65,6 @@ public class GameViewController implements Initializable {
             System.out.println("looser");
             String points = pointCounter + "";
             out.writeObject(points);
-
         }
         if (questionsCounter < ChooseNumberOfRoundsController.questions)
             updateGameWindow();
@@ -79,11 +79,18 @@ public class GameViewController implements Initializable {
 
 
         try {
+            in = ScreenNavigator.inputStreamer;
+            out = ScreenNavigator.outputStreamer;
+            //connectToServer = ScreenNavigator.socket;
+            /*
             connectToServer = new Socket("127.0.0.1", 55000);
             out = new ObjectOutputStream(connectToServer.getOutputStream());
             in = new ObjectInputStream(connectToServer.getInputStream());
 
             out.writeObject(ScreenNavigator.user.getUserName());
+            Object temp;
+
+             */
 
 
             if (questionsCounter < ChooseNumberOfRoundsController.questions)
