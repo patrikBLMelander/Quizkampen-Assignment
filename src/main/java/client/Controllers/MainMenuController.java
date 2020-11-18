@@ -6,7 +6,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,6 +24,9 @@ import java.util.ResourceBundle;
  */
 public class MainMenuController implements Initializable {
     ScreenNavigator s = new ScreenNavigator();
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
+    private Socket connectToServer;
 
     @FXML
     private Text helloText;
@@ -36,13 +44,27 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    void newGameViewAction(ActionEvent event) throws IOException {
-        s.loadNewScreen(ScreenNavigator.NUMBER_OF_ROUNDS, newGameBtn);
-    }
+    void newGameViewAction(ActionEvent event) throws IOException, ClassNotFoundException {
+        connectToServer = new Socket("127.0.0.1", 55100);
+        out = new ObjectOutputStream(connectToServer.getOutputStream());
+        in = new ObjectInputStream(connectToServer.getInputStream());
+        s.setInputStreamer(in);
+        s.setOutputStreamer(out);
 
+        String temp;
+        if ((temp=in.readObject().toString()).equals("1st player")) {
+            System.out.println("Inne i 1st player");
+            s.loadNewScreen(ScreenNavigator.NUMBER_OF_ROUNDS, newGameBtn);
+        }
+        else {
+            out.writeObject("5");
+            s.loadNewScreen(ScreenNavigator.GAME_VIEW, newGameBtn);
+        }
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        helloText.setText("Hej " + ScreenNavigator.user.getUserName());
+        helloText.setText("Hej " + ScreenNavigator.name);
     }
 }

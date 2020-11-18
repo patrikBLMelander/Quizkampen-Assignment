@@ -9,6 +9,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -40,6 +43,7 @@ public class ChooseNumberOfRoundsController implements Initializable {
     }
 
     ScreenNavigator s = new ScreenNavigator();
+    ObjectOutputStream out;
 
     @FXML
     private AnchorPane screen2;
@@ -55,15 +59,15 @@ public class ChooseNumberOfRoundsController implements Initializable {
 
     @FXML
     void startNewGameAction(ActionEvent event) throws IOException {
+        out.writeObject("5");
         setRound(round = scrollRounds.getValue());;
         setQuestions(questions = scrollQuestions.getValue());
         s.loadNewScreen(ScreenNavigator.GAME_VIEW, startGameBtn);
-
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        out = ScreenNavigator.outputStreamer;
         scrollRounds.getItems().addAll(2,3,4,5);
         scrollRounds.setValue(2);
         scrollQuestions.getItems().addAll(2,3,4,5);
