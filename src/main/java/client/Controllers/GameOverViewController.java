@@ -1,25 +1,18 @@
 package client.Controllers;
 
-import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameOverController implements Initializable {
+public class GameOverViewController implements Initializable {
     ScreenNavigator s = new ScreenNavigator();
 
     @FXML
     private Text resultText;
-
-    @FXML
-    private Button playAgainBtn;
-
-    @FXML
-    private Button endGameBtn;
 
     @FXML
     void playAgainBtnClicked(ActionEvent event) throws IOException, ClassNotFoundException {
