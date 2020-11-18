@@ -15,7 +15,7 @@ import java.util.Locale;
  * Copyright: MIT
  */
 public class MultiServer extends Thread {
-    private final Socket connectionToClient;
+    /*private final Socket connectionToClient;
 
     public MultiServer(Socket clientSocket) {
         this.connectionToClient = clientSocket;
@@ -45,4 +45,7 @@ public class MultiServer extends Thread {
 
     }
 
+ */
+
 }
+
