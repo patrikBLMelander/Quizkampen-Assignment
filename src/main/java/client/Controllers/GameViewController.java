@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
-import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import server.Questions;
@@ -28,7 +27,7 @@ public class GameViewController implements Initializable {
     ObjectInputStream in;
     ObjectOutputStream out;
     Socket connectToServer;
-    ObservableList<RadioButton> buttonList = FXCollections.observableArrayList();
+    ObservableList<Button> buttonList = FXCollections.observableArrayList();
     int pointCounter = 0;
     int roundsCounter = 0;
     int questionsCounter = 0;
@@ -40,19 +39,16 @@ public class GameViewController implements Initializable {
     private Text questionText;
 
     @FXML
-    private Button continueBtn;
+    private Button rButton1;
 
     @FXML
-    private RadioButton rButton1;
+    private Button rButton2;
 
     @FXML
-    private RadioButton rButton2;
+    private Button rButton3;
 
     @FXML
-    private RadioButton rButton3;
-
-    @FXML
-    private RadioButton rButton4;
+    private Button rButton4;
 
     @FXML
     void rButtonClicked(ActionEvent event) throws IOException, ClassNotFoundException {
