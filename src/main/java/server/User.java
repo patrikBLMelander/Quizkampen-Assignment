@@ -13,7 +13,8 @@ import java.net.InetAddress;
 public class User implements Serializable {
     private String userName;
     private InetAddress iadr;
-
+    private int points;
+    private User opponent;
 
     public User(String userName) {
         this.userName = userName;
@@ -26,5 +27,21 @@ public class User implements Serializable {
 
     public InetAddress getIadr() {
         return iadr;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public User getOpponent() {
+        return opponent;
+    }
+
+    public void setOpponent(User opponent) {
+        this.opponent = opponent;
     }
 }
