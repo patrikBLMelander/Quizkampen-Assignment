@@ -86,7 +86,7 @@ public class Database implements Serializable {
         userList.remove(u);
     }
 
-    static String randomCategory (){
+    public static String randomCategorys(){
         Random r = new Random();
         int temp = r.nextInt(4);
         if (temp == 1)
