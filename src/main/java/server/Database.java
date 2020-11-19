@@ -1,9 +1,6 @@
 package server;
 
 
-import server.Categories.Patrik;
-import server.Categories.Simon;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,11 +85,18 @@ public class Database implements Serializable {
 
     public static String randomCategorys(){
         Random r = new Random();
-        int temp = r.nextInt(3);
+        int temp = r.nextInt(6);
         if (temp == 1)
-            return "Test";
+            return "JAVA";
         else if (temp==2)
-            return "Simon";
-        return"Patrik";
+            return "SPORT";
+        else if (temp==3)
+            return "GAMING";
+        else if (temp==4)
+            return "HUVUDSTÄDER";
+        else if (temp==5)
+            return "HISTORIA";
+        else
+        return"GEOGRAFI";
     }
 }

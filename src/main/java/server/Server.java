@@ -1,10 +1,7 @@
 package server;
 
-import client.Controllers.ScreenNavigator;
-
-import java.io.*;
+import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 
 public class Server {
     int counter = 0;
