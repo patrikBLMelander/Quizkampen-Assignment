@@ -4,8 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import server.Database;
 
 import java.io.IOException;
@@ -19,8 +17,6 @@ public class ChooseCategory implements Initializable {
         ObjectOutputStream out;
         ScreenNavigator s = new ScreenNavigator();
 
-        @FXML
-        private AnchorPane screen1;
 
         @FXML
         private Button Cat1Btn;
@@ -30,9 +26,6 @@ public class ChooseCategory implements Initializable {
 
         @FXML
         private Button Cat3Btn;
-
-        @FXML
-        private Text ChooseCategoryBanner;
 
         @FXML
         void categoryChoosed(ActionEvent event) throws IOException {
