@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import server.Database;
 import server.Questions;
 
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.Collections;
@@ -37,14 +38,16 @@ public class ChooseCategory implements Initializable {
         private Text ChooseCategoryBanner;
 
         @FXML
-        void categoryChoosed(ActionEvent event) {
+        void categoryChoosed(ActionEvent event) throws IOException {
 
+                s.loadNewScreen(ScreenNavigator.MAIN_MENU, Cat1Btn);
         }
+
 
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
-                out = ScreenNavigator.outputStreamer;
+                //out = ScreenNavigator.outputStreamer;
                 String cat1 = Database.randomCategorys();
                 String cat2 = Database.randomCategorys();
                 String cat3 = Database.randomCategorys();

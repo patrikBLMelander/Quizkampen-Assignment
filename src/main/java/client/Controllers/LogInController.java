@@ -34,6 +34,6 @@ public class LogInController{
     void logInAction(ActionEvent event) throws Exception {
         String name = logInName.getText();
         s.setName(name);
-        s.loadNewScreen(ScreenNavigator.MAIN_MENU, logInButton);
+        s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, logInButton);
     }
 }
