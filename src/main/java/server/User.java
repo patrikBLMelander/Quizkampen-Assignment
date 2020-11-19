@@ -23,25 +23,32 @@ public class User extends Thread implements Serializable {
     private Socket connectionToClient;
     ObjectOutputStream out;
     ObjectInputStream in;
+    Protocol p;
 
     public User(String userName) {
         this.userName = userName;
     }
 
-    public User(String userName, Socket socket, int player) {
+    public User(String userName, Socket socket, int player, Protocol p) {
         connectionToClient = socket;
         this.userName = userName;
         this.iadr = InetAddress.getLoopbackAddress();
         this.player = player;
+        this.p = p;
 
         try {
             out = new ObjectOutputStream(connectionToClient.getOutputStream());
             in = new ObjectInputStream(connectionToClient.getInputStream());
 
             System.out.println("WELCOME " + getUserName());
-            if(getPlayer()==1)
-                out.writeObject("1st player");
-            else out.writeObject(" ");
+            if(getPlayer()==1){
+                p.processInput(2);
+                out.writeObject("1");}
+            else {
+                p.processInput(4);
+                out.writeObject(" ");
+
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

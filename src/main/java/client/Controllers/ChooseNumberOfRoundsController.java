@@ -56,9 +56,8 @@ public class ChooseNumberOfRoundsController implements Initializable {
 
     @FXML
     void startNewGameAction(ActionEvent event) throws IOException {
-        out.writeObject("5");
-        setRound(round = scrollRounds.getValue());;
-        setQuestions(questions = scrollQuestions.getValue());
+
+        out.writeObject("ROUNDS"+ scrollRounds.getValue()+ "_"+scrollQuestions.getValue());
         s.loadNewScreen(ScreenNavigator.GAME_VIEW, startGameBtn);
     }
 

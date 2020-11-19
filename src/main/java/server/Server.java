@@ -12,6 +12,7 @@ public class Server {
             System.out.println("Server is Running");
 
             while (true) {
+                Protocol p = new Protocol();
                 User player1 = new User("Player 1", server.accept(), 1);
                 System.out.println("Spelar 1 connected");
                 User player2 = new User("Player 2", server.accept(), 2);

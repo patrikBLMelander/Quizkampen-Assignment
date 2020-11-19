@@ -56,8 +56,7 @@ public class MainMenuController implements Initializable {
             s.loadNewScreen(ScreenNavigator.NUMBER_OF_ROUNDS, newGameBtn);
         }
         else {
-            out.writeObject("5");
-            s.loadNewScreen(ScreenNavigator.GAME_VIEW, newGameBtn);
+            s.loadNewScreen(ScreenNavigator.WAITING, newGameBtn);
         }
 
     }

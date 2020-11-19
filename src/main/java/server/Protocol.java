@@ -1,9 +1,10 @@
 package server;
 
 public class Protocol {
-    private static final int WAITING_FOR_OPPONENT = 2;
-    private static final int CHOOSE_ROUNDS_AND_QUESTION_LIMIT = 3;
-    private static final int CHOOSE_CATEGORY = 4;
+    private static final int STARTING_NEW_GAME = 1;
+    private static final int CHOOSE_ROUNDS_AND_QUESTION_LIMIT = 2;
+    private static final int CHOOSE_CATEGORY = 3;
+    private static final int WAITING_FOR_OPPONENT = 4;
     private static final int SEND_QUESTION = 5;
     private static final int CHECK_ANSWER = 6;
     private static final int FINAL_SCORE = 7;
@@ -14,36 +15,80 @@ public class Protocol {
     Database database = new Database();
     int counter = 0;
     int roundCounter = 0;
+    int waitingCounter = 0;
 
     static int userRoundCounter = 2;
     static int userQuestionCounter = 4;
 
 
-    public Object processInput(Object object) {
+    public Object processInput(Object object) throws InterruptedException {
+        String input = " ";
+        if (object instanceof Integer) {
+            state = (Integer) object;
+        }
+        else if (object instanceof String){
+            input = (String) object;
+        }
+        else
+            System.out.println("error");
+
+
+
+
+
+
+
+
         Object objectToSend = null;
 
 
-        if (state == WAITING_FOR_OPPONENT) {
-            System.out.println("Waiting for opponent");
+
+
+        if (state == STARTING_NEW_GAME) {
+            System.out.println("client.Controllers.Waiting for opponent");
             if (object.equals("Player 1")) {
                 objectToSend = "CHOOSE_ROUNDS_AND_QUESTION_LIMIT";
                 state = CHOOSE_ROUNDS_AND_QUESTION_LIMIT;
             }
             else{
-                objectToSend = "GO_DIRECT_TO_SEND_QUESTIONS";
-                state = SEND_QUESTION;
+                objectToSend = "WAITING_FOR_OPPONENT";
+                state = WAITING_FOR_OPPONENT;
             }
-        } else if (state == CHOOSE_ROUNDS_AND_QUESTION_LIMIT) {
+
+        }
+        else if (state == CHOOSE_ROUNDS_AND_QUESTION_LIMIT) {
             System.out.println("Är i choose Rounds and question limit");
-            objectToSend = "CHOOSE_CATEGORY";
+
+            userRoundCounter = Integer.parseInt(input.substring(7,8));
+
+            userQuestionCounter = Integer.parseInt(input.substring(9));
+
+
+            objectToSend = "GO_TO_CHOOSE_CATEGORY";
             state = CHOOSE_CATEGORY;
 
-        } else if (state == CHOOSE_CATEGORY) {
+        }
+        else if (state == CHOOSE_CATEGORY) {
             System.out.println("Är i choose Category");
-            objectToSend = "GO_DIRECT_TO_SEND_QUESTIONS";
+            objectToSend = "GO_TO_WAITING_FOR_OPPONENT";
 
+            state = WAITING_FOR_OPPONENT;
+        }
+        else if (state == WAITING_FOR_OPPONENT) {
+            System.out.println("Är i waiting for oponent");
+            waitingCounter++;
+            while (true){
+                if (waitingCounter == 2)
+                    break;
+            }
+            Thread.sleep(200);
+            waitingCounter=0;
+            objectToSend = "GO_TO_SEND_QUESTION";
             state = SEND_QUESTION;
-        } else if (state == SEND_QUESTION) {
+
+
+        }
+        else if (state == SEND_QUESTION) {
             System.out.println("Är i Send_Question");
             objectToSend = database.test.get(counter);
 
