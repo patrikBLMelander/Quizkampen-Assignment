@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Database implements Serializable {
 
@@ -83,5 +84,15 @@ public class Database implements Serializable {
 
     public void removeUser(User u) {
         userList.remove(u);
+    }
+
+    public static String randomCategorys(){
+        Random r = new Random();
+        int temp = r.nextInt(3);
+        if (temp == 1)
+            return "Test";
+        else if (temp==2)
+            return "Simon";
+        return"Patrik";
     }
 }
