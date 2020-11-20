@@ -20,6 +20,7 @@ public class Protocol {
 
     static int userRoundCounter = 2;
     static int userQuestionCounter = 4;
+    String category;
 
 
     public Object processInput(String s , Object object) throws InterruptedException {
@@ -36,7 +37,7 @@ public class Protocol {
         Object objectToSend = null;
 
         if (input.startsWith("CATEGORY")){
-            String category = input.substring(8);
+            category = input.substring(8);
             System.out.println(category);
             objectToSend = category;
         }
