@@ -1,16 +1,7 @@
 package server;
 
 public class Protocol {
-    private static final int STARTING_NEW_GAME = 1;
-    private static final int CHOOSE_ROUNDS_AND_QUESTION_LIMIT = 2;
-    private static final int CHOOSE_CATEGORY = 3;
-    private static final int WAITING_FOR_OPPONENT = 4;
-    private static final int SEND_QUESTION = 5;
-    private static final int CHECK_ANSWER = 6;
-    private static final int FINAL_SCORE = 7;
 
-
-    //private int state = SEND_QUESTION;
     MultiWriter m = new MultiWriter();
     Database database = new Database();
     int p1counter = 0;
@@ -62,7 +53,7 @@ public class Protocol {
         else if(input.startsWith("START")){
 
             if(s.equals("Player 1")) {
-                System.out.println(s + "Är på fråga " + p1counter);
+                System.out.println(s + "Är på fråga " + p1counter+1);
                 objectToSend = database.test.get(p1counter);
                 if (p1counter < userQuestionCounter) {
                     p1counter++;
@@ -73,7 +64,7 @@ public class Protocol {
                 }
             }
             if(s.equals("Player 2")){
-                System.out.println(s + "Är på fråga " + p2counter);
+                System.out.println(s + "Är på fråga " + p2counter+1);
                 objectToSend = database.test.get(p2counter);
                 if (p2counter < userQuestionCounter) {
                     p2counter++;

@@ -9,14 +9,9 @@ import javafx.scene.layout.AnchorPane;
 public class LogInController{
     ScreenNavigator s = new ScreenNavigator() ;
 
-    @FXML
-    private AnchorPane logInPane;
 
     @FXML
     private TextField logInName;
-
-    @FXML
-    private TextField logInPassword;
 
     @FXML
     private Button logInButton;
