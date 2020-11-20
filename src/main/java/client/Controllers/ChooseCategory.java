@@ -33,7 +33,8 @@ public class ChooseCategory implements Initializable {
 
                 if  ((event.getSource()).equals(Cat1Btn)) {
                         System.out.println(Cat1Btn.getText());
-                        out.writeObject("CATEGORY" + Cat1Btn.getText());
+                        String send = Cat1Btn.getText();
+                        out.writeObject("CATEGORY" + send);
                 }
                 else if  ((event.getSource()).equals(Cat2Btn)) {
                         System.out.println(Cat2Btn.getText());
@@ -51,7 +52,7 @@ public class ChooseCategory implements Initializable {
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
-                //out = ScreenNavigator.outputStreamer;
+                out = ScreenNavigator.outputStreamer;
                 String cat1 = Database.randomCategorys();
                 String cat2 = Database.randomCategorys();
                 String cat3 = Database.randomCategorys();
