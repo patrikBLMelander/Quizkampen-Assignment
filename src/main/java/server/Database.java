@@ -1,12 +1,10 @@
 package server;
 
 
-import server.Categories.Patrik;
-import server.Categories.Simon;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Database implements Serializable {
 
@@ -83,5 +81,22 @@ public class Database implements Serializable {
 
     public void removeUser(User u) {
         userList.remove(u);
+    }
+
+    public static String randomCategorys(){
+        Random r = new Random();
+        int temp = r.nextInt(6);
+        if (temp == 1)
+            return "JAVA";
+        else if (temp==2)
+            return "SPORT";
+        else if (temp==3)
+            return "GAMING";
+        else if (temp==4)
+            return "HUVUDSTÄDER";
+        else if (temp==5)
+            return "HISTORIA";
+        else
+        return"GEOGRAFI";
     }
 }

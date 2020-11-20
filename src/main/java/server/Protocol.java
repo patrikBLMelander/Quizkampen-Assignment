@@ -1,10 +1,8 @@
 package server;
 
 public class Protocol {
-    private static final int LOGIN = 0;
-    private static final int MAIN_MENU = 1;
     private static final int WAITING_FOR_OPPONENT = 2;
-    private static final int OVERVIEW = 3;
+    private static final int CHOOSE_ROUNDS_AND_QUESTION_LIMIT = 3;
     private static final int CHOOSE_CATEGORY = 4;
     private static final int SEND_QUESTION = 5;
     private static final int CHECK_ANSWER = 6;
@@ -16,29 +14,33 @@ public class Protocol {
     Database database = new Database();
     int counter = 0;
     int roundCounter = 0;
-    int userRoundCounter = 2;
-    int userQuestionCounter = 4;
+
+    static int userRoundCounter = 2;
+    static int userQuestionCounter = 4;
 
 
     public Object processInput(Object object) {
         Object objectToSend = null;
 
 
-        if (state == LOGIN) {
-            objectToSend = "hej";
-            System.out.println(object.toString());
-            state = SEND_QUESTION;
-        } else if (state == MAIN_MENU) {
-            state = WAITING_FOR_OPPONENT;
-
-        } else if (state == WAITING_FOR_OPPONENT) {
+        if (state == WAITING_FOR_OPPONENT) {
             System.out.println("Waiting for opponent");
-            state = OVERVIEW;
-        } else if (state == OVERVIEW) {
+            if (object.equals("Player 1")) {
+                objectToSend = "CHOOSE_ROUNDS_AND_QUESTION_LIMIT";
+                state = CHOOSE_ROUNDS_AND_QUESTION_LIMIT;
+            }
+            else{
+                objectToSend = "GO_DIRECT_TO_SEND_QUESTIONS";
+                state = SEND_QUESTION;
+            }
+        } else if (state == CHOOSE_ROUNDS_AND_QUESTION_LIMIT) {
+            System.out.println("Är i choose Rounds and question limit");
+            objectToSend = "CHOOSE_CATEGORY";
             state = CHOOSE_CATEGORY;
+
         } else if (state == CHOOSE_CATEGORY) {
             System.out.println("Är i choose Category");
-            //objectToSend = database.chooseCategory(fromClient);
+            objectToSend = "GO_DIRECT_TO_SEND_QUESTIONS";
 
             state = SEND_QUESTION;
         } else if (state == SEND_QUESTION) {
@@ -48,7 +50,7 @@ public class Protocol {
             if (counter < userQuestionCounter) {
                 counter++;
             } else if (roundCounter < userRoundCounter){
-                state = OVERVIEW;
+                state = FINAL_SCORE;
                 roundCounter++;
                 counter = 0;
             }
@@ -63,7 +65,7 @@ public class Protocol {
                 state = SEND_QUESTION;
                 counter++;
             } else if (roundCounter < userRoundCounter){
-                state = OVERVIEW;
+                state = WAITING_FOR_OPPONENT;
                 roundCounter++;
                 counter = 0;
             }
@@ -73,9 +75,16 @@ public class Protocol {
 
 
         } else if (state == FINAL_SCORE) {
-            state = MAIN_MENU;
+
         }
 
         return objectToSend;
+    }
+    public static void setUserRoundCounter(int userRoundCounter) {
+        Protocol.userRoundCounter = userRoundCounter;
+    }
+
+    public static void setUserQuestionCounter(int userQuestionCounter) {
+        Protocol.userQuestionCounter = userQuestionCounter;
     }
 }
