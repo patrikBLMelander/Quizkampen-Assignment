@@ -102,7 +102,7 @@ public class User extends Thread implements Serializable {
                 }
             }
         }
-        catch(IOException | ClassNotFoundException | InterruptedException e){
+        catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
     }

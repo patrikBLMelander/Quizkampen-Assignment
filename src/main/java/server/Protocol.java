@@ -14,7 +14,7 @@ public class Protocol {
     String category;
 
 
-    public Object processInput(String s , Object object) throws InterruptedException {
+    public Object processInput(String s , Object object) {
         String input = " ";
 
         if (object instanceof String){
@@ -53,40 +53,25 @@ public class Protocol {
         else if(input.startsWith("START")){
 
             if(s.equals("Player 1")) {
-                System.out.println(s + "Är på fråga " + p1counter+1);
-                objectToSend = database.test.get(p1counter);
-                if (p1counter < userQuestionCounter) {
-                    p1counter++;
-                } else if (roundCounter < userRoundCounter) {
-                    objectToSend = "Final";
-                    roundCounter++;
-                    p1counter = 0;
-                }
+                objectToSend = playerQuestionCounter(s, p1counter);
+                p1counter++;
             }
             if(s.equals("Player 2")){
-                System.out.println(s + "Är på fråga " + p2counter+1);
-                objectToSend = database.test.get(p2counter);
-                if (p2counter < userQuestionCounter) {
-                    p2counter++;
-                } else if (roundCounter < userRoundCounter) {
-                    objectToSend = "Final";
-                    roundCounter++;
-                    p2counter = 0;
-                }
+                objectToSend = playerQuestionCounter(s, p2counter);
+                p2counter++;
             }
         }
         return objectToSend;
     }
-
-    private int getWaitingCounter() {
-        return this.waitingCounter;
-    }
-
-    public static void setUserRoundCounter(int userRoundCounter) {
-        Protocol.userRoundCounter = userRoundCounter;
-    }
-
-    public static void setUserQuestionCounter(int userQuestionCounter) {
-        Protocol.userQuestionCounter = userQuestionCounter;
+    public Object playerQuestionCounter (String s, int counter){
+        Object o;
+        System.out.println(s + "Är på fråga " + p2counter+1);
+        o = database.test.get(p2counter);
+        if (counter < userQuestionCounter) {
+        } else if (roundCounter < userRoundCounter) {
+            o = "Final";
+            roundCounter++;
+        }
+        return o;
     }
 }
