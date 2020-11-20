@@ -42,15 +42,15 @@ public class User extends Thread implements Serializable {
 
             System.out.println("WELCOME " + getUserName());
             if(getPlayer()==1){
-                p.processInput(2);
+                //p.processInput(getUserName(), 2);
                 out.writeObject("1");}
             else {
-                p.processInput(4);
+                //p.processInput(getUserName(), 1);
                 out.writeObject(" ");
 
             }
 
-        } catch (IOException e) {
+        } catch (IOException  e) {
             e.printStackTrace();
         }
     }
@@ -85,18 +85,18 @@ public class User extends Thread implements Serializable {
 
     public void run() {
         System.out.println("MESSAGE All players connected");
-        Protocol p = new Protocol();
+        //Protocol p = new Protocol();
 
         Object temp;
 
         try {
             while ((temp = in.readObject()) != null) {
                 System.out.println("tagit emot " + temp.toString());
-                out.writeObject(p.processInput(temp));
+                out.writeObject(p.processInput(getUserName(),temp));
                 out.flush();
             }
         }
-        catch(IOException | ClassNotFoundException e){
+        catch(IOException | ClassNotFoundException | InterruptedException e){
             e.printStackTrace();
         }
     }

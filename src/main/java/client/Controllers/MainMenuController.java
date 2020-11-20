@@ -44,18 +44,19 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void newGameViewAction(ActionEvent event) throws IOException, ClassNotFoundException {
-        connectToServer = new Socket("127.0.0.1", 55100);
+        connectToServer = new Socket("127.0.0.1", 55150);
         out = new ObjectOutputStream(connectToServer.getOutputStream());
         in = new ObjectInputStream(connectToServer.getInputStream());
         s.setInputStreamer(in);
         s.setOutputStreamer(out);
 
         String temp;
-        if ((temp=in.readObject().toString()).equals("1st player")) {
+        if (in.readObject().toString().equals("1")) {
             System.out.println("Inne i 1st player");
             s.loadNewScreen(ScreenNavigator.NUMBER_OF_ROUNDS, newGameBtn);
         }
         else {
+            //out.writeObject("Inne i ");
             s.loadNewScreen(ScreenNavigator.WAITING, newGameBtn);
         }
 

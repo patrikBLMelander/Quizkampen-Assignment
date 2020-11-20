@@ -10,7 +10,7 @@ public class Protocol {
     private static final int FINAL_SCORE = 7;
 
 
-    private int state = SEND_QUESTION;
+    //private int state = SEND_QUESTION;
 
     Database database = new Database();
     int counter = 0;
@@ -21,10 +21,10 @@ public class Protocol {
     static int userQuestionCounter = 4;
 
 
-    public Object processInput(Object object) throws InterruptedException {
+    public Object processInput(String s , Object object) throws InterruptedException {
         String input = " ";
         if (object instanceof Integer) {
-            state = (Integer) object;
+            //state = (Integer) object;
         }
         else if (object instanceof String){
             input = (String) object;
@@ -32,64 +32,82 @@ public class Protocol {
         else
             System.out.println("error");
 
-
-
-
-
-
-
-
         Object objectToSend = null;
 
+        if (input.startsWith("ROUNDS")) {
+            userRoundCounter = Integer.parseInt(input.substring(6, 7));
+            System.out.println("Antalet rundor: " + userRoundCounter);
 
-
-
-        if (state == STARTING_NEW_GAME) {
-            System.out.println("client.Controllers.Waiting for opponent");
-            if (object.equals("Player 1")) {
-                objectToSend = "CHOOSE_ROUNDS_AND_QUESTION_LIMIT";
-                state = CHOOSE_ROUNDS_AND_QUESTION_LIMIT;
-            }
-            else{
-                objectToSend = "WAITING_FOR_OPPONENT";
-                state = WAITING_FOR_OPPONENT;
-            }
-
+            userQuestionCounter = Integer.parseInt(input.substring(8));
+            System.out.println("Antalet frågor: " + userQuestionCounter);
+            objectToSend = "GO_TO_CHOOSE_CATEGORY";
         }
-        else if (state == CHOOSE_ROUNDS_AND_QUESTION_LIMIT) {
-            System.out.println("Är i choose Rounds and question limit");
 
-            userRoundCounter = Integer.parseInt(input.substring(7,8));
+        else if(input.equals("Waiting")) {
+            System.out.println(s + "Är i waiting for oponent");
+            waitingCounter++;
+            while (true) {
+                if (waitingCounter == 2) {
+                    break;
+                }
+            }
+            System.out.println(s + "är ur waitingloopen");
+            objectToSend = "GO_TO_SEND_QUESTION";
+
+            //state = SEND_QUESTION;
+            //waitingCounter = 0;
+            //state = WAITING_FOR_OPPONENT;
+        }
+
+        else if(input.equals("HEJ"))
+            objectToSend = "GO_TO_SEND_QUESTION";
+        /*
+        if (state == STARTING_NEW_GAME) {
+            System.out.println(s + "Är i Starting new game");
+            objectToSend = "GO_TO_WAITING";
+            state = WAITING_FOR_OPPONENT;
+        }
+
+        else if (state == CHOOSE_ROUNDS_AND_QUESTION_LIMIT) {
+            System.out.println(s + "Är i choose Rounds and question limit");
+            /*
+            userRoundCounter = Integer.parseInt(input.substring(7, 8));
+            System.out.println("Antalet rundor: " + userRoundCounter);
 
             userQuestionCounter = Integer.parseInt(input.substring(9));
+            System.out.println("Antalet frågor: " + userQuestionCounter);
 
 
             objectToSend = "GO_TO_CHOOSE_CATEGORY";
             state = CHOOSE_CATEGORY;
 
+
+            //state=WAITING_FOR_OPPONENT;
+
         }
         else if (state == CHOOSE_CATEGORY) {
-            System.out.println("Är i choose Category");
+            System.out.println(s + "Är i choose Category");
             objectToSend = "GO_TO_WAITING_FOR_OPPONENT";
 
             state = WAITING_FOR_OPPONENT;
         }
-        else if (state == WAITING_FOR_OPPONENT) {
-            System.out.println("Är i waiting for oponent");
+       /* else if (state == WAITING_FOR_OPPONENT) {
+            System.out.println(s + "Är i waiting for oponent");
             waitingCounter++;
-            while (true){
-                if (waitingCounter == 2)
+            while(true) {
+                if (waitingCounter == 2) {
                     break;
+                }
             }
-            Thread.sleep(200);
-            waitingCounter=0;
             objectToSend = "GO_TO_SEND_QUESTION";
             state = SEND_QUESTION;
-
+            waitingCounter = 0;
 
         }
-        else if (state == SEND_QUESTION) {
-            System.out.println("Är i Send_Question");
+
+        */
+       /* else if (state == SEND_QUESTION) {
+            System.out.println(s + "Är i Send_Question");
             objectToSend = database.test.get(counter);
 
             if (counter < userQuestionCounter) {
@@ -123,8 +141,15 @@ public class Protocol {
 
         }
 
+        */
+
         return objectToSend;
     }
+
+    private int getWaitingCounter() {
+        return this.waitingCounter;
+    }
+
     public static void setUserRoundCounter(int userRoundCounter) {
         Protocol.userRoundCounter = userRoundCounter;
     }
