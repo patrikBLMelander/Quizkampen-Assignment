@@ -24,17 +24,19 @@ public class User extends Thread implements Serializable {
     ObjectOutputStream out;
     ObjectInputStream in;
     Protocol p;
+    MultiWriter m;
 
     public User(String userName) {
         this.userName = userName;
     }
 
-    public User(String userName, Socket socket, int player, Protocol p) {
+    public User(String userName, Socket socket, int player, Protocol p, MultiWriter m) {
         connectionToClient = socket;
         this.userName = userName;
         this.iadr = InetAddress.getLoopbackAddress();
         this.player = player;
         this.p = p;
+        this.m = m;
 
         try {
             out = new ObjectOutputStream(connectionToClient.getOutputStream());
@@ -85,15 +87,21 @@ public class User extends Thread implements Serializable {
 
     public void run() {
         System.out.println("MESSAGE All players connected");
+        m.addWriter(out);
         //Protocol p = new Protocol();
 
         Object temp;
 
         try {
             while ((temp = in.readObject()) != null) {
-                System.out.println("tagit emot " + temp.toString());
-                out.writeObject(p.processInput(getUserName(),temp));
-                out.flush();
+                System.out.println(getUserName() + " tagit emot " + temp.toString());
+                Object obj = p.processInput(getUserName(), temp);
+                for(ObjectOutputStream o : m.getWriters()) {
+                    o.writeObject(obj);
+                    o.flush();
+                    //out.writeObject(p.processInput(getUserName(), temp));
+                    //out.flush();
+                }
             }
         }
         catch(IOException | ClassNotFoundException | InterruptedException e){

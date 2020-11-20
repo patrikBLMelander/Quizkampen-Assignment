@@ -49,6 +49,7 @@ public class GameViewController implements Initializable{
     @FXML
     private Button rButton4;
 
+
     @FXML
     void rButtonClicked(ActionEvent event) throws IOException, ClassNotFoundException {
 
@@ -57,17 +58,16 @@ public class GameViewController implements Initializable{
             System.out.println("win");
             String points = pointCounter + "";
             System.out.println(points);
-            out.writeObject(points);
+            out.writeObject("START"+points);
 
         } else {
             System.out.println("looser");
             String points = pointCounter + "";
-            out.writeObject(points);
+            out.writeObject("START"+points);
         }
-        if (questionsCounter < ChooseNumberOfRoundsController.questions)
-            updateGameWindow();
-        else
-            s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
+
+        updateGameWindow();
+        //s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
     }
 
     @Override
@@ -79,6 +79,7 @@ public class GameViewController implements Initializable{
             in = ScreenNavigator.inputStreamer;
             out = ScreenNavigator.outputStreamer;
 
+            out.writeObject("START");
             updateGameWindow();
 
         } catch (IOException | ClassNotFoundException e) {
@@ -88,7 +89,6 @@ public class GameViewController implements Initializable{
 
     public void updateGameWindow() throws IOException, ClassNotFoundException {
         Object temp;
-        questionsCounter++;
         temp = in.readObject();
         Collections.shuffle(buttonList);
         if (temp instanceof Questions) {

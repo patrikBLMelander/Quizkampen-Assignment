@@ -1,5 +1,6 @@
 package client.Controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
@@ -47,11 +48,20 @@ public class Waiting implements Initializable, Runnable{
                 if (s2.endsWith("QUESTION")) {
                     //output.writeObject("HEJ");
                     System.out.println("Båda i waiting");
-                    break;
+                    Platform.runLater(() -> {
+                        try {
+                            s.loadNewScreen(ScreenNavigator.GAME_VIEW, image);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
                     //thread.interrupt();
+                    break;
                 }
             }
-            s.loadNewScreen(ScreenNavigator.GAME_VIEW, image);
+
+            //output.writeObject("START");
             thread.interrupt();
 
         } catch (IOException | ClassNotFoundException e) {

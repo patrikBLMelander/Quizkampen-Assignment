@@ -11,9 +11,10 @@ public class Protocol {
 
 
     //private int state = SEND_QUESTION;
-
+    MultiWriter m = new MultiWriter();
     Database database = new Database();
-    int counter = 0;
+    int p1counter = 0;
+    int p2counter = 0;
     int roundCounter = 0;
     int waitingCounter = 0;
 
@@ -58,6 +59,34 @@ public class Protocol {
             //waitingCounter = 0;
             //state = WAITING_FOR_OPPONENT;
         }
+        else if(input.startsWith("START")){
+
+
+            if(s.equals("Player 1")) {
+                System.out.println(s + "Är på fråga " + p1counter);
+                objectToSend = database.test.get(p1counter);
+                if (p1counter < userQuestionCounter) {
+                    p1counter++;
+                } else if (roundCounter < userRoundCounter) {
+                    objectToSend = "Final";
+                    roundCounter++;
+                    p1counter = 0;
+                }
+            }
+            if(s.equals("Player 2")){
+                System.out.println(s + "Är på fråga " + p2counter);
+                objectToSend = database.test.get(p2counter);
+                if (p2counter < userQuestionCounter) {
+                    p2counter++;
+                } else if (roundCounter < userRoundCounter) {
+                    objectToSend = "Final";
+                    roundCounter++;
+                    p2counter = 0;
+                }
+            }
+        }
+
+
 
         else if(input.equals("HEJ"))
             objectToSend = "GO_TO_SEND_QUESTION";
