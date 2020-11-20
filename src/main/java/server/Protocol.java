@@ -35,6 +35,12 @@ public class Protocol {
 
         Object objectToSend = null;
 
+        if (input.startsWith("CATEGORY")){
+            String category = input.substring(8);
+            System.out.println(category);
+            objectToSend = category;
+        }
+
         if (input.startsWith("ROUNDS")) {
             userRoundCounter = Integer.parseInt(input.substring(6, 7));
             System.out.println("Antalet rundor: " + userRoundCounter);

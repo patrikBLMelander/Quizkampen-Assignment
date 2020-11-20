@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import server.Database;
 
 import java.io.IOException;
@@ -28,9 +29,22 @@ public class ChooseCategory implements Initializable {
         private Button Cat3Btn;
 
         @FXML
-        void categoryChoosed(ActionEvent event) throws IOException {
+        void categoryChosen(ActionEvent event) throws IOException {
 
-                s.loadNewScreen(ScreenNavigator.MAIN_MENU, Cat1Btn);
+                if  ((event.getSource()).equals(Cat1Btn)) {
+                        System.out.println(Cat1Btn.getText());
+                        out.writeObject("CATEGORY" + Cat1Btn.getText());
+                }
+                else if  ((event.getSource()).equals(Cat2Btn)) {
+                        System.out.println(Cat2Btn.getText());
+                        out.writeObject("CATEGORY" + Cat2Btn.getText());
+                }
+                else if  ((event.getSource()).equals(Cat3Btn)) {
+                        System.out.println(Cat3Btn.getText());
+                        out.writeObject("CATEGORY" + Cat3Btn.getText());
+                }
+
+                s.loadNewScreen(ScreenNavigator.WAITING, Cat1Btn);
         }
 
 
