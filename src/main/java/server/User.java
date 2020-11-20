@@ -44,10 +44,8 @@ public class User extends Thread implements Serializable {
 
             System.out.println("WELCOME " + getUserName());
             if(getPlayer()==1){
-                //p.processInput(getUserName(), 2);
                 out.writeObject("1");}
             else {
-                //p.processInput(getUserName(), 1);
                 out.writeObject(" ");
 
             }
