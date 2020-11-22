@@ -2,9 +2,9 @@ package server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.concurrent.CountDownLatch;
 
 public class Server {
-    int counter = 0;
 
     public Server(){
 
@@ -13,11 +13,10 @@ public class Server {
 
 
             while (true) {
-                MultiWriter m = new MultiWriter();
                 Protocol p = new Protocol();
-                User player1 = new User("Player 1", server.accept(), 1, p, m);
+                User player1 = new User("Player 1", server.accept(), 1, p);
                 System.out.println("Spelar 1 connected");
-                User player2 = new User("Player 2", server.accept(), 2, p, m);
+                User player2 = new User("Player 2", server.accept(), 2, p);
                 System.out.println("Spelar 2 connected");
 
                 player1.setOpponent(player2);

@@ -1,20 +1,19 @@
 package server;
 
-public class Protocol {
+import java.util.concurrent.CountDownLatch;
 
-    MultiWriter m = new MultiWriter();
+public class Protocol {
     Database database = new Database();
     int p1counter = 0;
     int p2counter = 0;
     int roundCounter = 0;
-    int waitingCounter = 0;
+    CountDownLatch countDownLatch = new CountDownLatch(2);
 
     static int userRoundCounter = 2;
     static int userQuestionCounter = 4;
     String category;
 
-
-    public Object processInput(String s , Object object) {
+    public  Object processInput(String s , Object object){
         String input = " ";
 
         if (object instanceof String){
@@ -40,12 +39,14 @@ public class Protocol {
         }
         else if(input.equals("Waiting")) {
             System.out.println(s + "Är i waiting for opponent");
-            waitingCounter++;
-            while (true) {
-                if (waitingCounter == 2) {
-                    break;
-                }
+            countDownLatch.countDown();
+            try {
+                countDownLatch.await();
             }
+            catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            System.out.println("Countdownlatch: " + countDownLatch.getCount());
             System.out.println(s + "är ur waitingloopen");
             objectToSend = "GO_TO_SEND_QUESTION";
 
@@ -63,11 +64,13 @@ public class Protocol {
         }
         return objectToSend;
     }
-    public Object playerQuestionCounter (String s, int counter){
-        Object o;
-        System.out.println(s + "Är på fråga " + p2counter+1);
-        o = database.test.get(p2counter);
+
+    public synchronized Object playerQuestionCounter (String s, int counter){
+        Object o = null;
+
         if (counter < userQuestionCounter) {
+            o = database.test.get(counter);
+            System.out.println(s + "Är på fråga " + (counter+1));
         } else if (roundCounter < userRoundCounter) {
             o = "Final";
             roundCounter++;
