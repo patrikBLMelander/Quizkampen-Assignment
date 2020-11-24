@@ -1,5 +1,6 @@
 package client.Controllers;
 
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,8 +8,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import server.Questions;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -24,7 +32,9 @@ public class GameViewController implements Initializable{
     ObjectOutputStream out;
     Socket connectToServer;
     ObservableList<Button> buttonList = FXCollections.observableArrayList();
+    Circle [] circleArray = new Circle[5];
     int pointCounter = 0;
+    int counter = 0;
     int roundsCounter = 0;
     int questionsCounter = 0;
 
@@ -49,30 +59,65 @@ public class GameViewController implements Initializable{
     @FXML
     private Button rButton4;
 
+    @FXML
+    private Circle circle1;
 
     @FXML
-    void rButtonClicked(ActionEvent event) throws IOException, ClassNotFoundException {
+    private Circle circle2;
 
-        if (((Control) event.getSource()) == buttonList.get(0)) {
-            pointCounter++;
-            System.out.println("win");
-            String points = pointCounter + "";
-            System.out.println(points);
-            out.writeObject("START"+points);
+    @FXML
+    private Circle circle3;
 
-        } else {
-            System.out.println("looser");
-            String points = pointCounter + "";
-            out.writeObject("START"+points);
+    @FXML
+    private Circle circle4;
+
+    @FXML
+    private Circle circle5;
+
+
+
+    @FXML
+    void rButtonClicked(ActionEvent event){
+        try {
+            if (((Control) event.getSource()) == buttonList.get(0)) {
+                pointCounter++;
+                System.out.println("win");
+                String points = pointCounter + "";
+                System.out.println(points);
+                ((Button) event.getSource()).setStyle("-fx-background-color: greenyellow");
+                circleArray[counter].setFill(Color.YELLOWGREEN);
+                out.writeObject("START"+points);
+
+            } else {
+                System.out.println("looser");
+                String points = pointCounter + "";
+                ((Button) event.getSource()).setStyle("-fx-background-color: red");
+                circleArray[counter].setFill(Color.RED);
+                out.writeObject("START"+points);
+            }
+            circleArray[counter].setVisible(true);
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(e -> {
+                ((Button) event.getSource()).setStyle("-fx-background-color: green");
+                counter++;
+                try {
+                    updateGameWindow();
+                } catch (IOException | ClassNotFoundException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+            pause.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        updateGameWindow();
         //s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         pointCounter = 0;
+        circleArray = new Circle[]{circle1, circle2, circle3, circle4, circle5};
         buttonList.addAll(rButton1, rButton2, rButton3, rButton4);
 
         try {

@@ -56,6 +56,7 @@ public class Waiting implements Initializable, Runnable{
                         }
                     });
 
+                    //thread.interrupt();
                     break;
                 }
             }
