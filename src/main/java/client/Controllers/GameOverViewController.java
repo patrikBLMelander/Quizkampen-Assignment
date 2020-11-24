@@ -44,23 +44,30 @@ public class GameOverViewController implements Initializable {
         out = ScreenNavigator.outputStreamer;
         in = ScreenNavigator.inputStreamer;
         resultText.setText("Information about scores of both players to be fetched and displayed here");
+
+        Object temp;
+        try {
+        while ((temp = in.readObject()) != null) {
+            if (temp.equals("WAITING")) {
+                s.loadNewScreen(ScreenNavigator.WAITING, nextRoundBtn1);
+            } else if (temp.equals("CATEGORY")) {
+                s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
+            }
+        }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 
     public void nextRoundBtnClicked(ActionEvent actionEvent) {
         try {
+
             out.writeObject("START_NEXT_ROUND");
 
-            Object temp;
-            while ((temp = in.readObject()) != null) {
-                if (temp.equals("WAITING")) {
-                    s.loadNewScreen(ScreenNavigator.WAITING, nextRoundBtn1);
-                } else if (temp.equals("CATEGORY")) {
-                    s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
-                }
-            }
 
-        } catch (IOException | ClassNotFoundException e) {
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
