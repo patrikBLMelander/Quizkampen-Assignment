@@ -37,7 +37,7 @@ public class Protocol {
             System.out.println(category);
             objectToSend = category;
         }
-        else if(input.equals("Waiting")) {
+        else if(input.startsWith("WAITING")) {
             System.out.println(s + "Är i waiting for opponent");
             countDownLatch.countDown();
             try {

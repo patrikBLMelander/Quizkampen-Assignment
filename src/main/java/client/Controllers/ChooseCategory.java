@@ -6,13 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import server.Database;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.util.List;
+
 import java.util.ResourceBundle;
 
 public class ChooseCategory implements Initializable {
@@ -69,11 +67,7 @@ public class ChooseCategory implements Initializable {
                 buttonList.addAll(Cat1Btn, Cat2Btn, Cat3Btn);
                 out = ScreenNavigator.outputStreamer;
                 String [] cat = {Database.randomCategorys(),Database.randomCategorys(),Database.randomCategorys()};
-                /*String cat1 = Database.randomCategorys();
-                String cat2 = Database.randomCategorys();
-                String cat3 = Database.randomCategorys();
 
-                 */
                 while (true) {
                         if (cat[0].equals(cat[1]) || cat[2].equals(cat[1])){
                                 cat[1] = Database.randomCategorys();
