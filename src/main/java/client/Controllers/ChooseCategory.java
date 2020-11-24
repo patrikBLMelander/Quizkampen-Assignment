@@ -38,23 +38,6 @@ public class ChooseCategory implements Initializable {
                                 out.writeObject("CATEGORY" + b.getText());
                                 break;
                 }
-                /*
-
-                if  ((event.getSource()).equals(Cat1Btn)) {
-                        System.out.println(Cat1Btn.getText());
-                        String send = Cat1Btn.getText();
-                        out.writeObject("CATEGORY" + send);
-                }
-                else if  ((event.getSource()).equals(Cat2Btn)) {
-                        System.out.println(Cat2Btn.getText());
-                        out.writeObject("CATEGORY" + Cat2Btn.getText());
-                }
-                else if  ((event.getSource()).equals(Cat3Btn)) {
-                        System.out.println(Cat3Btn.getText());
-                        out.writeObject("CATEGORY" + Cat3Btn.getText());
-                }
-
-                 */
 
                 s.loadNewScreen(ScreenNavigator.WAITING, Cat1Btn);
         }
@@ -82,10 +65,6 @@ public class ChooseCategory implements Initializable {
                         b.setText(cat[counter]);
                         counter++;
                 }
-                /*Cat1Btn.setText(cat1);
-                Cat2Btn.setText(cat2);
-                Cat3Btn.setText(cat3);
 
-                 */
         }
 }

@@ -62,6 +62,24 @@ public class Protocol {
                 p2counter++;
             }
         }
+
+        else if(input.startsWith("START_NEXT_ROUND")) {
+
+            if (userRoundCounter<roundCounter){
+
+
+                if(s.equals("Player 1")) {
+                    objectToSend= "MAKE_ME_P2";
+                    roundCounter++;
+                }
+                if(s.equals("Player 2")){
+                    objectToSend = "MAKE_ME_P1";
+                }
+
+            }
+            else
+                objectToSend = "END_OF_GAME";
+        }
         return objectToSend;
     }
 
