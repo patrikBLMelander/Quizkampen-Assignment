@@ -30,13 +30,11 @@ public class GameViewController implements Initializable{
     ScreenNavigator s = new ScreenNavigator();
     ObjectInputStream in;
     ObjectOutputStream out;
-    Socket connectToServer;
     ObservableList<Button> buttonList = FXCollections.observableArrayList();
     Circle [] circleArray = new Circle[5];
     int pointCounter = 0;
     int counter = 0;
-    int roundsCounter = 0;
-    int questionsCounter = 0;
+
 
     @FXML
     private AnchorPane screen4;
@@ -96,7 +94,7 @@ public class GameViewController implements Initializable{
                 out.writeObject("START"+points);
             }
             circleArray[counter].setVisible(true);
-            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(e -> {
                 ((Button) event.getSource()).setStyle("-fx-background-color: green");
                 counter++;

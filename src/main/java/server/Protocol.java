@@ -64,8 +64,10 @@ public class Protocol {
         }
 
         else if(input.startsWith("START_NEXT_ROUND")) {
+            System.out.println(s + "Är i ny runda");
 
             if (userRoundCounter<roundCounter){
+
 
                 if (roundCounter% 2 == 0){
                     if(s.equals("Player 1")) {
