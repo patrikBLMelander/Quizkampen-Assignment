@@ -111,7 +111,6 @@ public class GameViewController implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
     }
 
     @Override

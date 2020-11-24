@@ -67,15 +67,24 @@ public class Protocol {
 
             if (userRoundCounter<roundCounter){
 
-
-                if(s.equals("Player 1")) {
-                    objectToSend= "MAKE_ME_P2";
-                    roundCounter++;
+                if (roundCounter% 2 == 0){
+                    if(s.equals("Player 1")) {
+                        objectToSend = "WAITING";
+                        roundCounter++;
+                    }
+                    else if(s.equals("Player 2")){
+                        objectToSend = "CATEGORY";
+                    }
                 }
-                if(s.equals("Player 2")){
-                    objectToSend = "MAKE_ME_P1";
+                else{
+                    if(s.equals("Player 1")) {
+                        objectToSend = "CATEGORY";
+                        roundCounter++;
+                    }
+                    else if(s.equals("Player 2")){
+                        objectToSend = "WAITING";
+                    }
                 }
-
             }
             else
                 objectToSend = "END_OF_GAME";

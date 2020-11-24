@@ -41,19 +41,26 @@ public class GameOverViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        out = ScreenNavigator.outputStreamer;
+        in = ScreenNavigator.inputStreamer;
         resultText.setText("Information about scores of both players to be fetched and displayed here");
     }
 
 
     public void nextRoundBtnClicked(ActionEvent actionEvent) {
         try {
-            in = ScreenNavigator.inputStreamer;
-            out = ScreenNavigator.outputStreamer;
-
             out.writeObject("START_NEXT_ROUND");
 
-        } catch (IOException e) {
+            Object temp;
+            while ((temp = in.readObject()) != null) {
+                if (temp.equals("WAITING")) {
+                    s.loadNewScreen(ScreenNavigator.WAITING, nextRoundBtn1);
+                } else if (temp.equals("CATEGORY")) {
+                    s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
+                }
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
