@@ -9,14 +9,9 @@ import javafx.scene.layout.AnchorPane;
 public class LogInController{
     ScreenNavigator s = new ScreenNavigator() ;
 
-    @FXML
-    private AnchorPane logInPane;
 
     @FXML
     private TextField logInName;
-
-    @FXML
-    private TextField logInPassword;
 
     @FXML
     private Button logInButton;
@@ -24,6 +19,7 @@ public class LogInController{
     @FXML
     void logInAction(ActionEvent event) throws Exception {
         String name = logInName.getText();
+        System.out.println(name);
         s.setName(name);
         s.loadNewScreen(ScreenNavigator.MAIN_MENU, logInButton);
     }
