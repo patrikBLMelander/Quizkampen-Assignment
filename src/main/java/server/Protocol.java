@@ -51,7 +51,7 @@ public class Protocol {
             objectToSend = "GO_TO_SEND_QUESTION";
 
         }
-        else if(input.startsWith("START")){
+        else if(input.startsWith("NEW_QUESTION")){
 
             if(s.equals("Player 1")) {
                 objectToSend = playerQuestionCounter(s, p1counter);
@@ -64,11 +64,11 @@ public class Protocol {
         }
 
         else if(input.startsWith("START_NEXT_ROUND")) {
-            System.out.println(s + "Är i ny runda");
+            System.out.println(s + " Är i ny runda");
 
-            if (userRoundCounter<roundCounter){
+            if (roundCounter<userRoundCounter){
 
-
+                System.out.println(s + " Kommit förbi roundCounter");
                 if (roundCounter% 2 == 0){
                     if(s.equals("Player 1")) {
                         objectToSend = "WAITING";
@@ -99,10 +99,9 @@ public class Protocol {
 
         if (counter < userQuestionCounter) {
             o = database.test.get(counter);
-            System.out.println(s + "Är på fråga " + (counter+1));
+            System.out.println(s + " Är på fråga " + (counter+1));
         } else if (roundCounter < userRoundCounter) {
             o = "Final";
-            roundCounter++;
         }
         return o;
     }

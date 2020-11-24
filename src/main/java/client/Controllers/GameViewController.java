@@ -84,14 +84,14 @@ public class GameViewController implements Initializable{
                 System.out.println(points);
                 ((Button) event.getSource()).setStyle("-fx-background-color: greenyellow");
                 circleArray[counter].setFill(Color.YELLOWGREEN);
-                out.writeObject("START"+points);
+                out.writeObject("NEW_QUESTION"+points);
 
             } else {
                 System.out.println("looser");
                 String points = pointCounter + "";
                 ((Button) event.getSource()).setStyle("-fx-background-color: red");
                 circleArray[counter].setFill(Color.RED);
-                out.writeObject("START"+points);
+                out.writeObject("NEW_QUESTION"+points);
             }
             circleArray[counter].setVisible(true);
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
@@ -121,7 +121,7 @@ public class GameViewController implements Initializable{
             in = ScreenNavigator.inputStreamer;
             out = ScreenNavigator.outputStreamer;
 
-            out.writeObject("START");
+            out.writeObject("NEW_QUESTION");
             updateGameWindow();
 
         } catch (IOException | ClassNotFoundException e) {
