@@ -42,7 +42,7 @@ public class Waiting implements Initializable, Runnable{
     public void run() {
 
         try {
-            output.writeObject("Waiting");
+            output.writeObject("WAITING");
             String s2;
             while((s2 = input.readObject().toString())!=null) {
                 if (s2.endsWith("QUESTION")) {

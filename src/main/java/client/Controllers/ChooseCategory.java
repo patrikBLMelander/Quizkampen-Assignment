@@ -6,13 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import server.Database;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.util.List;
+
 import java.util.ResourceBundle;
 
 public class ChooseCategory implements Initializable {

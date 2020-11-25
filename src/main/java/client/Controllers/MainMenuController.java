@@ -50,13 +50,12 @@ public class MainMenuController implements Initializable {
         s.setInputStreamer(in);
         s.setOutputStreamer(out);
 
-        String temp;
+
         if (in.readObject().toString().equals("1")) {
             System.out.println("Inne i 1st player");
             s.loadNewScreen(ScreenNavigator.NUMBER_OF_ROUNDS, newGameBtn);
         }
         else {
-            //out.writeObject("Inne i ");
             s.loadNewScreen(ScreenNavigator.WAITING, newGameBtn);
         }
 

@@ -44,7 +44,7 @@ public class Protocol {
             System.out.println(category);
             objectToSend = category;
         }
-        else if(input.equals("Waiting")) {
+        else if(input.startsWith("WAITING")) {
             System.out.println(s + "Är i waiting for opponent");
             countDownLatch.countDown();
             try {
@@ -58,7 +58,7 @@ public class Protocol {
             objectToSend = "GO_TO_SEND_QUESTION";
 
         }
-        else if(input.startsWith("START")){
+        else if(input.startsWith("NEW_QUESTION")){
 
             if(s.equals("Player 1")) {
                 objectToSend = playerQuestionCounter(s, p1counter);
@@ -68,6 +68,35 @@ public class Protocol {
                 objectToSend = playerQuestionCounter(s, p2counter);
                 p2counter++;
             }
+        }
+
+        else if(input.startsWith("START_NEXT_ROUND")) {
+            System.out.println(s + " Är i ny runda");
+
+            if (roundCounter<userRoundCounter){
+
+                System.out.println(s + " Kommit förbi roundCounter");
+                if (roundCounter% 2 == 0){
+                    if(s.equals("Player 1")) {
+                        objectToSend = "WAITING";
+                        roundCounter++;
+                    }
+                    else if(s.equals("Player 2")){
+                        objectToSend = "CATEGORY";
+                    }
+                }
+                else{
+                    if(s.equals("Player 1")) {
+                        objectToSend = "CATEGORY";
+                        roundCounter++;
+                    }
+                    else if(s.equals("Player 2")){
+                        objectToSend = "WAITING";
+                    }
+                }
+            }
+            else
+                objectToSend = "END_OF_GAME";
         }
         return objectToSend;
     }
@@ -80,7 +109,6 @@ public class Protocol {
             System.out.println(s + "Är på fråga " + (counter+1));
         } else if (roundCounter < userRoundCounter) {
             o = "Final";
-            roundCounter++;
         }
         return o;
     }

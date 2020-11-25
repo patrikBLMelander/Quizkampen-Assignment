@@ -20,12 +20,13 @@
             <Font size="26.0" />
          </font>
       </Text>
-      <Button id="submitCat" fx:id="playAgainBtn" layoutX="190.0" layoutY="342.0" mnemonicParsing="false" onAction="#playAgainBtnClicked" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: green;" text="Spela igen" />
-      <Button id="submitQuit" fx:id="endGameBtn" layoutX="306.0" layoutY="342.0" mnemonicParsing="false" onAction="#endGameBtnClicked" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: green;" text="Avlsuta" />
+      <Button id="submitCat" fx:id="playAgainBtn" layoutX="242.0" layoutY="342.0" mnemonicParsing="false" onAction="#playAgainBtnClicked" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: green;" text="Nytt Spel" />
+      <Button id="submitQuit" fx:id="endGameBtn" layoutX="368.0" layoutY="342.0" mnemonicParsing="false" onAction="#endGameBtnClicked" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: green;" text="Avlsuta" />
       <Text id="resultText" fx:id="resultText" fill="WHITE" layoutX="107.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result information" wrappingWidth="397.53736877441406">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
+      <Button id="submitCat" fx:id="nextRoundBtn1" layoutX="114.0" layoutY="342.0" mnemonicParsing="false" onAction="#nextRoundBtnClicked" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: green;" text="Nästa runda" />
    </children>
 </AnchorPane>

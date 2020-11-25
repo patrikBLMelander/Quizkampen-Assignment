@@ -31,13 +31,11 @@ public class GameViewController implements Initializable{
     ScreenNavigator s = new ScreenNavigator();
     ObjectInputStream in;
     ObjectOutputStream out;
-    Socket connectToServer;
     ObservableList<Button> buttonList = FXCollections.observableArrayList();
     Circle [] circleArray = new Circle[5];
     int pointCounter = 0;
     int counter = 0;
-    int roundsCounter = 0;
-    int questionsCounter = 0;
+
 
     @FXML
     private AnchorPane screen4;
@@ -87,17 +85,17 @@ public class GameViewController implements Initializable{
                 System.out.println(points);
                 ((Button) event.getSource()).setStyle("-fx-background-color: greenyellow");
                 circleArray[counter].setFill(Color.YELLOWGREEN);
-                out.writeObject("START"+points);
+                out.writeObject("NEW_QUESTION"+points);
 
             } else {
                 System.out.println("looser");
                 String points = pointCounter + "";
                 ((Button) event.getSource()).setStyle("-fx-background-color: red");
                 circleArray[counter].setFill(Color.RED);
-                out.writeObject("START"+points);
+                out.writeObject("NEW_QUESTION"+points);
             }
             circleArray[counter].setVisible(true);
-            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(e -> {
                 ((Button) event.getSource()).setStyle("-fx-background-color: green");
                 counter++;
@@ -112,7 +110,6 @@ public class GameViewController implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
     }
 
     @Override
@@ -125,7 +122,7 @@ public class GameViewController implements Initializable{
             in = ScreenNavigator.inputStreamer;
             out = ScreenNavigator.outputStreamer;
 
-            out.writeObject("START");
+            out.writeObject("NEW_QUESTION");
             updateGameWindow();
 
         } catch (IOException | ClassNotFoundException e) {
