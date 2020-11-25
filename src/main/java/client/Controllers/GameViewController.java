@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import server.Database;
 import server.Questions;
 import java.io.IOException;
 import java.io.ObjectInputStream;

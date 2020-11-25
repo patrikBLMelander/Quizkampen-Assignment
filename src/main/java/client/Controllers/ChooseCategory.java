@@ -17,6 +17,7 @@ public class ChooseCategory implements Initializable {
 
         ObjectOutputStream out;
         ScreenNavigator s = new ScreenNavigator();
+        Database database = new Database();
 
 
         @FXML
@@ -35,14 +36,18 @@ public class ChooseCategory implements Initializable {
                         System.out.println(Cat1Btn.getText());
                         String send = Cat1Btn.getText();
                         out.writeObject("CATEGORY" + send);
+                        //out.writeObject("CATEGORY" + database.chooseCategory(0));
                 }
                 else if  ((event.getSource()).equals(Cat2Btn)) {
-                        System.out.println(Cat2Btn.getText());
+                        //System.out.println(Cat2Btn.getText());
                         out.writeObject("CATEGORY" + Cat2Btn.getText());
+                        //out.writeObject("CATEGORY" + database.chooseCategory(1));
+
                 }
                 else if  ((event.getSource()).equals(Cat3Btn)) {
-                        System.out.println(Cat3Btn.getText());
+                        //System.out.println(Cat3Btn.getText());
                         out.writeObject("CATEGORY" + Cat3Btn.getText());
+                        //out.writeObject("CATEGORY" + database.chooseCategory(2));
                 }
 
                 s.loadNewScreen(ScreenNavigator.WAITING, Cat1Btn);

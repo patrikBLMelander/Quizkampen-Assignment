@@ -66,33 +66,32 @@ public class Protocol {
             //waitingCounter = 0;
             //state = WAITING_FOR_OPPONENT;
         }
-        else if(input.startsWith("START")){
+        else if(input.startsWith("START")) {
 
-
-            if(s.equals("Player 1")) {
-                System.out.println(s + "Är på fråga " + p1counter);
-                objectToSend = database.test.get(p1counter);
-                if (p1counter < userQuestionCounter) {
-                    p1counter++;
-                } else if (roundCounter < userRoundCounter) {
-                    objectToSend = "Final";
-                    roundCounter++;
-                    p1counter = 0;
+                if (s.equals("Player 1")) {
+                    System.out.println(s + "Är på fråga " + p1counter);
+                    objectToSend = database.categoryList.get(2).get(p1counter);
+                    if (p1counter < userQuestionCounter) {
+                        p1counter++;
+                    } else if (roundCounter < userRoundCounter) {
+                        objectToSend = "Final";
+                        roundCounter++;
+                        p1counter = 0;
+                    }
+                }
+                if (s.equals("Player 2")) {
+                    System.out.println(s + "Är på fråga " + p2counter);
+                    objectToSend = database.categoryList.get(2).get(p2counter);
+                    //objectToSend = database.patrikList.get(p2counter);
+                    if (p2counter < userQuestionCounter) {
+                        p2counter++;
+                    } else if (roundCounter < userRoundCounter) {
+                        objectToSend = "Final";
+                        roundCounter++;
+                        p2counter = 0;
+                    }
                 }
             }
-            if(s.equals("Player 2")){
-                System.out.println(s + "Är på fråga " + p2counter);
-                objectToSend = database.test.get(p2counter);
-                if (p2counter < userQuestionCounter) {
-                    p2counter++;
-                } else if (roundCounter < userRoundCounter) {
-                    objectToSend = "Final";
-                    roundCounter++;
-                    p2counter = 0;
-                }
-            }
-        }
-
 
 
         else if(input.equals("HEJ"))
