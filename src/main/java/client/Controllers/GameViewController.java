@@ -77,15 +77,17 @@ public class GameViewController implements Initializable{
 
     @FXML
     void rButtonClicked(ActionEvent event){
+        Button correctButton = null;
         try {
             if (((Control) event.getSource()) == buttonList.get(0)) {
                 pointCounter++;
                 System.out.println("win");
                 String points = pointCounter + "";
                 System.out.println(points);
-                ((Button) event.getSource()).setStyle("-fx-background-color: greenyellow");
-                circleArray[counter].setFill(Color.YELLOWGREEN);
+                ((Button) event.getSource()).setStyle("-fx-background-color: green");
+                circleArray[counter].setFill(Color.GREEN);
                 out.writeObject("NEW_QUESTION"+points);
+                //correctButton = checkCorrectAnswer();
 
             } else {
                 System.out.println("looser");
@@ -93,11 +95,14 @@ public class GameViewController implements Initializable{
                 ((Button) event.getSource()).setStyle("-fx-background-color: red");
                 circleArray[counter].setFill(Color.RED);
                 out.writeObject("NEW_QUESTION"+points);
+                //correctButton = checkCorrectAnswer();
             }
             circleArray[counter].setVisible(true);
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            //Button finalCorrectButton = correctButton;
             pause.setOnFinished(e -> {
-                ((Button) event.getSource()).setStyle("-fx-background-color: green");
+                ((Button) event.getSource()).setStyle("-fx-background-color: white");
+                //finalCorrectButton.setStyle("-fx-background-color: white");
                 counter++;
                 try {
                     updateGameWindow();
@@ -145,5 +150,19 @@ public class GameViewController implements Initializable{
         }else
             s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
     }
+
+   /* public Button checkCorrectAnswer(){
+        Button button = null;
+        for (Button b: buttonList) {
+            if (b == buttonList.get(0)){
+                b.setStyle("-fx-background-color: green");
+                button = b;
+                break;
+            }
+        }
+        return button;
+    }
+
+    */
 }
 

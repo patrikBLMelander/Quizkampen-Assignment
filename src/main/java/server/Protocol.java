@@ -1,7 +1,6 @@
 package server;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
 import java.util.ArrayList;
@@ -41,6 +40,7 @@ public class Protocol {
         else if (input.startsWith("CATEGORY")){
             category = input.substring(8);
             listToSend = database.chooseCategory(category);
+            Collections.shuffle(listToSend);
             System.out.println(category);
             objectToSend = category;
         }
