@@ -43,6 +43,8 @@ public class GameOverViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        out = ScreenNavigator.outputStreamer;
+        in = ScreenNavigator.inputStreamer;
         try {
             out.writeObject("GET_SCORE_DATA");
             String receivedData = "";
@@ -56,6 +58,7 @@ public class GameOverViewController implements Initializable {
             e.printStackTrace();
         }
     }
+
 
 
     public void nextRoundBtnClicked(ActionEvent actionEvent) {
