@@ -43,8 +43,6 @@ public class GameOverViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(isGameOver) nextRoundBtn1.setVisible(false);
-        else playAgainBtn.setVisible(false);
         try {
             out.writeObject("GET_SCORE_DATA");
             String receivedData = "";
@@ -52,6 +50,8 @@ public class GameOverViewController implements Initializable {
                 receivedData += in.readObject().toString();
             }
             resultText.setText(receivedData);
+            if(isGameOver) nextRoundBtn1.setVisible(false);
+            else playAgainBtn.setVisible(false);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
