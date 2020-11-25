@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Sara Carlsson
@@ -24,19 +25,17 @@ public class User extends Thread implements Serializable {
     ObjectOutputStream out;
     ObjectInputStream in;
     Protocol p;
-    MultiWriter m;
 
     public User(String userName) {
         this.userName = userName;
     }
 
-    public User(String userName, Socket socket, int player, Protocol p, MultiWriter m) {
+    public User(String userName, Socket socket, int player, Protocol p) {
         connectionToClient = socket;
         this.userName = userName;
         this.iadr = InetAddress.getLoopbackAddress();
         this.player = player;
         this.p = p;
-        this.m = m;
 
         try {
             out = new ObjectOutputStream(connectionToClient.getOutputStream());
@@ -44,14 +43,10 @@ public class User extends Thread implements Serializable {
 
             System.out.println("WELCOME " + getUserName());
             if(getPlayer()==1){
-                //p.processInput(getUserName(), 2);
                 out.writeObject("1");}
             else {
-                //p.processInput(getUserName(), 1);
                 out.writeObject(" ");
-
             }
-
         } catch (IOException  e) {
             e.printStackTrace();
         }
@@ -87,24 +82,17 @@ public class User extends Thread implements Serializable {
 
     public void run() {
         System.out.println("MESSAGE All players connected");
-        m.addWriter(out);
-        //Protocol p = new Protocol();
-
         Object temp;
 
         try {
             while ((temp = in.readObject()) != null) {
                 System.out.println(getUserName() + " tagit emot " + temp.toString());
                 Object obj = p.processInput(getUserName(), temp);
-                for(ObjectOutputStream o : m.getWriters()) {
-                    o.writeObject(obj);
-                    o.flush();
-                    //out.writeObject(p.processInput(getUserName(), temp));
-                    //out.flush();
-                }
+                out.writeObject(obj);
+                out.flush();
             }
         }
-        catch(IOException | ClassNotFoundException | InterruptedException e){
+        catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
     }

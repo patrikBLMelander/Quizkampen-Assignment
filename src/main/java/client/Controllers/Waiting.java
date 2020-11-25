@@ -60,8 +60,6 @@ public class Waiting implements Initializable, Runnable{
                     break;
                 }
             }
-
-            //output.writeObject("START");
             thread.interrupt();
 
         } catch (IOException | ClassNotFoundException e) {

@@ -1,46 +1,31 @@
 package server;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
 public class Protocol {
-    private static final int STARTING_NEW_GAME = 1;
-    private static final int CHOOSE_ROUNDS_AND_QUESTION_LIMIT = 2;
-    private static final int CHOOSE_CATEGORY = 3;
-    private static final int WAITING_FOR_OPPONENT = 4;
-    private static final int SEND_QUESTION = 5;
-    private static final int CHECK_ANSWER = 6;
-    private static final int FINAL_SCORE = 7;
-
-
-    //private int state = SEND_QUESTION;
-    MultiWriter m = new MultiWriter();
     Database database = new Database();
     int p1counter = 0;
     int p2counter = 0;
     int roundCounter = 0;
-    int waitingCounter = 0;
+    CountDownLatch countDownLatch = new CountDownLatch(2);
 
     static int userRoundCounter = 2;
     static int userQuestionCounter = 4;
     String category;
+    List<Questions> listToSend = new ArrayList<>();
 
-
-    public Object processInput(String s , Object object) throws InterruptedException {
+    public  Object processInput(String s , Object object){
         String input = " ";
-        if (object instanceof Integer) {
-            //state = (Integer) object;
-        }
-        else if (object instanceof String){
+
+        if (object instanceof String){
             input = (String) object;
         }
         else
             System.out.println("error");
 
         Object objectToSend = null;
-
-        if (input.startsWith("CATEGORY")){
-            category = input.substring(8);
-            System.out.println(category);
-            objectToSend = category;
-        }
 
         if (input.startsWith("ROUNDS")) {
             userRoundCounter = Integer.parseInt(input.substring(6, 7));
@@ -50,146 +35,50 @@ public class Protocol {
             System.out.println("Antalet frågor: " + userQuestionCounter);
             objectToSend = "GO_TO_CHOOSE_CATEGORY";
         }
-
+        else if (input.startsWith("CATEGORY")){
+            category = input.substring(8);
+            listToSend = database.chooseCategory(category);
+            System.out.println(category);
+            objectToSend = category;
+        }
         else if(input.equals("Waiting")) {
-            System.out.println(s + "Är i waiting for oponent");
-            waitingCounter++;
-            while (true) {
-                if (waitingCounter == 2) {
-                    break;
-                }
+            System.out.println(s + "Är i waiting for opponent");
+            countDownLatch.countDown();
+            try {
+                countDownLatch.await();
             }
+            catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            System.out.println("Countdownlatch: " + countDownLatch.getCount());
             System.out.println(s + "är ur waitingloopen");
             objectToSend = "GO_TO_SEND_QUESTION";
 
-            //state = SEND_QUESTION;
-            //waitingCounter = 0;
-            //state = WAITING_FOR_OPPONENT;
         }
-        else if(input.startsWith("START")) {
+        else if(input.startsWith("START")){
 
-                if (s.equals("Player 1")) {
-                    System.out.println(s + "Är på fråga " + p1counter);
-                    objectToSend = database.categoryList.get(2).get(p1counter);
-                    if (p1counter < userQuestionCounter) {
-                        p1counter++;
-                    } else if (roundCounter < userRoundCounter) {
-                        objectToSend = "Final";
-                        roundCounter++;
-                        p1counter = 0;
-                    }
-                }
-                if (s.equals("Player 2")) {
-                    System.out.println(s + "Är på fråga " + p2counter);
-                    objectToSend = database.categoryList.get(2).get(p2counter);
-                    //objectToSend = database.patrikList.get(p2counter);
-                    if (p2counter < userQuestionCounter) {
-                        p2counter++;
-                    } else if (roundCounter < userRoundCounter) {
-                        objectToSend = "Final";
-                        roundCounter++;
-                        p2counter = 0;
-                    }
-                }
+            if(s.equals("Player 1")) {
+                objectToSend = playerQuestionCounter(s, p1counter);
+                p1counter++;
             }
-
-
-        else if(input.equals("HEJ"))
-            objectToSend = "GO_TO_SEND_QUESTION";
-        /*
-        if (state == STARTING_NEW_GAME) {
-            System.out.println(s + "Är i Starting new game");
-            objectToSend = "GO_TO_WAITING";
-            state = WAITING_FOR_OPPONENT;
-        }
-
-        else if (state == CHOOSE_ROUNDS_AND_QUESTION_LIMIT) {
-            System.out.println(s + "Är i choose Rounds and question limit");
-            /*
-            userRoundCounter = Integer.parseInt(input.substring(7, 8));
-            System.out.println("Antalet rundor: " + userRoundCounter);
-
-            userQuestionCounter = Integer.parseInt(input.substring(9));
-            System.out.println("Antalet frågor: " + userQuestionCounter);
-
-
-            objectToSend = "GO_TO_CHOOSE_CATEGORY";
-            state = CHOOSE_CATEGORY;
-
-
-            //state=WAITING_FOR_OPPONENT;
-
-        }
-        else if (state == CHOOSE_CATEGORY) {
-            System.out.println(s + "Är i choose Category");
-            objectToSend = "GO_TO_WAITING_FOR_OPPONENT";
-
-            state = WAITING_FOR_OPPONENT;
-        }
-       /* else if (state == WAITING_FOR_OPPONENT) {
-            System.out.println(s + "Är i waiting for oponent");
-            waitingCounter++;
-            while(true) {
-                if (waitingCounter == 2) {
-                    break;
-                }
+            if(s.equals("Player 2")){
+                objectToSend = playerQuestionCounter(s, p2counter);
+                p2counter++;
             }
-            objectToSend = "GO_TO_SEND_QUESTION";
-            state = SEND_QUESTION;
-            waitingCounter = 0;
-
         }
-
-        */
-       /* else if (state == SEND_QUESTION) {
-            System.out.println(s + "Är i Send_Question");
-            objectToSend = database.test.get(counter);
-
-            if (counter < userQuestionCounter) {
-                counter++;
-            } else if (roundCounter < userRoundCounter){
-                state = FINAL_SCORE;
-                roundCounter++;
-                counter = 0;
-            }
-
-        } else if (state == CHECK_ANSWER) {
-            boolean temp = database.findCorrectAnswer(object.toString());
-            System.out.println(temp);
-            System.out.println(counter);
-
-            objectToSend = new Response(temp);
-            if (counter < userQuestionCounter) {
-                state = SEND_QUESTION;
-                counter++;
-            } else if (roundCounter < userRoundCounter){
-                state = WAITING_FOR_OPPONENT;
-                roundCounter++;
-                counter = 0;
-            }
-            else {
-                state = FINAL_SCORE;
-            }
-
-
-        } else if (state == FINAL_SCORE) {
-
-        }
-
-        */
-
         return objectToSend;
     }
 
-    private int getWaitingCounter() {
-        return this.waitingCounter;
-    }
+    public synchronized Object playerQuestionCounter (String s, int counter){
+        Object o = null;
 
-    public static void setUserRoundCounter(int userRoundCounter) {
-        Protocol.userRoundCounter = userRoundCounter;
-    }
-
-    public static void setUserQuestionCounter(int userQuestionCounter) {
-        Protocol.userQuestionCounter = userQuestionCounter;
+        if (counter < userQuestionCounter) {
+            o = listToSend.get(counter);
+            System.out.println(s + "Är på fråga " + (counter+1));
+        } else if (roundCounter < userRoundCounter) {
+            o = "Final";
+            roundCounter++;
+        }
+        return o;
     }
 }
