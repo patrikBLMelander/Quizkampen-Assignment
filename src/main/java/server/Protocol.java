@@ -1,6 +1,10 @@
 package server;
 
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Protocol {
     Database database = new Database();
@@ -12,6 +16,7 @@ public class Protocol {
     static int userRoundCounter = 2;
     static int userQuestionCounter = 4;
     String category;
+    List<Questions> listToSend = new ArrayList<>();
 
     public  Object processInput(String s , Object object){
         String input = " ";
@@ -34,6 +39,8 @@ public class Protocol {
         }
         else if (input.startsWith("CATEGORY")){
             category = input.substring(8);
+            listToSend = database.chooseCategory(category);
+            Collections.shuffle(listToSend);
             System.out.println(category);
             objectToSend = category;
         }
@@ -98,8 +105,8 @@ public class Protocol {
         Object o = null;
 
         if (counter < userQuestionCounter) {
-            o = database.test.get(counter);
-            System.out.println(s + " Är på fråga " + (counter+1));
+            o = listToSend.get(counter);
+            System.out.println(s + "Är på fråga " + (counter+1));
         } else if (roundCounter < userRoundCounter) {
             o = "Final";
         }

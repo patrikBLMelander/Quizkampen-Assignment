@@ -18,6 +18,7 @@ public class ChooseCategory implements Initializable {
 
         ObjectOutputStream out;
         ScreenNavigator s = new ScreenNavigator();
+        Database database = new Database();
         ObservableList<Button> buttonList = FXCollections.observableArrayList();
 
 
@@ -32,12 +33,29 @@ public class ChooseCategory implements Initializable {
 
         @FXML
         void categoryChosen(ActionEvent event) throws IOException {
-                for(Button b : buttonList){
+               /* for(Button b : buttonList){
                         if(event.getSource().equals(b))
                                 System.out.println(b.getText());
                                 out.writeObject("CATEGORY" + b.getText());
                                 break;
                 }
+
+*/
+                if  ((event.getSource()).equals(Cat1Btn)) {
+                        System.out.println(Cat1Btn.getText());
+                        String send = Cat1Btn.getText();
+                        out.writeObject("CATEGORY" + send);
+                }
+                else if  ((event.getSource()).equals(Cat2Btn)) {
+                        System.out.println(Cat2Btn.getText());
+                        out.writeObject("CATEGORY" + Cat2Btn.getText());
+                }
+                else if  ((event.getSource()).equals(Cat3Btn)) {
+                        System.out.println(Cat3Btn.getText());
+                        out.writeObject("CATEGORY" + Cat3Btn.getText());
+                }
+
+
 
                 s.loadNewScreen(ScreenNavigator.WAITING, Cat1Btn);
         }
@@ -49,22 +67,24 @@ public class ChooseCategory implements Initializable {
                 int counter = 0;
                 buttonList.addAll(Cat1Btn, Cat2Btn, Cat3Btn);
                 out = ScreenNavigator.outputStreamer;
-                String [] cat = {Database.randomCategorys(),Database.randomCategorys(),Database.randomCategorys()};
+                //String [] cat = {Database.randomCategorys(),Database.randomCategorys(),Database.randomCategorys()};
+                String cat1 = Database.randomCategorys();
+                String cat2 = Database.randomCategorys();
+                String cat3 = Database.randomCategorys();
+
 
                 while (true) {
-                        if (cat[0].equals(cat[1]) || cat[2].equals(cat[1])){
-                                cat[1] = Database.randomCategorys();
+                        if (cat1.equals(cat2) || cat3.equals(cat2)){
+                                cat2 = Database.randomCategorys();
                         }
-                        else if (cat[0].equals(cat[2])){
-                                cat[2] = Database.randomCategorys();
+                        else if (cat1.equals(cat3)){
+                                cat3 = Database.randomCategorys();
                         }
                         else
                                 break;
                 }
-                for(Button b : buttonList){
-                        b.setText(cat[counter]);
-                        counter++;
-                }
-
+                Cat1Btn.setText(cat1);
+                Cat2Btn.setText(cat2);
+                Cat3Btn.setText(cat3);
         }
 }

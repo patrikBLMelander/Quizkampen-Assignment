@@ -15,14 +15,16 @@ public class Questions implements Serializable {
     private String wrongAnswer1;
     private String wrongAnswer2;
     private String wrongAnswer3;
+    private String categoryName;
 
 
-    public Questions(String question, String correctAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3) {
+    public Questions(String question, String correctAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String categoryName) {
         this.question = question;
         this.correctAnswer = correctAnswer;
         this.wrongAnswer1 = wrongAnswer1;
         this.wrongAnswer2 = wrongAnswer2;
         this.wrongAnswer3 = wrongAnswer3;
+        this.categoryName = categoryName;
     }
 
     public String getQuestion() {
@@ -43,5 +45,9 @@ public class Questions implements Serializable {
 
     public String getWrongAnswer3() {
         return wrongAnswer3;
+    }
+
+    public String getCategoryName(){
+        return categoryName;
     }
 }
