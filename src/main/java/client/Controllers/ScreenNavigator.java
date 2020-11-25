@@ -23,6 +23,7 @@ public class ScreenNavigator {
     public static final String SELECT_CATEGORY = "CatSelectorView.fxml";
     public static final String GAME_VIEW = "GameView.fxml";
     public static final String GAME_OVERVIEW = "GameOverView.fxml";
+    public static final String WAITING = "waiting.fxml";
 
     public void setName(String name){
         this.name = name;

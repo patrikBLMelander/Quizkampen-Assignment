@@ -5,5 +5,4 @@ module sample {
 
     opens server;
     opens client.Controllers;
-    opens server.Categories;
 }
