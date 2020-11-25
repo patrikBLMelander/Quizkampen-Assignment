@@ -17,6 +17,7 @@ public class GameOverViewController implements Initializable {
     ScreenNavigator s = new ScreenNavigator();
     ObjectInputStream in;
     ObjectOutputStream out;
+    boolean isGameOver = false;
 
     @FXML
     public Button nextRoundBtn1;
@@ -42,10 +43,18 @@ public class GameOverViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        out = ScreenNavigator.outputStreamer;
-        in = ScreenNavigator.inputStreamer;
-        resultText.setText("Information about scores of both players to be fetched and displayed here");
-
+        try {
+            out.writeObject("GET_SCORE_DATA");
+            String receivedData = "";
+            while (in.readObject() != null) {
+                receivedData += in.readObject().toString();
+            }
+            resultText.setText(receivedData);
+            if(isGameOver) nextRoundBtn1.setVisible(false);
+            else playAgainBtn.setVisible(false);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 
