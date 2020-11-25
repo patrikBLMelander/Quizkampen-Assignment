@@ -47,7 +47,7 @@ public class Protocol {
                 e.printStackTrace();
             }
             System.out.println("Countdownlatch: " + countDownLatch.getCount());
-            System.out.println(s + "är ur waitingloopen");
+            System.out.println(s + " är ur waitingloopen");
             objectToSend = "GO_TO_SEND_QUESTION";
 
         }
@@ -72,7 +72,7 @@ public class Protocol {
                 if (roundCounter% 2 == 0){
                     if(s.equals("Player 1")) {
                         objectToSend = "WAITING";
-                        roundCounter++;
+
                     }
                     else if(s.equals("Player 2")){
                         objectToSend = "CATEGORY";
@@ -81,7 +81,7 @@ public class Protocol {
                 else{
                     if(s.equals("Player 1")) {
                         objectToSend = "CATEGORY";
-                        roundCounter++;
+
                     }
                     else if(s.equals("Player 2")){
                         objectToSend = "WAITING";
