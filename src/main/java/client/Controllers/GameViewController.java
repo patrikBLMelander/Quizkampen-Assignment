@@ -122,7 +122,7 @@ public class GameViewController implements Initializable{
             in = ScreenNavigator.inputStreamer;
             out = ScreenNavigator.outputStreamer;
 
-            out.writeObject("NEW_QUESTION");
+            out.writeObject("NEW_QUESTION" + "0");
             updateGameWindow();
 
         } catch (IOException | ClassNotFoundException e) {

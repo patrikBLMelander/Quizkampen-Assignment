@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Sara Carlsson
@@ -43,9 +42,12 @@ public class User extends Thread implements Serializable {
 
             System.out.println("WELCOME " + getUserName());
             if(getPlayer()==1){
-                out.writeObject("1");}
+                out.writeObject("1");
+                p.processInput(getUserName(), User.this);
+            }
             else {
                 out.writeObject(" ");
+                p.processInput(getUserName(), User.this);
             }
         } catch (IOException  e) {
             e.printStackTrace();

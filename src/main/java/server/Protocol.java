@@ -25,6 +25,11 @@ public class Protocol {
         if (object instanceof String){
             input = (String) object;
         }
+        else if (object instanceof User) {
+            User u = (User) object;
+            System.out.println(u.getUserName());
+            database.userList.add(u);
+        }
         else
             System.out.println("error");
 
@@ -45,7 +50,7 @@ public class Protocol {
             objectToSend = category;
         }
         else if(input.startsWith("WAITING")) {
-            System.out.println(s + "Är i waiting for opponent");
+            System.out.println(s + " Är i waiting for opponent");
             countDownLatch.countDown();
             try {
                 countDownLatch.await();
@@ -54,11 +59,16 @@ public class Protocol {
                 e.printStackTrace();
             }
             System.out.println("Countdownlatch: " + countDownLatch.getCount());
-            System.out.println(s + "är ur waitingloopen");
+            System.out.println(s + " är ur waitingloopen");
             objectToSend = "GO_TO_SEND_QUESTION";
 
         }
         else if(input.startsWith("NEW_QUESTION")){
+            int points = Integer.parseInt(input.substring(12));
+            for(User u : database.userList) {
+                if (s.equals(u.getUserName()))
+                    u.setPoints(points);
+            }
 
             if(s.equals("Player 1")) {
                 objectToSend = playerQuestionCounter(s, p1counter);
