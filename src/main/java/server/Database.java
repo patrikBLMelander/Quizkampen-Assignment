@@ -63,8 +63,15 @@ public class Database implements Serializable {
     }
 
 
-    public ArrayList chooseCategory(int buttonID) {
-        return categoryList.get(buttonID);
+    public List chooseCategory(String catRecieved) {
+        List<Questions> tempList = new ArrayList<>();
+        int counter = 0;
+        for (var v: categoryList) {
+            if (v.get(counter).getCategoryName().equalsIgnoreCase(catRecieved)){
+                tempList = v;
+            }
+        }
+        return tempList;
     }
 
     public List<ArrayList<Questions>> getCategoryList() {

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Protocol {
     Database database = new Database();
     int p1counter = 0;
