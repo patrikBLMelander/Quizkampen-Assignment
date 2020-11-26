@@ -42,6 +42,9 @@ public class GameViewController implements Initializable{
 
     @FXML
     private Text questionText;
+    
+    @FXML
+    private Button rButton0;
 
     @FXML
     private Button rButton1;
@@ -75,6 +78,7 @@ public class GameViewController implements Initializable{
     void rButtonClicked(ActionEvent event){
         Button correctButton = null;
         try {
+
             if (((Control) event.getSource()) == buttonList.get(0)) {
                 pointCounter++;
                 System.out.println("win");
@@ -107,9 +111,27 @@ public class GameViewController implements Initializable{
                     updateGameWindow();
                 } catch (IOException | ClassNotFoundException ioException) {
                     ioException.printStackTrace();
+
                 }
-            });
-            pause.play();
+                
+                circleArray[counter].setVisible(true);
+                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                pause.setOnFinished(e ->
+                {
+                    ((Button) event.getSource()).setStyle("-fx-background-color: green");
+                    counter++;
+                    try
+                    {
+                        updateGameWindow();
+                    }
+                    catch(IOException | ClassNotFoundException ioException)
+                    {
+                        ioException.printStackTrace();
+                    }
+                });
+                pause.play();
+                
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
