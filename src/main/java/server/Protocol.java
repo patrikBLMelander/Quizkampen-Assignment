@@ -88,11 +88,15 @@ public class Protocol {
         else if(input.startsWith("RESULT")){
             for(User u : database.userList) {
                 if (playerName.equals(u.getUserName()))
-                    objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints();
+                    objectToSend = u;
 
 
             }
         }
+
+        //TODO : Lägga till en ny waiting i protocol 1. vänta tills båda är där, 2. protocolet skickar en Sträng:
+        // TODO : Skapa en ny controller till waiting
+        //TODO : Ta emot user i GameOverViewController
 
         else if(input.startsWith("START_NEXT_ROUND")) {
             System.out.println(playerName + " Är i ny runda");

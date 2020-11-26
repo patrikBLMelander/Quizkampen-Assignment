@@ -5,9 +5,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import server.Questions;
+import server.User;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -42,6 +44,28 @@ public class GameOverViewController implements Initializable, Runnable {
     private Button endGameBtn;
 
     @FXML
+    private HBox hBoxPl1;
+
+    @FXML
+    private Circle circle1;
+
+    @FXML
+    private Circle circle11;
+
+    @FXML
+    private Circle circle111;
+
+    @FXML
+    private Circle circle112;
+
+    @FXML
+    private Circle circle1121;
+
+    @FXML
+    private HBox hBoxpl2;
+
+
+    @FXML
     void playAgainBtnClicked(ActionEvent event) throws IOException, ClassNotFoundException {
         s.loadNewScreen(ScreenNavigator.MAIN_MENU, playAgainBtn);
     }
@@ -55,6 +79,8 @@ public class GameOverViewController implements Initializable, Runnable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         out = ScreenNavigator.outputStreamer;
         in = ScreenNavigator.inputStreamer;
+
+        Circle circle = new Circle();
 
         thread.start();
         //resultText.setText("Information about scores of both players to be fetched and displayed here");
@@ -93,14 +119,37 @@ public class GameOverViewController implements Initializable, Runnable {
     public void run() {
         try {
             out.writeObject("RESULT");
-            String s2;
-            while((s2 = in.readObject().toString())!=null) {
-                if (s2.startsWith("POINTS")) {
-                    int pointsPl1 = Integer.parseInt(s2.substring(6,7));
-                    int pointsPl2 = Integer.parseInt(s2.substring(7));
-                    resultText.setText(pointsPl1 + " - " + pointsPl2);
-                    break;
+            Object inputObject;
+            while((inputObject = in.readObject())instanceof User) {
+                User u = (User) inputObject;
+                resultText.setText(u.getPoints()+ " - " + u.getOpponent().getPoints());
+                Boolean [][] arrayPl1 = u.getResultArray();
+                Boolean [][] arrayPl2 = u.getOpponent().getResultArray();
+
+                for (int i = 0; i < arrayPl1.length; i++) {
+                    for (int j = 0; j < arrayPl1.length; j++) {
+                        Circle c = new Circle();
+                        if (arrayPl1[i][j]) c.setStyle("-fx-background-color: greenyellow");
+                        else if (!arrayPl1[i][j]) c.setStyle("-fx-background-color: red");
+                        else c.setVisible(false);
+
+                        hBoxPl1.getChildren().add(c);
+                    }
+
                 }
+                for (int i = 0; i < arrayPl2.length; i++) {
+                    for (int j = 0; j < arrayPl2.length; j++) {
+                        Circle c = new Circle();
+                        if (arrayPl2[i][j]) c.setStyle("-fx-background-color: greenyellow");
+                        else if (!arrayPl2[i][j]) c.setStyle("-fx-background-color: red");
+                        else c.setVisible(false);
+
+                        hBoxpl2.getChildren().add(c);
+                    }
+
+                }
+                    break;
+
 
                 //if(s2 instanceof Boolean [][])
 
