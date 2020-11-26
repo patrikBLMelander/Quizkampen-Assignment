@@ -19,6 +19,7 @@ public class GameOverViewController implements Initializable, Runnable {
     ScreenNavigator s = new ScreenNavigator();
     ObjectInputStream in;
     ObjectOutputStream out;
+    boolean isGameOver = false;
 
     @FXML
     Circle [][] circlesPl1 = new Circle[5][5];
@@ -52,10 +53,25 @@ public class GameOverViewController implements Initializable, Runnable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         out = ScreenNavigator.outputStreamer;
         in = ScreenNavigator.inputStreamer;
+
         thread.start();
         //resultText.setText("Information about scores of both players to be fetched and displayed here");
 
+        //try {
+            //out.writeObject("GET_SCORE_DATA");
+            String receivedData = "";
+            //while (in.readObject() != null) {
+            //    receivedData += in.readObject().toString();
+            //}
+            resultText.setText(receivedData);
+            if(isGameOver) nextRoundBtn1.setVisible(false);
+            else playAgainBtn.setVisible(false);
+        //} //catch (IOException | ClassNotFoundException e) {
+            //e.printStackTrace();
+        //}
+
     }
+
 
 
     public void nextRoundBtnClicked(ActionEvent actionEvent) {
@@ -64,13 +80,14 @@ public class GameOverViewController implements Initializable, Runnable {
 
             Object temp;
 
-            while ((temp = in.readObject()) != null) {
+            temp = in.readObject();
+
                 if (temp.equals("WAITING")) {
                     s.loadNewScreen(ScreenNavigator.WAITING, nextRoundBtn1);
-                } else if (temp.equals("CATEGORY")) {
+                } else if (temp.equals("GO_TO_CHOOSE_CATEGORY")) {
                     s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
                 }
-            }
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

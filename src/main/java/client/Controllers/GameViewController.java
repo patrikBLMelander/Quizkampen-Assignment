@@ -73,27 +73,33 @@ public class GameViewController implements Initializable{
 
     @FXML
     void rButtonClicked(ActionEvent event){
+        Button correctButton = null;
         try {
             if (((Control) event.getSource()) == buttonList.get(0)) {
                 pointCounter++;
                 System.out.println("win");
-                //String points = pointCounter + "";
+
+                
                 System.out.println(pointCounter);
                 ((Button) event.getSource()).setStyle("-fx-background-color: greenyellow");
                 circleArray[counter].setFill(Color.YELLOWGREEN);
                 out.writeObject("NEW_QUESTION"+"true");
+
 
             } else {
                 System.out.println("looser");
                 //String points = pointCounter + "";
                 ((Button) event.getSource()).setStyle("-fx-background-color: red");
                 circleArray[counter].setFill(Color.RED);
+
                 out.writeObject("NEW_QUESTION"+"false");
             }
             circleArray[counter].setVisible(true);
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            //Button finalCorrectButton = correctButton;
             pause.setOnFinished(e -> {
-                ((Button) event.getSource()).setStyle("-fx-background-color: green");
+                ((Button) event.getSource()).setStyle("-fx-background-color: white");
+                //finalCorrectButton.setStyle("-fx-background-color: white");
                 counter++;
                 try {
                     updateGameWindow();
@@ -142,3 +148,4 @@ public class GameViewController implements Initializable{
             s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
     }
 }
+

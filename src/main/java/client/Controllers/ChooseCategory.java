@@ -64,6 +64,7 @@ public class ChooseCategory implements Initializable {
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
+                System.out.println("är i choseCategory");
                 int counter = 0;
                 buttonList.addAll(Cat1Btn, Cat2Btn, Cat3Btn);
                 out = ScreenNavigator.outputStreamer;

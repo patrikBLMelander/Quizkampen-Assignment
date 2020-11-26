@@ -90,19 +90,19 @@
                   <RowConstraints maxHeight="180.14286150251115" minHeight="10.0" prefHeight="111.00000871930803" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="rButton1" alignment="CENTER" blendMode="SRC_ATOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rButtonClicked" prefHeight="105.0" prefWidth="176.0" style="-fx-background-color: green; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Button" textFill="WHITE">
+                  <Button fx:id="rButton1" alignment="CENTER" blendMode="SRC_ATOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rButtonClicked" prefHeight="105.0" prefWidth="176.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Button">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Button>
-                  <Button fx:id="rButton2" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rButtonClicked" prefHeight="105.0" prefWidth="176.0" style="-fx-background-color: green; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Button" textFill="WHITE" GridPane.columnIndex="1">
+                  <Button fx:id="rButton2" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rButtonClicked" prefHeight="105.0" prefWidth="176.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Button" GridPane.columnIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Button>
-                  <Button fx:id="rButton3" layoutX="180.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rButtonClicked" prefHeight="105.0" prefWidth="176.0" style="-fx-background-color: green; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Button" textFill="WHITE" GridPane.rowIndex="1">
+                  <Button fx:id="rButton3" layoutX="180.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rButtonClicked" prefHeight="105.0" prefWidth="176.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Button" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Button>
-                  <Button fx:id="rButton4" layoutX="10.0" layoutY="128.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rButtonClicked" prefHeight="105.0" prefWidth="176.0" style="-fx-background-color: green; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Button" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button fx:id="rButton4" layoutX="10.0" layoutY="128.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#rButtonClicked" prefHeight="105.0" prefWidth="176.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Button>
