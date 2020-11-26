@@ -45,8 +45,8 @@ public class Waiting implements Initializable, Runnable{
             output.writeObject("WAITING");
             String s2;
             while((s2 = input.readObject().toString())!=null) {
+                System.out.println(s2);
                 if (s2.endsWith("QUESTION")) {
-                    //output.writeObject("HEJ");
                     System.out.println("Båda i waiting");
                     Platform.runLater(() -> {
                         try {
@@ -56,11 +56,10 @@ public class Waiting implements Initializable, Runnable{
                         }
                     });
 
-                    //thread.interrupt();
                     break;
                 }
             }
-            thread.interrupt();
+           // thread.interrupt();
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

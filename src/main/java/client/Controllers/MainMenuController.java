@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import server.User;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -50,7 +51,6 @@ public class MainMenuController implements Initializable {
         s.setInputStreamer(in);
         s.setOutputStreamer(out);
 
-
         if (in.readObject().toString().equals("1")) {
             System.out.println("Inne i 1st player");
             s.loadNewScreen(ScreenNavigator.NUMBER_OF_ROUNDS, newGameBtn);
@@ -58,7 +58,6 @@ public class MainMenuController implements Initializable {
         else {
             s.loadNewScreen(ScreenNavigator.WAITING, newGameBtn);
         }
-
     }
 
     @Override

@@ -5,24 +5,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
-import server.Database;
 import server.Questions;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.net.URL;
 import java.util.Collections;
 import java.util.ResourceBundle;
@@ -35,7 +33,6 @@ public class GameViewController implements Initializable{
     Circle [] circleArray = new Circle[5];
     int pointCounter = 0;
     int counter = 0;
-
 
     @FXML
     private AnchorPane screen4;
@@ -77,41 +74,44 @@ public class GameViewController implements Initializable{
     private Circle circle5;
 
 
-
     @FXML
     void rButtonClicked(ActionEvent event){
+        Button correctButton = null;
         try {
-            if(((Control) event.getSource()) == buttonList.get(0))
-            {
-                System.out.println("looser");
-                String points = "0";
-                ((Button) event.getSource()).setStyle("-fx-background-color: gray");
-                circleArray[counter].setFill(Color.RED);
-                out.writeObject("NEW_QUESTION" + points);
+
+            if (((Control) event.getSource()) == buttonList.get(0)) {
+                pointCounter++;
+                System.out.println("win");
+
                 
+                System.out.println(pointCounter);
+                ((Button) event.getSource()).setStyle("-fx-background-color: greenyellow");
+                circleArray[counter].setFill(Color.YELLOWGREEN);
+                out.writeObject("NEW_QUESTION"+"true");
+                out.flush();
+
+
+            } else {
+                System.out.println("looser");
+                //String points = pointCounter + "";
+                ((Button) event.getSource()).setStyle("-fx-background-color: red");
+                circleArray[counter].setFill(Color.RED);
+
+                out.writeObject("NEW_QUESTION"+"false");
+                out.flush();
             }
-            
-            else
-            {
-                if(((Control) event.getSource()) == buttonList.get(1))
-                {
-                    pointCounter++;
-                    System.out.println("win");
-                    String points = pointCounter + "";
-                    System.out.println(points);
-                    ((Button) event.getSource()).setStyle("-fx-background-color: greenyellow");
-                    circleArray[counter].setFill(Color.YELLOWGREEN);
-                    out.writeObject("NEW_QUESTION" + points);
-        
-                }
-                else
-                {
-                    System.out.println("looser");
-                    String points = pointCounter + "";
-                    ((Button) event.getSource()).setStyle("-fx-background-color: red");
-                    circleArray[counter].setFill(Color.RED);
-                    out.writeObject("NEW_QUESTION" + points);
-                    
+            circleArray[counter].setVisible(true);
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            //Button finalCorrectButton = correctButton;
+            pause.setOnFinished(e -> {
+                ((Button) event.getSource()).setStyle("-fx-background-color: white");
+                //finalCorrectButton.setStyle("-fx-background-color: white");
+                counter++;
+                try {
+                    updateGameWindow();
+                } catch (IOException | ClassNotFoundException ioException) {
+                    ioException.printStackTrace();
+
                 }
                 
                 circleArray[counter].setVisible(true);
@@ -148,7 +148,8 @@ public class GameViewController implements Initializable{
             in = ScreenNavigator.inputStreamer;
             out = ScreenNavigator.outputStreamer;
 
-            out.writeObject("NEW_QUESTION");
+            out.writeObject("NEW_QUESTION" + "0");
+            out.flush();
             updateGameWindow();
 
         } catch (IOException | ClassNotFoundException e) {

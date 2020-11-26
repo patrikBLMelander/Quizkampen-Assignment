@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -15,18 +21,357 @@
             <Image url="@images.jpg" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="254.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resultat">
+      <Text fill="WHITE" layoutX="248.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resultat">
          <font>
             <Font size="26.0" />
          </font>
       </Text>
       <Button id="submitCat" fx:id="playAgainBtn" layoutX="242.0" layoutY="342.0" mnemonicParsing="false" onAction="#playAgainBtnClicked" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: green;" text="Nytt Spel" />
       <Button id="submitQuit" fx:id="endGameBtn" layoutX="368.0" layoutY="342.0" mnemonicParsing="false" onAction="#endGameBtnClicked" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: green;" text="Avlsuta" />
-      <Text id="resultText" fx:id="resultText" fill="WHITE" layoutX="107.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result information" wrappingWidth="397.53736877441406">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
       <Button id="submitCat" fx:id="nextRoundBtn1" layoutX="114.0" layoutY="342.0" mnemonicParsing="false" onAction="#nextRoundBtnClicked" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: green;" text="Nästa runda" />
+      <GridPane layoutX="76.0" layoutY="118.0" prefHeight="194.0" prefWidth="436.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="207.0">
+               <children>
+                  <Circle fx:id="circle1" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle2" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle3" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle4" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle5" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="207.0" GridPane.rowIndex="1">
+               <children>
+                  <Circle fx:id="circle11" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle21" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle31" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle41" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle51" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="207.0" GridPane.rowIndex="2">
+               <children>
+                  <Circle fx:id="circle12" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle22" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle32" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle42" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle52" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="207.0" GridPane.rowIndex="3">
+               <children>
+                  <Circle fx:id="circle13" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle23" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle33" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle43" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle53" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="207.0" GridPane.rowIndex="4">
+               <children>
+                  <Circle fx:id="circle14" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle24" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle34" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle44" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle54" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="207.0" GridPane.columnIndex="1">
+               <children>
+                  <Circle fx:id="circle15" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle25" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle35" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle45" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle55" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Circle fx:id="circle16" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle26" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle36" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle46" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle56" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Circle fx:id="circle17" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle27" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle37" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle47" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle57" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <Circle fx:id="circle18" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle28" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle38" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle48" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle58" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <Circle fx:id="circle19" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle29" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle39" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle49" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Circle fx:id="circle59" fill="#1fff23" radius="12.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Circle>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </GridPane>
+      <HBox alignment="CENTER" layoutX="194.0" layoutY="49.0" prefHeight="58.0" prefWidth="200.0">
+         <children>
+            <Text id="resultText" fx:id="resultText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Result information" wrappingWidth="87.13739776611328" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

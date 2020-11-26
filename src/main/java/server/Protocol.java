@@ -1,7 +1,6 @@
 package server;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
 import java.util.ArrayList;
@@ -19,11 +18,16 @@ public class Protocol {
     String category;
     List<Questions> listToSend = new ArrayList<>();
 
-    public  Object processInput(String s , Object object){
+    public  Object processInput(String playerName , Object object){
         String input = " ";
 
         if (object instanceof String){
             input = (String) object;
+        }
+        else if (object instanceof User) {
+            User u = (User) object;
+            System.out.println(u.getUserName());
+            database.userList.add(u);
         }
         else
             System.out.println("error");
@@ -41,11 +45,14 @@ public class Protocol {
         else if (input.startsWith("CATEGORY")){
             category = input.substring(8);
             listToSend = database.chooseCategory(category);
+            Collections.shuffle(listToSend);
             System.out.println(category);
             objectToSend = category;
         }
         else if(input.startsWith("WAITING")) {
-            System.out.println(s + "Är i waiting for opponent");
+
+            System.out.println(playerName + "Är i waiting for opponent");
+
             countDownLatch.countDown();
             try {
                 countDownLatch.await();
@@ -54,43 +61,65 @@ public class Protocol {
                 e.printStackTrace();
             }
             System.out.println("Countdownlatch: " + countDownLatch.getCount());
-            System.out.println(s + "är ur waitingloopen");
+            System.out.println(playerName + " är ur waitingloopen");
+
             objectToSend = "GO_TO_SEND_QUESTION";
+            reset();//sätter tillbaka countDownLatch till 2
 
         }
         else if(input.startsWith("NEW_QUESTION")){
 
-            if(s.equals("Player 1")) {
-                objectToSend = playerQuestionCounter(s, p1counter);
-                p1counter++;
+            String answer = input.substring(12);
+            for(User u : database.userList) {
+                if (playerName.equals(u.getUserName())) {
+                    if (answer.equals("true")) {
+                        u.addPoints();
+                        u.setResultArray(roundCounter, u.getCounter()-1, true);
+                    }
+                    else if (answer.equals("false"))
+                        u.setResultArray(roundCounter, u.getCounter()-1, false);
+                    else
+                        System.out.println("Ingen fråga skickad än.");
+                    objectToSend = playerQuestionCounter(u);
+                    u.addCounter();
+                }
             }
-            if(s.equals("Player 2")){
-                objectToSend = playerQuestionCounter(s, p2counter);
-                p2counter++;
+        }
+        else if(input.startsWith("RESULT")){
+            for(User u : database.userList) {
+                if (playerName.equals(u.getUserName()))
+                    objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints();
+
+
             }
         }
 
         else if(input.startsWith("START_NEXT_ROUND")) {
-            System.out.println(s + " Är i ny runda");
+            System.out.println(playerName + " Är i ny runda");
+            for(User u : database.userList) {
+
+                u.resetCounter();
+            }
 
             if (roundCounter<userRoundCounter){
 
-                System.out.println(s + " Kommit förbi roundCounter");
+                System.out.println(playerName + " Kommit förbi roundCounter");
                 if (roundCounter% 2 == 0){
-                    if(s.equals("Player 1")) {
+                    if(playerName.equals("Player 1")) {
                         objectToSend = "WAITING";
-                        roundCounter++;
+
                     }
-                    else if(s.equals("Player 2")){
-                        objectToSend = "CATEGORY";
+                    else if(playerName.equals("Player 2")){
+                        System.out.println(playerName + " inne i if satsen som ska skicka CATEGORY");
+                        objectToSend = "GO_TO_CHOOSE_CATEGORY";
                     }
                 }
                 else{
-                    if(s.equals("Player 1")) {
-                        objectToSend = "CATEGORY";
-                        roundCounter++;
+                    if(playerName.equals("Player 1")) {
+                        objectToSend = "GO_TO_CHOOSE_CATEGORY";
+
                     }
-                    else if(s.equals("Player 2")){
+                    else if(playerName.equals("Player 2")){
                         objectToSend = "WAITING";
                     }
                 }
@@ -101,15 +130,28 @@ public class Protocol {
         return objectToSend;
     }
 
-    public synchronized Object playerQuestionCounter (String s, int counter){
+    //public synchronized Object playerQuestionCounter (String s, int counter){
+    public synchronized Object playerQuestionCounter (User u){
         Object o = null;
 
-        if (counter < userQuestionCounter) {
-            o = listToSend.get(counter);
-            System.out.println(s + "Är på fråga " + (counter+1));
+        if (u.getCounter() < userQuestionCounter) {
+            o = listToSend.get(u.getCounter());
+            System.out.println(u.getUserName() + " Är på fråga " + (u.getCounter()+1));
         } else if (roundCounter < userRoundCounter) {
+            System.out.println("Poäng " + u.getUserName() + ": " + u.getPoints() +
+                    "Poäng " + u.getOpponent().getUserName() + ": " + u.getOpponent().getPoints());
+            for (int i = 0; i <=roundCounter; i++) {
+                for (int j = 0; j <userQuestionCounter; j++) {
+                    System.out.print(u.getResultArray()[i][j] + " ");
+                }
+                System.out.println();
+            }
+
             o = "Final";
         }
         return o;
+    }
+    public void reset(){
+        countDownLatch = new CountDownLatch(2);
     }
 }
