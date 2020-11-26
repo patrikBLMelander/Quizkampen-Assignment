@@ -24,6 +24,11 @@ public class Protocol {
         if (object instanceof String){
             input = (String) object;
         }
+        else if (object instanceof User) {
+            User u = (User) object;
+            System.out.println(u.getUserName());
+            database.userList.add(u);
+        }
         else
             System.out.println("error");
 
@@ -45,7 +50,9 @@ public class Protocol {
             objectToSend = category;
         }
         else if(input.startsWith("WAITING")) {
+
             System.out.println(playerName + "Är i waiting for opponent");
+
             countDownLatch.countDown();
             try {
                 countDownLatch.await();
@@ -55,19 +62,35 @@ public class Protocol {
             }
             System.out.println("Countdownlatch: " + countDownLatch.getCount());
             System.out.println(playerName + " är ur waitingloopen");
+
             objectToSend = "GO_TO_SEND_QUESTION";
             reset();//sätter tillbaka countDownLatch till 2
 
         }
         else if(input.startsWith("NEW_QUESTION")){
 
-            if(playerName.equals("Player 1")) {
-                objectToSend = playerQuestionCounter(playerName, p1counter);
-                p1counter++;
+            String answer = input.substring(12);
+            for(User u : database.userList) {
+                if (s.equals(u.getUserName())) {
+                    if (answer.equals("true")) {
+                        u.addPoints();
+                        u.setResultArray(roundCounter, u.getCounter()-1, true);
+                    }
+                    else if (answer.equals("false"))
+                        u.setResultArray(roundCounter, u.getCounter()-1, false);
+                    else
+                        System.out.println("Ingen fråga skickad än.");
+                    objectToSend = playerQuestionCounter(u);
+                    u.addCounter();
+                }
             }
-            if(playerName.equals("Player 2")){
-                objectToSend = playerQuestionCounter(playerName, p2counter);
-                p2counter++;
+        }
+        else if(input.startsWith("RESULT")){
+            for(User u : database.userList) {
+                if (s.equals(u.getUserName()))
+                    objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints();
+
+
             }
         }
 
@@ -103,13 +126,23 @@ public class Protocol {
         return objectToSend;
     }
 
-    public synchronized Object playerQuestionCounter (String s, int counter){
+    //public synchronized Object playerQuestionCounter (String s, int counter){
+    public synchronized Object playerQuestionCounter (User u){
         Object o = null;
 
-        if (counter < userQuestionCounter) {
-            o = listToSend.get(counter);
-            System.out.println(s + "Är på fråga " + (counter+1));
+        if (u.getCounter() < userQuestionCounter) {
+            o = listToSend.get(u.getCounter());
+            System.out.println(u.getUserName() + " Är på fråga " + (u.getCounter()+1));
         } else if (roundCounter < userRoundCounter) {
+            System.out.println("Poäng " + u.getUserName() + ": " + u.getPoints() +
+                    "Poäng " + u.getOpponent().getUserName() + ": " + u.getOpponent().getPoints());
+            for (int i = 0; i <=roundCounter; i++) {
+                for (int j = 0; j <userQuestionCounter; j++) {
+                    System.out.print(u.getResultArray()[i][j] + " ");
+                }
+                System.out.println();
+            }
+
             o = "Final";
         }
         return o;

@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Sara Carlsson
@@ -16,12 +15,13 @@ import java.util.concurrent.CountDownLatch;
  * Copywright: MIT
  */
 public class User extends Thread implements Serializable {
-    private String userName;
+    private final String userName;
     private int player;
     private InetAddress iadr;
-    private int points;
+    private int points = 0;
+    private int counter = 0;
+    private Boolean [][] resultArray= new Boolean[5][5];
     private User opponent;
-    private Socket connectionToClient;
     ObjectOutputStream out;
     ObjectInputStream in;
     Protocol p;
@@ -31,26 +31,38 @@ public class User extends Thread implements Serializable {
     }
 
     public User(String userName, Socket socket, int player, Protocol p) {
-        connectionToClient = socket;
         this.userName = userName;
         this.iadr = InetAddress.getLoopbackAddress();
         this.player = player;
         this.p = p;
 
         try {
-            out = new ObjectOutputStream(connectionToClient.getOutputStream());
-            in = new ObjectInputStream(connectionToClient.getInputStream());
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
 
             System.out.println("WELCOME " + getUserName());
             if(getPlayer()==1){
-                out.writeObject("1");}
+                out.writeObject("1");
+                p.processInput(getUserName(), User.this);
+            }
             else {
                 out.writeObject(" ");
+                p.processInput(getUserName(), User.this);
             }
         } catch (IOException  e) {
             e.printStackTrace();
         }
     }
+
+    public void setResultArray(int row, int column, boolean x){
+        this.resultArray[row][column] = x;
+    }
+
+    public Boolean[][] getResultArray(){return resultArray;}
+
+    public int getCounter(){return counter; }
+
+    public void addCounter(){ counter++;}
 
     public int getPlayer() {
         return player;
@@ -60,12 +72,8 @@ public class User extends Thread implements Serializable {
         return userName;
     }
 
-    public InetAddress getIadr() {
-        return iadr;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
+    public void addPoints() {
+        points++;
     }
 
     public int getPoints() {

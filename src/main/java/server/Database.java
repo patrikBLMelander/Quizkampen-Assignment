@@ -157,8 +157,8 @@ public class Database implements Serializable {
         categoryList.add(SPRÅK_OCH_TEXT);
 
     }
-
     public List chooseCategory(String catRecieved) {
+
         List<Questions> tempList = new ArrayList<>();
         int counter = 0;
         for (var v: categoryList) {
