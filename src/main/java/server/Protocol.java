@@ -84,12 +84,12 @@ public class Protocol {
                     }
                     else if(playerName.equals("Player 2")){
                         System.out.println(playerName + " inne i if satsen som ska skicka CATEGORY");
-                        objectToSend = "CATEGORY";
+                        objectToSend = "GO_TO_CHOOSE_CATEGORY";
                     }
                 }
                 else{
                     if(playerName.equals("Player 1")) {
-                        objectToSend = "CATEGORY";
+                        objectToSend = "GO_TO_CHOOSE_CATEGORY";
 
                     }
                     else if(playerName.equals("Player 2")){
