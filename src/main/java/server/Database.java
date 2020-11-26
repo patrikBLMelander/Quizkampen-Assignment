@@ -53,17 +53,19 @@ public class Database implements Serializable {
 
     }
 
-    public boolean findCorrectAnswer(String s) {
+    public boolean findCorrectAnswer(String answer, List<Questions> category) {
         boolean temp = false;
-        for (Questions q : test) {
-            if (q.getCorrectAnswer().equalsIgnoreCase(s))
-                temp=  true;
+        for (Questions q : category) {
+            if (q.getCorrectAnswer().equalsIgnoreCase(answer)) {
+                temp = true;
+                break;
+            }
         }
         return temp;
     }
 
 
-    public List chooseCategory(String catRecieved) {
+    public List<Questions> chooseCategory(String catRecieved) {
         List<Questions> tempList = new ArrayList<>();
         int counter = 0;
         for (var v: categoryList) {

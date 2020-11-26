@@ -64,19 +64,26 @@ public class Protocol {
 
         }
         else if(input.startsWith("NEW_QUESTION")){
-            int points = Integer.parseInt(input.substring(12));
+            String answer = input.substring(12);
+            for(User u : database.userList) {
+                if (s.equals(u.getUserName())) {
+                    if (answer.equals("true")) {
+                        u.addPoints();
+                        u.setResultArray(roundCounter, u.getCounter()-1, true);
+                    }
+                    else if (answer.equals("false"))
+                        u.setResultArray(roundCounter, u.getCounter()-1, false);
+                    else
+                        System.out.println("Ingen fråga skickad än.");
+                    objectToSend = playerQuestionCounter(u);
+                    u.addCounter();
+                }
+            }
+        }
+        else if(input.startsWith("RESULT")){
             for(User u : database.userList) {
                 if (s.equals(u.getUserName()))
-                    u.setPoints(points);
-            }
-
-            if(s.equals("Player 1")) {
-                objectToSend = playerQuestionCounter(s, p1counter);
-                p1counter++;
-            }
-            if(s.equals("Player 2")){
-                objectToSend = playerQuestionCounter(s, p2counter);
-                p2counter++;
+                    objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints();
             }
         }
 
@@ -111,13 +118,23 @@ public class Protocol {
         return objectToSend;
     }
 
-    public synchronized Object playerQuestionCounter (String s, int counter){
+    //public synchronized Object playerQuestionCounter (String s, int counter){
+    public synchronized Object playerQuestionCounter (User u){
         Object o = null;
 
-        if (counter < userQuestionCounter) {
-            o = listToSend.get(counter);
-            System.out.println(s + "Är på fråga " + (counter+1));
+        if (u.getCounter() < userQuestionCounter) {
+            o = listToSend.get(u.getCounter());
+            System.out.println(u.getUserName() + " Är på fråga " + (u.getCounter()+1));
         } else if (roundCounter < userRoundCounter) {
+            System.out.println("Poäng " + u.getUserName() + ": " + u.getPoints() +
+                    "Poäng " + u.getOpponent().getUserName() + ": " + u.getOpponent().getPoints());
+            for (int i = 0; i <=roundCounter; i++) {
+                for (int j = 0; j <userQuestionCounter; j++) {
+                    System.out.print(u.getResultArray()[i][j] + " ");
+                }
+                System.out.println();
+            }
+
             o = "Final";
         }
         return o;
