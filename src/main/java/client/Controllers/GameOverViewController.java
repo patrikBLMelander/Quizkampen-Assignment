@@ -45,18 +45,18 @@ public class GameOverViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         out = ScreenNavigator.outputStreamer;
         in = ScreenNavigator.inputStreamer;
-        try {
-            out.writeObject("GET_SCORE_DATA");
+        //try {
+            //out.writeObject("GET_SCORE_DATA");
             String receivedData = "";
-            while (in.readObject() != null) {
-                receivedData += in.readObject().toString();
-            }
+            //while (in.readObject() != null) {
+            //    receivedData += in.readObject().toString();
+            //}
             resultText.setText(receivedData);
             if(isGameOver) nextRoundBtn1.setVisible(false);
             else playAgainBtn.setVisible(false);
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        //} //catch (IOException | ClassNotFoundException e) {
+            //e.printStackTrace();
+        //}
     }
 
 
@@ -67,13 +67,14 @@ public class GameOverViewController implements Initializable {
 
             Object temp;
 
-            while ((temp = in.readObject()) != null) {
+            temp = in.readObject();
+
                 if (temp.equals("WAITING")) {
                     s.loadNewScreen(ScreenNavigator.WAITING, nextRoundBtn1);
-                } else if (temp.equals("CATEGORY")) {
+                } else if (temp.equals("GO_TO_CHOOSE_CATEGORY")) {
                     s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
                 }
-            }
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
