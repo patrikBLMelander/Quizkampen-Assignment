@@ -104,7 +104,7 @@ public class GameViewController implements Initializable{
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
             //Button finalCorrectButton = correctButton;
             pause.setOnFinished(e -> {
-                ((Button) event.getSource()).setStyle("-fx-background-color: white");
+                ((Button) event.getSource()).setStyle("-fx-background-color: green");
                 //finalCorrectButton.setStyle("-fx-background-color: white");
                 counter++;
                 try {
@@ -113,25 +113,10 @@ public class GameViewController implements Initializable{
                     ioException.printStackTrace();
 
                 }
-                
-                circleArray[counter].setVisible(true);
-                PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                pause.setOnFinished(e ->
-                {
-                    ((Button) event.getSource()).setStyle("-fx-background-color: green");
-                    counter++;
-                    try
-                    {
-                        updateGameWindow();
-                    }
-                    catch(IOException | ClassNotFoundException ioException)
-                    {
-                        ioException.printStackTrace();
-                    }
-                });
+            });
                 pause.play();
                 
-            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -172,5 +157,6 @@ public class GameViewController implements Initializable{
         }else
             s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
     }
+
 }
 

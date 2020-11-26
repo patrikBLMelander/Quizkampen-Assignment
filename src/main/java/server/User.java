@@ -30,10 +30,6 @@ public class User extends Thread implements Serializable {
         this.userName = userName;
     }
 
-    public void resetCounter() {
-        this.counter = 0;
-    }
-
     public User(String userName, Socket socket, int player, Protocol p) {
         this.userName = userName;
         this.iadr = InetAddress.getLoopbackAddress();

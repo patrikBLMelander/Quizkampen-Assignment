@@ -83,7 +83,7 @@ public class GameOverViewController implements Initializable, Runnable {
 
             updateGameWindow();
           
-            } catch(IOException  | ClassNotFoundException e)){
+            } catch(IOException  | ClassNotFoundException e){
                 e.printStackTrace();
             }
 
