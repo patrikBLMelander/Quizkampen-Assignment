@@ -68,6 +68,8 @@ public class User extends Thread implements Serializable {
 
     public void addCounter(){ counter++;}
 
+    public void resetCounter(){ this.counter = 0; }
+
     public int getPlayer() {
         return player;
     }
