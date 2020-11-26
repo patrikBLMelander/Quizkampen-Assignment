@@ -71,7 +71,7 @@ public class Protocol {
 
             String answer = input.substring(12);
             for(User u : database.userList) {
-                if (s.equals(u.getUserName())) {
+                if (playerName.equals(u.getUserName())) {
                     if (answer.equals("true")) {
                         u.addPoints();
                         u.setResultArray(roundCounter, u.getCounter()-1, true);
@@ -87,7 +87,7 @@ public class Protocol {
         }
         else if(input.startsWith("RESULT")){
             for(User u : database.userList) {
-                if (s.equals(u.getUserName()))
+                if (playerName.equals(u.getUserName()))
                     objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints();
 
 
@@ -96,6 +96,10 @@ public class Protocol {
 
         else if(input.startsWith("START_NEXT_ROUND")) {
             System.out.println(playerName + " Är i ny runda");
+            for(User u : database.userList) {
+                if (playerName.equals(u.getUserName()))
+                    u.resetCounter();
+            }
 
             if (roundCounter<userRoundCounter){
 
