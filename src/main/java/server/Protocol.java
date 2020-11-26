@@ -56,6 +56,7 @@ public class Protocol {
             System.out.println("Countdownlatch: " + countDownLatch.getCount());
             System.out.println(s + " är ur waitingloopen");
             objectToSend = "GO_TO_SEND_QUESTION";
+            reset();
 
         }
         else if(input.startsWith("NEW_QUESTION")){
@@ -111,5 +112,8 @@ public class Protocol {
             o = "Final";
         }
         return o;
+    }
+    public void reset(){
+        countDownLatch = new CountDownLatch(2);
     }
 }
