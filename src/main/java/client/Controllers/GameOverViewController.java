@@ -44,6 +44,7 @@ public class GameOverViewController implements Initializable, Runnable {
     @FXML
     void playAgainBtnClicked(ActionEvent event) throws IOException, ClassNotFoundException {
         s.loadNewScreen(ScreenNavigator.MAIN_MENU, playAgainBtn);
+        
     }
 
     @FXML
@@ -122,4 +123,13 @@ public class GameOverViewController implements Initializable, Runnable {
             s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
 
     }
+    
+  /*  public static int getCircle1Length()
+    {
+        int length = circlesPl1.length;
+        length *= length;
+        
+        return length;
+        
+    }*/
 }
