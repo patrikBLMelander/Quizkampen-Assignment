@@ -18,7 +18,7 @@ public class Protocol {
     String category;
     List<Questions> listToSend = new ArrayList<>();
 
-    public  Object processInput(String s , Object object){
+    public  Object processInput(String playerName , Object object){
         String input = " ";
 
         if (object instanceof String){
@@ -45,7 +45,7 @@ public class Protocol {
             objectToSend = category;
         }
         else if(input.startsWith("WAITING")) {
-            System.out.println(s + "Är i waiting for opponent");
+            System.out.println(playerName + "Är i waiting for opponent");
             countDownLatch.countDown();
             try {
                 countDownLatch.await();
@@ -54,44 +54,45 @@ public class Protocol {
                 e.printStackTrace();
             }
             System.out.println("Countdownlatch: " + countDownLatch.getCount());
-            System.out.println(s + " är ur waitingloopen");
+            System.out.println(playerName + " är ur waitingloopen");
             objectToSend = "GO_TO_SEND_QUESTION";
             reset();
 
         }
         else if(input.startsWith("NEW_QUESTION")){
 
-            if(s.equals("Player 1")) {
-                objectToSend = playerQuestionCounter(s, p1counter);
+            if(playerName.equals("Player 1")) {
+                objectToSend = playerQuestionCounter(playerName, p1counter);
                 p1counter++;
             }
-            if(s.equals("Player 2")){
-                objectToSend = playerQuestionCounter(s, p2counter);
+            if(playerName.equals("Player 2")){
+                objectToSend = playerQuestionCounter(playerName, p2counter);
                 p2counter++;
             }
         }
 
         else if(input.startsWith("START_NEXT_ROUND")) {
-            System.out.println(s + " Är i ny runda");
+            System.out.println(playerName + " Är i ny runda");
 
             if (roundCounter<userRoundCounter){
 
-                System.out.println(s + " Kommit förbi roundCounter");
+                System.out.println(playerName + " Kommit förbi roundCounter");
                 if (roundCounter% 2 == 0){
-                    if(s.equals("Player 1")) {
+                    if(playerName.equals("Player 1")) {
                         objectToSend = "WAITING";
 
                     }
-                    else if(s.equals("Player 2")){
+                    else if(playerName.equals("Player 2")){
+                        System.out.println(playerName + "");
                         objectToSend = "CATEGORY";
                     }
                 }
                 else{
-                    if(s.equals("Player 1")) {
+                    if(playerName.equals("Player 1")) {
                         objectToSend = "CATEGORY";
 
                     }
-                    else if(s.equals("Player 2")){
+                    else if(playerName.equals("Player 2")){
                         objectToSend = "WAITING";
                     }
                 }
