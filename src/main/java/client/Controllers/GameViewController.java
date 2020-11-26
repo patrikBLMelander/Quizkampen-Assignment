@@ -157,6 +157,25 @@ public class GameViewController implements Initializable{
         }else
             s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
     }
-
+    
+    
+    public void rButtonGiveUp(ActionEvent event) throws IOException
+    {
+        pointCounter = 0;
+        int laps = 25;
+        String giveUpColor = "-fx-background-color: #656565";
+        
+        for(int i = 0; i < laps; i++)
+        {
+            ((Button) event.getSource()).setStyle(giveUpColor);
+            circleArray[counter].setFill(Color.GRAY);
+            
+        }
+      
+  
+    
+       
+       
+    }
 }
 

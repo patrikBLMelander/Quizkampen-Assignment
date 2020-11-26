@@ -90,7 +90,7 @@
                     </rowConstraints>
                      <children>
                         <Text id="pointsCounter" fx:id="counterText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Point counter" textAlignment="CENTER" wrappingWidth="80.97430419921875" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                         <Button fx:id="rButton0" mnemonicParsing="false" onAction="#rButtonClicked" prefHeight="58.0" prefWidth="131.0" text="Ge upp" GridPane.columnIndex="4" />
+                         <Button fx:id="rButton0" mnemonicParsing="false" onAction="#rButtonGiveUp" prefHeight="58.0" prefWidth="131.0" text="Ge upp" GridPane.columnIndex="4" />
                      </children>
                   </GridPane>
                </children>
