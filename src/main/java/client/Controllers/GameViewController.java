@@ -45,6 +45,9 @@ public class GameViewController implements Initializable{
 
     @FXML
     private Text questionText;
+    
+    @FXML
+    private Button rButton0;
 
     @FXML
     private Button rButton1;
@@ -78,34 +81,57 @@ public class GameViewController implements Initializable{
     @FXML
     void rButtonClicked(ActionEvent event){
         try {
-            if (((Control) event.getSource()) == buttonList.get(0)) {
-                pointCounter++;
-                System.out.println("win");
-                String points = pointCounter + "";
-                System.out.println(points);
-                ((Button) event.getSource()).setStyle("-fx-background-color: greenyellow");
-                circleArray[counter].setFill(Color.YELLOWGREEN);
-                out.writeObject("NEW_QUESTION"+points);
-
-            } else {
+            if(((Control) event.getSource()) == buttonList.get(0))
+            {
                 System.out.println("looser");
-                String points = pointCounter + "";
-                ((Button) event.getSource()).setStyle("-fx-background-color: red");
+                String points = "0";
+                ((Button) event.getSource()).setStyle("-fx-background-color: gray");
                 circleArray[counter].setFill(Color.RED);
-                out.writeObject("NEW_QUESTION"+points);
+                out.writeObject("NEW_QUESTION" + points);
+                
             }
-            circleArray[counter].setVisible(true);
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(e -> {
-                ((Button) event.getSource()).setStyle("-fx-background-color: green");
-                counter++;
-                try {
-                    updateGameWindow();
-                } catch (IOException | ClassNotFoundException ioException) {
-                    ioException.printStackTrace();
+            
+            else
+            {
+                if(((Control) event.getSource()) == buttonList.get(1))
+                {
+                    pointCounter++;
+                    System.out.println("win");
+                    String points = pointCounter + "";
+                    System.out.println(points);
+                    ((Button) event.getSource()).setStyle("-fx-background-color: greenyellow");
+                    circleArray[counter].setFill(Color.YELLOWGREEN);
+                    out.writeObject("NEW_QUESTION" + points);
+        
                 }
-            });
-            pause.play();
+                else
+                {
+                    System.out.println("looser");
+                    String points = pointCounter + "";
+                    ((Button) event.getSource()).setStyle("-fx-background-color: red");
+                    circleArray[counter].setFill(Color.RED);
+                    out.writeObject("NEW_QUESTION" + points);
+                    
+                }
+                
+                circleArray[counter].setVisible(true);
+                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                pause.setOnFinished(e ->
+                {
+                    ((Button) event.getSource()).setStyle("-fx-background-color: green");
+                    counter++;
+                    try
+                    {
+                        updateGameWindow();
+                    }
+                    catch(IOException | ClassNotFoundException ioException)
+                    {
+                        ioException.printStackTrace();
+                    }
+                });
+                pause.play();
+                
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
