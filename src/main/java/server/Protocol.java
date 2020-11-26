@@ -56,7 +56,7 @@ public class Protocol {
             System.out.println("Countdownlatch: " + countDownLatch.getCount());
             System.out.println(playerName + " är ur waitingloopen");
             objectToSend = "GO_TO_SEND_QUESTION";
-            reset();
+            reset();//sätter tillbaka countDownLatch till 2
 
         }
         else if(input.startsWith("NEW_QUESTION")){
@@ -83,7 +83,7 @@ public class Protocol {
 
                     }
                     else if(playerName.equals("Player 2")){
-                        System.out.println(playerName + "");
+                        System.out.println(playerName + " inne i if satsen som ska skicka CATEGORY");
                         objectToSend = "CATEGORY";
                     }
                 }
