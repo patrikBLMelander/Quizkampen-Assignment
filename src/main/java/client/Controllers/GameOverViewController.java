@@ -78,19 +78,26 @@ public class GameOverViewController implements Initializable, Runnable {
         try {
             out.writeObject("START_NEXT_ROUND");
 
-            Object temp;
+            /*Object temp;
 
-            temp = in.readObject();
+            while ((temp = in.readObject().toString()) != null) {
 
-                if (temp.equals("WAITING")) {
-                    s.loadNewScreen(ScreenNavigator.WAITING, nextRoundBtn1);
-                } else if (temp.equals("GO_TO_CHOOSE_CATEGORY")) {
-                    s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
-                }
+                        if (temp.equals("WAITING")) {
+                            s.loadNewScreen(ScreenNavigator.WAITING, nextRoundBtn1);
+                            break;
+                        } else if (temp.equals("GO_TO_CHOOSE_CATEGORY")) {
+                            s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
+                            break;
+                        }
+            }
 
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+             */
+            } catch(IOException e){
+                e.printStackTrace();
+            }
+
+
+
 
     }
 
@@ -105,10 +112,29 @@ public class GameOverViewController implements Initializable, Runnable {
                     int pointsPl2 = Integer.parseInt(s2.substring(7));
                     resultText.setText(pointsPl1 + " - " + pointsPl2);
                 }
+                else if (s2.equals("WAITING")) {
+                    Platform.runLater(() -> {
+                        try {
+                            s.loadNewScreen(ScreenNavigator.WAITING, nextRoundBtn1);
+                            thread.interrupt();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                } else if (s2.equals("GO_TO_CHOOSE_CATEGORY")) {
+                    Platform.runLater(() -> {
+                        try {
+                            s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
+                            thread.interrupt();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
                 //if(s2 instanceof Boolean [][])
 
             }
-            thread.interrupt();
+            //thread.interrupt();
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
