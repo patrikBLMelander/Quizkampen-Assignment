@@ -82,22 +82,10 @@ public class GameOverViewController implements Initializable, Runnable {
             out.flush();
 
             updateGameWindow();
-
-            /*Object temp;
-
-            temp = in.readObject();
-
-                if (temp.equals("WAITING")) {
-                    s.loadNewScreen(ScreenNavigator.WAITING, nextRoundBtn1);
-                } else if (temp.equals("GO_TO_CHOOSE_CATEGORY")) {
-                    s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
-                }
-
-             */
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+          
+            } catch(IOException  | ClassNotFoundException e)){
+                e.printStackTrace();
+            }
 
     }
 
@@ -114,12 +102,10 @@ public class GameOverViewController implements Initializable, Runnable {
                     break;
                 }
 
-
-
                 //if(s2 instanceof Boolean [][])
 
             }
-            thread.interrupt();
+            //thread.interrupt();
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

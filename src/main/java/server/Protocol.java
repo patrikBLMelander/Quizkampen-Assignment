@@ -97,8 +97,8 @@ public class Protocol {
         else if(input.startsWith("START_NEXT_ROUND")) {
             System.out.println(playerName + " Är i ny runda");
             for(User u : database.userList) {
-                if (playerName.equals(u.getUserName()))
-                    u.resetCounter();
+
+                u.resetCounter();
             }
 
             if (roundCounter<userRoundCounter){
