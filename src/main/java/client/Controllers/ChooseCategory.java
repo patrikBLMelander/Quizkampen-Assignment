@@ -61,7 +61,6 @@ public class ChooseCategory implements Initializable {
                 int counter = 0;
                 buttonList.addAll(Cat1Btn, Cat2Btn, Cat3Btn);
                 out = ScreenNavigator.outputStreamer;
-                //String [] cat = {Database.randomCategorys(),Database.randomCategorys(),Database.randomCategorys()};
                 String cat1 = Database.randomCategorys();
                 String cat2 = Database.randomCategorys();
                 String cat3 = Database.randomCategorys();

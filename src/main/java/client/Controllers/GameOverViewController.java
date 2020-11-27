@@ -131,12 +131,9 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                                 c.setRadius(12);
                                 Platform.runLater(() -> {
                                     hBoxPl1.getChildren().add(c);
-                                    //hBoxPl1.setHgap(5);
-                                    //hBoxPl1.setVgap(10);
                                 });
                             }
-                            //if(i<=rounds)
-                                //textList.get(rounds-1).setVisible(true);
+
                         }
                         out.writeObject("PLAYER2");
                         counter++;
@@ -152,8 +149,6 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                                 c.setRadius(12);
                                 Platform.runLater(() -> {
                                     hBoxpl2.getChildren().add(c);
-                                    //hBoxpl2.setHgap(5);
-                                    //hBoxpl2.setVgap(10);
                                 });
                             }
                         }
