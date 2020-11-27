@@ -11,8 +11,8 @@ public class Protocol {
     int p1counter = 0;
     int p2counter = 0;
     int roundCounter = 0;
+    CountDownLatch countDownLatch = new CountDownLatch(2);
     CountDownLatch startGameCountDownLatch = new CountDownLatch(2);
-    CountDownLatch endGameCountDownLatch = new CountDownLatch(2);
 
     static int userRoundCounter = 2;
     static int userQuestionCounter = 4;
@@ -54,31 +54,32 @@ public class Protocol {
 
             System.out.println(playerName + "Är i waiting for opponent");
 
-            startGameCountDownLatch.countDown();
+            countDownLatch.countDown();
             try {
-                startGameCountDownLatch.await();
+                countDownLatch.await();
             }
             catch(InterruptedException e){
                 e.printStackTrace();
             }
-            System.out.println("Countdownlatch: " + startGameCountDownLatch.getCount());
+            System.out.println("Countdownlatch: " + countDownLatch.getCount());
             System.out.println(playerName + " är ur waitingloopen");
 
             objectToSend = "GO_TO_SEND_QUESTION";
-            reset(startGameCountDownLatch);//sätter tillbaka countDownLatch till 2
+            reset();//sätter tillbaka countDownLatch till 2
 
         }
         else if(input.startsWith("NEW_QUESTION")){
 
             String answer = input.substring(12);
             for(User u : database.userList) {
+                System.out.println("Roundcounter: " + roundCounter);
                 if (playerName.equals(u.getUserName())) {
                     if (answer.equals("true")) {
                         u.addPoints();
-                        u.setResultArray(roundCounter, u.getCounter()-1, true);
+                        u.setResultArray(roundCounter, u.getCounter()-1, 1);
                     }
                     else if (answer.equals("false"))
-                        u.setResultArray(roundCounter, u.getCounter()-1, false);
+                        u.setResultArray(roundCounter, u.getCounter()-1, 2);
                     else
                         System.out.println("Ingen fråga skickad än.");
                     objectToSend = playerQuestionCounter(u);
@@ -90,18 +91,22 @@ public class Protocol {
 
             System.out.println(playerName + "Är i end game waiting");
 
-            endGameCountDownLatch.countDown();
+            countDownLatch.countDown();
             try {
-                endGameCountDownLatch.await();
+                countDownLatch.await();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("Countdownlatch: " + endGameCountDownLatch.getCount());
+            System.out.println("Countdownlatch: " + countDownLatch.getCount());
             System.out.println(playerName + " är ur waitingloopen");
 
             objectToSend = ""; //TODO: här ska vi skicka något
-            reset(endGameCountDownLatch);//sätter tillbaka countDownLatch till 2
+            reset();//sätter tillbaka countDownLatch till 2
+            if(playerName.equals("Player 1"))
+                roundCounter++;
         }
+
+
         else if(input.startsWith("RESULT")){
             for(User u : database.userList) {
                 if (playerName.equals(u.getUserName())) {
@@ -140,7 +145,7 @@ public class Protocol {
             if (roundCounter<userRoundCounter){
 
                 System.out.println(playerName + " Kommit förbi roundCounter");
-                if (roundCounter% 2 == 0){
+                if (roundCounter% 2 != 0){
                     if(playerName.equals("Player 1")) {
                         objectToSend = "WAITING";
 
@@ -187,7 +192,7 @@ public class Protocol {
         }
         return o;
     }
-    public void reset(CountDownLatch countDownLatch){
+    public void reset(){
         countDownLatch = new CountDownLatch(2);
     }
 }

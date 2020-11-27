@@ -134,16 +134,16 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                     }
                 }
 
-                else if (inputObject instanceof Boolean [][]){
+                else if (inputObject instanceof int [][]){
                     if (counter==0){
-                        Boolean [][] arrayPl1 = (Boolean[][]) inputObject;
+                        int [][] arrayPl1 = (int[][]) inputObject;
                         for (int i = 0; i < arrayPl1.length; i++) {
                             for (int j = 0; j < arrayPl1.length; j++) {
                                 Circle c = new Circle();
                                 System.out.println(arrayPl1[i][j]);
-                                if (arrayPl1[i][j]) c.setFill(Color.GREENYELLOW);
-                                else if (!arrayPl1[i][j]) c.setFill(Color.RED);
-                                else if(arrayPl1[i][j]==null) c.setVisible(false);
+                                if (arrayPl1[i][j]==1) c.setFill(Color.GREENYELLOW);
+                                else if (arrayPl1[i][j]==2) c.setFill(Color.RED);
+                                else if(arrayPl1[i][j]==0) c.setVisible(false);
                                 c.setRadius(12);
                                 System.out.println("Player1" + c);
                                 Platform.runLater(() -> hBoxPl1.getChildren().add(c));
@@ -153,20 +153,22 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                         counter++;
                     }
                     else if(counter==1){
-                        Boolean [][] arrayPl2 = (Boolean[][]) inputObject;
+                        int [][] arrayPl2 = (int[][]) inputObject;
                         for (int i = 0; i < arrayPl2.length; i++) {
                             for (int j = 0; j < arrayPl2.length; j++) {
                                 Circle c = new Circle();
-                                if (arrayPl2[i][j]) c.setFill(Color.GREENYELLOW);
-                                else if (!arrayPl2[i][j]) c.setFill(Color.RED);
-                                else c.setVisible(false);
+                                if (arrayPl2[i][j]==1) c.setFill(Color.GREENYELLOW);
+                                else if (arrayPl2[i][j]==2) c.setFill(Color.RED);
+                                else if (arrayPl2[i][j]==0) c.setVisible(false);
                                 c.setRadius(12);
                                 System.out.println("Player2" + c);
                                 Platform.runLater(() -> hBoxpl2.getChildren().add(c));
-                                thread.interrupt();
+
                             }
                         }
+                        break;
                     }
+
                 }
             }
 
