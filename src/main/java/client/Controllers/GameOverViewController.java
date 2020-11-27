@@ -84,21 +84,10 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
 
         Circle circle = new Circle();
 
-        thread.start();
-        //resultText.setText("Information about scores of both players to be fetched and displayed here");
+        playAgainBtn.managedProperty().bind(playAgainBtn.visibleProperty());
+        nextRoundBtn1.managedProperty().bind(nextRoundBtn1.visibleProperty());
 
-        //try {
-            //out.writeObject("GET_SCORE_DATA");
-            String receivedData = "";
-            //while (in.readObject() != null) {
-            //    receivedData += in.readObject().toString();
-            //}
-            resultText.setText(receivedData);
-            if(isGameOver) nextRoundBtn1.setVisible(false);
-            else playAgainBtn.setVisible(false);
-        //} //catch (IOException | ClassNotFoundException e) {
-            //e.printStackTrace();
-        //}
+        thread.start();
 
     }
 
@@ -114,16 +103,21 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
             } catch(IOException  | ClassNotFoundException e){
                 e.printStackTrace();
             }
-
     }
 
     @Override
     public void run() {
         try {
             int counter = 0;
-            out.writeObject("RESULT");
+            out.writeObject("IS_GAME_OVER");
             Object inputObject;
             while((inputObject = in.readObject())!=null) {
+
+                if(inputObject instanceof Boolean) {
+                    if ((Boolean)inputObject) nextRoundBtn1.setVisible(false);
+                    else playAgainBtn.setVisible(false);
+                    out.writeObject("RESULT");
+                }
 
                 if(inputObject instanceof String){
                     if(inputObject.toString().startsWith("POINTS")){
@@ -188,13 +182,4 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
             s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
 
     }
-    
-  /*  public static int getCircle1Length()
-    {
-        int length = circlesPl1.length;
-        length *= length;
-        
-        return length;
-        
-    }*/
 }

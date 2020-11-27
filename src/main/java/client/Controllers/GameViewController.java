@@ -155,7 +155,7 @@ public class GameViewController implements Initializable{
             buttonList.get(2).setText(((Questions) temp).getWrongAnswer2());
             buttonList.get(3).setText(((Questions) temp).getWrongAnswer3());
         }else
-            s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
+            s.loadNewScreen(ScreenNavigator.POST_WAITING, rButton1);
     }
     
     

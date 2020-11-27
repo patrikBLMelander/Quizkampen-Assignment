@@ -25,6 +25,8 @@ public class ScreenNavigator {
     public static final String GAME_VIEW = "GameView.fxml";
     public static final String GAME_OVERVIEW = "GameOverView.fxml";
     public static final String WAITING = "waiting.fxml";
+    public static final String POST_WAITING = "PostWaitingView.fxml";
+
 
     public void setName(String name){
         this.name = name;

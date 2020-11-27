@@ -11,6 +11,7 @@ public class Protocol {
     int p1counter = 0;
     int p2counter = 0;
     int roundCounter = 0;
+    Boolean lastRound = false;
     CountDownLatch countDownLatch = new CountDownLatch(2);
     CountDownLatch startGameCountDownLatch = new CountDownLatch(2);
 
@@ -100,16 +101,21 @@ public class Protocol {
             System.out.println("Countdownlatch: " + countDownLatch.getCount());
             System.out.println(playerName + " är ur waitingloopen");
 
-            objectToSend = ""; //TODO: här ska vi skicka något
+            objectToSend = "SHOW_OVERVIEW";
             reset();//sätter tillbaka countDownLatch till 2
             if(playerName.equals("Player 1"))
                 roundCounter++;
+            if(roundCounter==userRoundCounter)
+                lastRound = true;
+        }
+
+        else if(input.startsWith("IS_GAME_OVER")){
+            Boolean temp = lastRound;
+            objectToSend = temp;
         }
 
 
         else if(input.startsWith("RESULT")){
-            if(playerName.equals("Player 1"))
-                roundCounter++;
             for(User u : database.userList) {
                 if (playerName.equals(u.getUserName())) {
                     objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints();
