@@ -93,7 +93,6 @@ public class GameViewController implements Initializable{
 
             } else {
                 System.out.println("looser");
-                //String points = pointCounter + "";
                 ((Button) event.getSource()).setStyle("-fx-background-color: red");
                 circleArray[counter].setFill(Color.RED);
 
@@ -102,10 +101,8 @@ public class GameViewController implements Initializable{
             }
             circleArray[counter].setVisible(true);
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            //Button finalCorrectButton = correctButton;
             pause.setOnFinished(e -> {
                 ((Button) event.getSource()).setStyle("-fx-background-color: green");
-                //finalCorrectButton.setStyle("-fx-background-color: white");
                 counter++;
                 try {
                     updateGameWindow();
@@ -159,8 +156,7 @@ public class GameViewController implements Initializable{
     }
     
     
-    public void rButtonGiveUp(ActionEvent event) throws IOException
-    {
+    public void rButtonGiveUp(ActionEvent event) {
         pointCounter = 0;
         int laps = 25;
         String giveUpColor = "-fx-background-color: #656565";
