@@ -20,7 +20,7 @@ public class User extends Thread implements Serializable {
     private InetAddress iadr;
     private int points = 0;
     private int counter = 0;
-    private Boolean [][] resultArray= new Boolean[5][5];
+    private int [][] resultArray= new int[5][5];
     private User opponent;
     ObjectOutputStream out;
     ObjectInputStream in;
@@ -35,6 +35,8 @@ public class User extends Thread implements Serializable {
         this.iadr = InetAddress.getLoopbackAddress();
         this.player = player;
         this.p = p;
+
+        setArray();
 
         try {
             out = new ObjectOutputStream(socket.getOutputStream());
@@ -54,11 +56,11 @@ public class User extends Thread implements Serializable {
         }
     }
 
-    public void setResultArray(int row, int column, boolean x){
+    public void setResultArray(int row, int column, int x){
         this.resultArray[row][column] = x;
     }
 
-    public Boolean[][] getResultArray(){return resultArray;}
+    public int [][] getResultArray(){return resultArray;}
 
     public int getCounter(){return counter; }
 
@@ -105,6 +107,13 @@ public class User extends Thread implements Serializable {
         }
         catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
+        }
+    }
+    public void setArray(){
+        for (int i = 0; i < this.resultArray.length; i++) {
+            for (int j = 0; j < this.resultArray.length; j++) {
+                this.resultArray[i][j]=0;
+            }
         }
     }
 }

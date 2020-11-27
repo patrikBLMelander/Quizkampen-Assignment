@@ -12,6 +12,7 @@ public class Protocol {
     int p2counter = 0;
     int roundCounter = 0;
     CountDownLatch countDownLatch = new CountDownLatch(2);
+    CountDownLatch startGameCountDownLatch = new CountDownLatch(2);
 
     static int userRoundCounter = 2;
     static int userQuestionCounter = 4;
@@ -71,13 +72,14 @@ public class Protocol {
 
             String answer = input.substring(12);
             for(User u : database.userList) {
+                System.out.println("Roundcounter: " + roundCounter);
                 if (playerName.equals(u.getUserName())) {
                     if (answer.equals("true")) {
                         u.addPoints();
-                        u.setResultArray(roundCounter, u.getCounter()-1, true);
+                        u.setResultArray(roundCounter, u.getCounter()-1, 1);
                     }
                     else if (answer.equals("false"))
-                        u.setResultArray(roundCounter, u.getCounter()-1, false);
+                        u.setResultArray(roundCounter, u.getCounter()-1, 2);
                     else
                         System.out.println("Ingen fråga skickad än.");
                     objectToSend = playerQuestionCounter(u);
@@ -85,14 +87,53 @@ public class Protocol {
                 }
             }
         }
+        else if(input.startsWith("END_GAME_WAIT")) {
+
+            System.out.println(playerName + "Är i end game waiting");
+
+            countDownLatch.countDown();
+            try {
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Countdownlatch: " + countDownLatch.getCount());
+            System.out.println(playerName + " är ur waitingloopen");
+
+            objectToSend = ""; //TODO: här ska vi skicka något
+            reset();//sätter tillbaka countDownLatch till 2
+            if(playerName.equals("Player 1"))
+                roundCounter++;
+        }
+
+
         else if(input.startsWith("RESULT")){
             for(User u : database.userList) {
-                if (playerName.equals(u.getUserName()))
+                if (playerName.equals(u.getUserName())) {
                     objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints();
-
-
+                }
             }
         }
+
+        else if (input.startsWith("PLAYER1")){
+            for(User u : database.userList) {
+                if (playerName.equals(u.getUserName())) {
+                    objectToSend = u.getResultArray();
+                }
+            }
+        }
+
+        else if (input.startsWith("PLAYER2")) {
+            for (User u : database.userList) {
+                if (playerName.equals(u.getUserName())) {
+                    objectToSend = u.getOpponent().getResultArray();
+                }
+            }
+        }
+
+
+        // TODO : Skapa en ny controller till waiting
+        //TODO : Ta emot user i GameOverViewController
 
         else if(input.startsWith("START_NEXT_ROUND")) {
             System.out.println(playerName + " Är i ny runda");
@@ -104,7 +145,7 @@ public class Protocol {
             if (roundCounter<userRoundCounter){
 
                 System.out.println(playerName + " Kommit förbi roundCounter");
-                if (roundCounter% 2 == 0){
+                if (roundCounter% 2 != 0){
                     if(playerName.equals("Player 1")) {
                         objectToSend = "WAITING";
 
