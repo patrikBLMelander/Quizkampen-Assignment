@@ -14,6 +14,12 @@
     -fx-font-family: "System";
 }
 
+.box {
+    -fx-background-color: "#6495ED";
+    -fx-background-radius: 6;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
 .greenBtn {-fx-background-color: green; -fx-text-fill: white;}
 .yellowBtn {-fx-background-color: yellow; -fx-text-fill: white;}
 
