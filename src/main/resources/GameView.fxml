@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox alignment="CENTER" stylesheets="@views.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.Controllers.GameViewController">
+<VBox alignment="CENTER" stylesheets="@views.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="client.Controllers.GameViewController">
    <children>
        <Button fx:id="rButton0" mnemonicParsing="false" onAction="#rButtonGiveUp" prefHeight="14.0" prefWidth="95.0" text="Ge upp">
          <VBox.margin>
