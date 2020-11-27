@@ -1,6 +1,8 @@
 package client.Controllers;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,9 +27,26 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
     ScreenNavigator s = new ScreenNavigator();
     ObjectInputStream in;
     ObjectOutputStream out;
+    ObservableList <Text> textList = FXCollections.observableArrayList();
 
     @FXML
     public Button nextRoundBtn1;
+
+    @FXML
+    private Text round1;
+
+    @FXML
+    private Text round2;
+
+    @FXML
+    private Text round3;
+
+    @FXML
+    private Text round4;
+
+    @FXML
+    private Text round5;
+
 
     @FXML
     private Text resultText;
@@ -66,6 +85,8 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
         playAgainBtn.managedProperty().bind(playAgainBtn.visibleProperty());
         nextRoundBtn1.managedProperty().bind(nextRoundBtn1.visibleProperty());
 
+        textList.addAll(round1, round2, round3, round4, round5);
+
         thread.start();
 
     }
@@ -88,6 +109,7 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
     public void run() {
         try {
             int counter = 0;
+            int rounds = 0;
             out.writeObject("IS_GAME_OVER");
             Object inputObject;
             while((inputObject = in.readObject())!=null) {
@@ -101,7 +123,8 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                 if(inputObject instanceof String){
                     if(inputObject.toString().startsWith("POINTS")){
                         int pointPlayer1 = Integer.parseInt(inputObject.toString().substring(6,7));
-                        int pointPlayer2 = Integer.parseInt(inputObject.toString().substring(7));
+                        int pointPlayer2 = Integer.parseInt(inputObject.toString().substring(7,8));
+                        rounds = Integer.parseInt(inputObject.toString().substring(8));
                         resultText.setText(pointPlayer1+ " - " + pointPlayer2);
                         System.out.println(pointPlayer1+ " - " + pointPlayer2);
                         out.writeObject("PLAYER1");
@@ -124,8 +147,14 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                                 else if (arrayPl1[i][j]==2) c.setFill(Color.RED);
                                 else if(arrayPl1[i][j]==0) c.setVisible(false);
                                 c.setRadius(12);
-                                Platform.runLater(() -> hBoxPl1.getChildren().add(c));
+                                Platform.runLater(() -> {
+                                    hBoxPl1.getChildren().add(c);
+                                    hBoxPl1.setHgap(7);
+                                    hBoxPl1.setVgap(10);
+                                });
                             }
+                            if(i<rounds)
+                                textList.get(rounds-1).setVisible(true);
                         }
                         out.writeObject("PLAYER2");
                         counter++;
@@ -139,11 +168,13 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                                 else if (arrayPl2[i][j]==2) c.setFill(Color.RED);
                                 else if (arrayPl2[i][j]==0) c.setVisible(false);
                                 c.setRadius(12);
-                                Platform.runLater(() -> hBoxpl2.getChildren().add(c));
-
+                                Platform.runLater(() -> {
+                                    hBoxpl2.getChildren().add(c);
+                                    hBoxpl2.setHgap(7);
+                                    hBoxpl2.setVgap(10);
+                                });
                             }
                         }
-                        //thread.interrupt();
                         break;
                     }
 

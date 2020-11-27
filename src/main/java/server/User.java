@@ -101,6 +101,7 @@ public class User extends Thread implements Serializable {
                 System.out.println(getUserName() + " tagit emot " + temp.toString());
                 Object obj = p.processInput(getUserName(), temp);
                 System.out.println(obj);
+                out.reset();
                 out.writeObject(obj);
                 out.flush();
             }

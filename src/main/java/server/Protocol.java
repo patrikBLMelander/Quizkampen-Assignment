@@ -118,7 +118,7 @@ public class Protocol {
         else if(input.startsWith("RESULT")){
             for(User u : database.userList) {
                 if (playerName.equals(u.getUserName())) {
-                    objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints();
+                    objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints() + roundCounter;
                 }
             }
         }
