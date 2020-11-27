@@ -11,7 +11,8 @@ public class Protocol {
     int p1counter = 0;
     int p2counter = 0;
     int roundCounter = 0;
-    CountDownLatch countDownLatch = new CountDownLatch(2);
+    CountDownLatch startGameCountDownLatch = new CountDownLatch(2);
+    CountDownLatch endGameCountDownLatch = new CountDownLatch(2);
 
     static int userRoundCounter = 2;
     static int userQuestionCounter = 4;
@@ -53,18 +54,18 @@ public class Protocol {
 
             System.out.println(playerName + "Är i waiting for opponent");
 
-            countDownLatch.countDown();
+            startGameCountDownLatch.countDown();
             try {
-                countDownLatch.await();
+                startGameCountDownLatch.await();
             }
             catch(InterruptedException e){
                 e.printStackTrace();
             }
-            System.out.println("Countdownlatch: " + countDownLatch.getCount());
+            System.out.println("Countdownlatch: " + startGameCountDownLatch.getCount());
             System.out.println(playerName + " är ur waitingloopen");
 
             objectToSend = "GO_TO_SEND_QUESTION";
-            reset();//sätter tillbaka countDownLatch till 2
+            reset(startGameCountDownLatch);//sätter tillbaka countDownLatch till 2
 
         }
         else if(input.startsWith("NEW_QUESTION")){
@@ -84,6 +85,22 @@ public class Protocol {
                     u.addCounter();
                 }
             }
+        }
+        else if(input.startsWith("END_GAME_WAIT")) {
+
+            System.out.println(playerName + "Är i end game waiting");
+
+            endGameCountDownLatch.countDown();
+            try {
+                endGameCountDownLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Countdownlatch: " + endGameCountDownLatch.getCount());
+            System.out.println(playerName + " är ur waitingloopen");
+
+            objectToSend = ""; //TODO: här ska vi skicka något
+            reset(endGameCountDownLatch);//sätter tillbaka countDownLatch till 2
         }
         else if(input.startsWith("RESULT")){
             for(User u : database.userList) {
@@ -110,8 +127,6 @@ public class Protocol {
         }
 
 
-
-        //TODO : Lägga till en ny waiting i protocol 1. vänta tills båda är där, 2. protocolet skickar en Sträng:
         // TODO : Skapa en ny controller till waiting
         //TODO : Ta emot user i GameOverViewController
 
@@ -172,7 +187,7 @@ public class Protocol {
         }
         return o;
     }
-    public void reset(){
+    public void reset(CountDownLatch countDownLatch){
         countDownLatch = new CountDownLatch(2);
     }
 }
