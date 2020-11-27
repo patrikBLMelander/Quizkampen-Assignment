@@ -33,14 +33,7 @@ public class ChooseCategory implements Initializable {
 
         @FXML
         void categoryChosen(ActionEvent event) throws IOException {
-               /* for(Button b : buttonList){
-                        if(event.getSource().equals(b))
-                                System.out.println(b.getText());
-                                out.writeObject("CATEGORY" + b.getText());
-                                break;
-                }
 
-*/
                 if  ((event.getSource()).equals(Cat1Btn)) {
                         System.out.println(Cat1Btn.getText());
                         String send = Cat1Btn.getText();
