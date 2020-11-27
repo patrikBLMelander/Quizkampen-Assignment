@@ -9,8 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox alignment="CENTER" prefHeight="329.0" prefWidth="430.0" stylesheets="@views.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.Controllers.GameOverViewController">
+<VBox alignment="CENTER" prefHeight="385.0" prefWidth="503.0" stylesheets="@views.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.Controllers.GameOverViewController">
 
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Resultat">
@@ -26,17 +25,28 @@
             <Insets />
          </VBox.margin>
       </Text>
-      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="170.0" prefWidth="376.0">
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="170.0" prefWidth="434.0">
          <children>
 
-            <FlowPane fx:id="hBoxPl1" alignment="TOP_CENTER" columnHalignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="172.0" styleClass="box">
+            <FlowPane fx:id="hBoxPl1" columnHalignment="CENTER" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="170.0" prefWidth="170.0" styleClass="box" vgap="10.0">
                <HBox.margin>
                   <Insets right="8.0" />
-               </HBox.margin></FlowPane>
-            <FlowPane fx:id="hBoxpl2" alignment="TOP_CENTER" columnHalignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="172.0" styleClass="box">
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding></FlowPane>
+            <FlowPane fx:id="roundsTextBox" columnHalignment="CENTER" prefHeight="170.0" prefWidth="80.0" vgap="10.0">
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+            </FlowPane>
+            <FlowPane fx:id="hBoxpl2" alignment="TOP_RIGHT" columnHalignment="CENTER" hgap="10.0" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="172.0" styleClass="box" vgap="10.0">
                <HBox.margin>
                   <Insets left="8.0" />
-               </HBox.margin></FlowPane>
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding></FlowPane>
          </children>
          <VBox.margin>
             <Insets bottom="16.0" top="8.0" />

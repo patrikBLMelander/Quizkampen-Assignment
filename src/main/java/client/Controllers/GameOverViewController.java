@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -33,22 +34,6 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
     public Button nextRoundBtn1;
 
     @FXML
-    private Text round1;
-
-    @FXML
-    private Text round2;
-
-    @FXML
-    private Text round3;
-
-    @FXML
-    private Text round4;
-
-    @FXML
-    private Text round5;
-
-
-    @FXML
     private Text resultText;
 
     @FXML
@@ -62,6 +47,10 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
 
     @FXML
     private FlowPane hBoxpl2;
+
+    @FXML
+    private FlowPane roundsTextBox;
+
 
 
     @FXML
@@ -84,8 +73,6 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
 
         playAgainBtn.managedProperty().bind(playAgainBtn.visibleProperty());
         nextRoundBtn1.managedProperty().bind(nextRoundBtn1.visibleProperty());
-
-        textList.addAll(round1, round2, round3, round4, round5);
 
         thread.start();
 
@@ -149,12 +136,12 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                                 c.setRadius(12);
                                 Platform.runLater(() -> {
                                     hBoxPl1.getChildren().add(c);
-                                    hBoxPl1.setHgap(7);
-                                    hBoxPl1.setVgap(10);
+                                    //hBoxPl1.setHgap(5);
+                                    //hBoxPl1.setVgap(10);
                                 });
                             }
-                            if(i<rounds)
-                                textList.get(rounds-1).setVisible(true);
+                            //if(i<=rounds)
+                                //textList.get(rounds-1).setVisible(true);
                         }
                         out.writeObject("PLAYER2");
                         counter++;
@@ -170,11 +157,15 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                                 c.setRadius(12);
                                 Platform.runLater(() -> {
                                     hBoxpl2.getChildren().add(c);
-                                    hBoxpl2.setHgap(7);
-                                    hBoxpl2.setVgap(10);
+                                    //hBoxpl2.setHgap(5);
+                                    //hBoxpl2.setVgap(10);
                                 });
                             }
                         }
+                        //for (int i = 0; i <= rounds; i++) {
+                          //  Text temp = new Text("Omgång " + (i+1));
+                          //  Platform.runLater(() -> roundsTextBox.getChildren().add(temp));
+                       // }
                         break;
                     }
 
