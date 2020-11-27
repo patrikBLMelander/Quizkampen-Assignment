@@ -9,7 +9,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox alignment="CENTER" stylesheets="@views.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.Controllers.GameOverViewController">
    <children>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Resultat">
@@ -24,9 +23,47 @@
       </Text>
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="170.0" prefWidth="376.0">
          <children>
-            <FlowPane fx:id="hBoxPl1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="172.0" />
-            <FlowPane fx:id="hBoxpl2" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="172.0" />
+            <FlowPane fx:id="hBoxPl1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="172.0">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin></FlowPane>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text fx:id="round1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Omgång 1" visible="false">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="5.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text fx:id="round2" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Omgång 2" visible="false">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text fx:id="round3" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Omgång 3" visible="false">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text fx:id="round4" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Omgång 4" visible="false">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text fx:id="round5" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Omgång 5" visible="false">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+            </VBox>
+            <FlowPane fx:id="hBoxpl2" columnHalignment="RIGHT" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="172.0">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin></FlowPane>
          </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
       </HBox>
       <HBox alignment="CENTER" prefHeight="43.0" prefWidth="376.0">
          <children>
