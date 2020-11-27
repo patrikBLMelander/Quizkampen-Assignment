@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -24,13 +25,6 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
     ScreenNavigator s = new ScreenNavigator();
     ObjectInputStream in;
     ObjectOutputStream out;
-    boolean isGameOver = false;
-
-    @FXML
-    Circle [][] circlesPl1 = new Circle[5][5];
-
-    @FXML
-    Circle [][] circlesPl2 = new Circle[5][5];
 
     @FXML
     public Button nextRoundBtn1;
@@ -45,25 +39,10 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
     private Button endGameBtn;
 
     @FXML
-    private HBox hBoxPl1;
+    private FlowPane hBoxPl1;
 
     @FXML
-    private Circle circle1;
-
-    @FXML
-    private Circle circle11;
-
-    @FXML
-    private Circle circle111;
-
-    @FXML
-    private Circle circle112;
-
-    @FXML
-    private Circle circle1121;
-
-    @FXML
-    private HBox hBoxpl2;
+    private FlowPane hBoxpl2;
 
 
     @FXML
@@ -134,13 +113,17 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                         int [][] arrayPl1 = (int[][]) inputObject;
                         for (int i = 0; i < arrayPl1.length; i++) {
                             for (int j = 0; j < arrayPl1.length; j++) {
+                                System.out.print(arrayPl1[i][j] + " ");
+                            }
+                            System.out.println();
+                        }
+                        for (int i = 0; i < arrayPl1.length; i++) {
+                            for (int j = 0; j < arrayPl1.length; j++) {
                                 Circle c = new Circle();
-                                System.out.println(arrayPl1[i][j]);
                                 if (arrayPl1[i][j]==1) c.setFill(Color.GREENYELLOW);
                                 else if (arrayPl1[i][j]==2) c.setFill(Color.RED);
                                 else if(arrayPl1[i][j]==0) c.setVisible(false);
                                 c.setRadius(12);
-                                System.out.println("Player1" + c);
                                 Platform.runLater(() -> hBoxPl1.getChildren().add(c));
                             }
                         }
@@ -156,11 +139,11 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                                 else if (arrayPl2[i][j]==2) c.setFill(Color.RED);
                                 else if (arrayPl2[i][j]==0) c.setVisible(false);
                                 c.setRadius(12);
-                                System.out.println("Player2" + c);
                                 Platform.runLater(() -> hBoxpl2.getChildren().add(c));
 
                             }
                         }
+                        //thread.interrupt();
                         break;
                     }
 

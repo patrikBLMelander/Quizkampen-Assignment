@@ -127,6 +127,12 @@ public class Protocol {
             for(User u : database.userList) {
                 if (playerName.equals(u.getUserName())) {
                     int [][] temp = u.getResultArray();
+                    for (int i = 0; i < temp.length; i++) {
+                        for (int j = 0; j < temp.length; j++) {
+                            System.out.print(temp[i][j] + " ");
+                        }
+                        System.out.println();
+                    }
                     objectToSend = temp;
                 }
             }
