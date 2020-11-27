@@ -108,6 +108,8 @@ public class Protocol {
 
 
         else if(input.startsWith("RESULT")){
+            if(playerName.equals("Player 1"))
+                roundCounter++;
             for(User u : database.userList) {
                 if (playerName.equals(u.getUserName())) {
                     objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints();
@@ -118,7 +120,8 @@ public class Protocol {
         else if (input.startsWith("PLAYER1")){
             for(User u : database.userList) {
                 if (playerName.equals(u.getUserName())) {
-                    objectToSend = u.getResultArray();
+                    int [][] temp = u.getResultArray();
+                    objectToSend = temp;
                 }
             }
         }
@@ -126,7 +129,8 @@ public class Protocol {
         else if (input.startsWith("PLAYER2")) {
             for (User u : database.userList) {
                 if (playerName.equals(u.getUserName())) {
-                    objectToSend = u.getOpponent().getResultArray();
+                    int[][] temp = u.getOpponent().getResultArray();
+                    objectToSend = temp;
                 }
             }
         }
