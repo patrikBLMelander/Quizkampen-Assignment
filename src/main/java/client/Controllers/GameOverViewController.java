@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import server.Questions;
@@ -15,10 +16,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.util.Collections;
+import java.io.Serializable;
 import java.util.ResourceBundle;
 
-public class GameOverViewController implements Initializable, Runnable {
+public class GameOverViewController implements Initializable, Runnable, Serializable{
     Thread thread = new Thread(this);
     ScreenNavigator s = new ScreenNavigator();
     ObjectInputStream in;
@@ -118,43 +119,56 @@ public class GameOverViewController implements Initializable, Runnable {
     @Override
     public void run() {
         try {
+            int counter = 0;
             out.writeObject("RESULT");
             Object inputObject;
-            while((inputObject = in.readObject())instanceof User) {
-                User u = (User) inputObject;
-                resultText.setText(u.getPoints()+ " - " + u.getOpponent().getPoints());
-                Boolean [][] arrayPl1 = u.getResultArray();
-                Boolean [][] arrayPl2 = u.getOpponent().getResultArray();
+            while((inputObject = in.readObject())!=null) {
 
-                for (int i = 0; i < arrayPl1.length; i++) {
-                    for (int j = 0; j < arrayPl1.length; j++) {
-                        Circle c = new Circle();
-                        if (arrayPl1[i][j]) c.setStyle("-fx-background-color: greenyellow");
-                        else if (!arrayPl1[i][j]) c.setStyle("-fx-background-color: red");
-                        else c.setVisible(false);
-
-                        hBoxPl1.getChildren().add(c);
+                if(inputObject instanceof String){
+                    if(inputObject.toString().startsWith("POINTS")){
+                        int pointPlayer1 = Integer.parseInt(inputObject.toString().substring(6,7));
+                        int pointPlayer2 = Integer.parseInt(inputObject.toString().substring(7));
+                        resultText.setText(pointPlayer1+ " - " + pointPlayer2);
+                        System.out.println(pointPlayer1+ " - " + pointPlayer2);
+                        out.writeObject("PLAYER1");
                     }
-
                 }
-                for (int i = 0; i < arrayPl2.length; i++) {
-                    for (int j = 0; j < arrayPl2.length; j++) {
-                        Circle c = new Circle();
-                        if (arrayPl2[i][j]) c.setStyle("-fx-background-color: greenyellow");
-                        else if (!arrayPl2[i][j]) c.setStyle("-fx-background-color: red");
-                        else c.setVisible(false);
 
-                        hBoxpl2.getChildren().add(c);
+                else if (inputObject instanceof Boolean [][]){
+                    if (counter==0){
+                        Boolean [][] arrayPl1 = (Boolean[][]) inputObject;
+                        for (int i = 0; i < arrayPl1.length; i++) {
+                            for (int j = 0; j < arrayPl1.length; j++) {
+                                Circle c = new Circle();
+                                System.out.println(arrayPl1[i][j]);
+                                if (arrayPl1[i][j]) c.setFill(Color.GREENYELLOW);
+                                else if (!arrayPl1[i][j]) c.setFill(Color.RED);
+                                else if(arrayPl1[i][j]==null) c.setVisible(false);
+                                c.setRadius(12);
+                                System.out.println("Player1" + c);
+                                Platform.runLater(() -> hBoxPl1.getChildren().add(c));
+                            }
+                        }
+                        out.writeObject("PLAYER2");
+                        counter++;
                     }
-
+                    else if(counter==1){
+                        Boolean [][] arrayPl2 = (Boolean[][]) inputObject;
+                        for (int i = 0; i < arrayPl2.length; i++) {
+                            for (int j = 0; j < arrayPl2.length; j++) {
+                                Circle c = new Circle();
+                                if (arrayPl2[i][j]) c.setFill(Color.GREENYELLOW);
+                                else if (!arrayPl2[i][j]) c.setFill(Color.RED);
+                                else c.setVisible(false);
+                                c.setRadius(12);
+                                System.out.println("Player2" + c);
+                                Platform.runLater(() -> hBoxpl2.getChildren().add(c));
+                                thread.interrupt();
+                            }
+                        }
+                    }
                 }
-                    break;
-
-
-                //if(s2 instanceof Boolean [][])
-
             }
-            //thread.interrupt();
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

@@ -45,7 +45,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void newGameViewAction(ActionEvent event) throws IOException, ClassNotFoundException {
-        connectToServer = new Socket("127.0.0.1", 55150);
+        connectToServer = new Socket("127.0.0.1", 55100);
         out = new ObjectOutputStream(connectToServer.getOutputStream());
         in = new ObjectInputStream(connectToServer.getInputStream());
         s.setInputStreamer(in);

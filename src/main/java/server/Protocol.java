@@ -87,12 +87,29 @@ public class Protocol {
         }
         else if(input.startsWith("RESULT")){
             for(User u : database.userList) {
-                if (playerName.equals(u.getUserName()))
-                    objectToSend = u;
-
-
+                if (playerName.equals(u.getUserName())) {
+                    objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints();
+                }
             }
         }
+
+        else if (input.startsWith("PLAYER1")){
+            for(User u : database.userList) {
+                if (playerName.equals(u.getUserName())) {
+                    objectToSend = u.getResultArray();
+                }
+            }
+        }
+
+        else if (input.startsWith("PLAYER2")) {
+            for (User u : database.userList) {
+                if (playerName.equals(u.getUserName())) {
+                    objectToSend = u.getOpponent().getResultArray();
+                }
+            }
+        }
+
+
 
         //TODO : Lägga till en ny waiting i protocol 1. vänta tills båda är där, 2. protocolet skickar en Sträng:
         // TODO : Skapa en ny controller till waiting
