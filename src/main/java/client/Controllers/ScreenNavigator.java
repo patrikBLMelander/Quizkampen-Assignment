@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -57,7 +58,9 @@ public class ScreenNavigator {
     public void loadNewScreen(String fxml, Node node) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));
         Stage primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("Quizkampen");
+        primaryStage.setScene(new Scene(root, 640, 480));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 }
