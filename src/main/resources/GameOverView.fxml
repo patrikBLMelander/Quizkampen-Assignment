@@ -28,19 +28,19 @@
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="170.0" prefWidth="444.0">
          <children>
 
-            <FlowPane fx:id="hBoxPl1" columnHalignment="CENTER" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="180.0" prefWidth="180.0" styleClass="box" vgap="10.0">
+            <FlowPane fx:id="hBoxPl1" columnHalignment="CENTER" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" styleClass="box" vgap="10.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding></FlowPane>
-            <FlowPane fx:id="roundsTextBox" columnHalignment="CENTER" prefHeight="170.0" prefWidth="80.0" vgap="10.0">
+            <FlowPane fx:id="roundsTextBox" alignment="TOP_CENTER" columnHalignment="CENTER" maxHeight="1.7976931348623157E308" minWidth="-Infinity" prefHeight="170.0" prefWidth="140.0" prefWrapLength="160.0" vgap="13.0">
                <padding>
-                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="hBoxpl2" alignment="TOP_RIGHT" columnHalignment="CENTER" hgap="10.0" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="180.0" prefWidth="180.0" styleClass="box" vgap="10.0">
+            <FlowPane fx:id="hBoxpl2" alignment="TOP_RIGHT" columnHalignment="CENTER" hgap="10.0" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" styleClass="box" vgap="10.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
