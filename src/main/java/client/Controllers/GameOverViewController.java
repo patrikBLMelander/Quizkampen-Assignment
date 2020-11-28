@@ -10,7 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -152,10 +153,14 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                                 });
                             }
                         }
-                        //for (int i = 0; i <= rounds; i++) {
-                          //  Text temp = new Text("Omgång " + (i+1));
-                          //  Platform.runLater(() -> roundsTextBox.getChildren().add(temp));
-                       // }
+                        for (int i = 0; i < rounds; i++) {
+                            Text temp = new Text("Omgång " + (i+1));
+                            temp.setTextAlignment(TextAlignment.CENTER);
+                            temp.setFont(Font.font(null, FontWeight.BOLD, 16));
+                            temp.setFill(Color.WHITE);
+                            temp.setWrappingWidth(100.0);
+                            Platform.runLater(() -> roundsTextBox.getChildren().add(temp));
+                       }
                         break;
                     }
 
