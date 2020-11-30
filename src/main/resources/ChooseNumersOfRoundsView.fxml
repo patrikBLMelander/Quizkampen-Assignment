@@ -10,12 +10,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="378.0" prefWidth="375.0" stylesheets="@views.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="client.Controllers.ChooseNumberOfRoundsController">
+<VBox alignment="CENTER" prefHeight="378.0" prefWidth="375.0" stylesheets="@views.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.Controllers.ChooseNumberOfRoundsController">
    <children>
       <ImageView fitHeight="89.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@quizkampen.png" />
          </image>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
       </ImageView>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Hur många omgångar vill du spela?" wrappingWidth="221.33667755126953">
          <font>
@@ -25,6 +28,9 @@
             <String fx:value="text" />
             <String fx:value="h4" />
          </styleClass>
+         <VBox.margin>
+            <Insets bottom="2.0" />
+         </VBox.margin>
       </Text>
       <ChoiceBox fx:id="scrollRounds" prefHeight="26.0" prefWidth="48.0" />
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Hur många frågor per omgång?" wrappingWidth="201.33667755126953">
@@ -32,14 +38,17 @@
             <Font size="14.0" />
          </font>
          <VBox.margin>
-            <Insets top="10.0" />
+            <Insets bottom="2.0" top="10.0" />
          </VBox.margin>
          <styleClass>
             <String fx:value="text" />
             <String fx:value="h4" />
          </styleClass>
       </Text>
-      <ChoiceBox fx:id="scrollQuestions" prefHeight="26.0" prefWidth="48.0" />
+      <ChoiceBox fx:id="scrollQuestions" prefHeight="26.0" prefWidth="48.0">
+         <VBox.margin>
+            <Insets bottom="15.0" />
+         </VBox.margin></ChoiceBox>
       <Button fx:id="startGameBtn" mnemonicParsing="false" onAction="#startNewGameAction" prefHeight="44.0" prefWidth="114.0" stylesheets="@views.css" text="Starta spel" textFill="WHITE">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -51,6 +60,9 @@
             <String fx:value="button" />
             <String fx:value="greenBtn" />
          </styleClass>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
       </Button>
    </children>
    <styleClass>
