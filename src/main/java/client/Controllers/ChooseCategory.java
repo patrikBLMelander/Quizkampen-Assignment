@@ -59,10 +59,19 @@ public class ChooseCategory implements Initializable {
                 out = ScreenNavigator.outputStreamer;
                 in = ScreenNavigator.inputStreamer;
                 List<String> categories = new ArrayList<>();
+
                 int counter = 0;
                 try {
-                        out.writeObject("GET_3_CATEGORIES");
-                        categories = (ArrayList<String>) in.readObject();
+                        Object object = in.readObject();
+                        System.out.println(object);
+                        if (object.equals("GO_TO_CHOOSE_CATEGORY")) {
+                                out.writeObject("GET_3_CATEGORIES");
+                        }
+
+                        object = in.readObject();
+                        System.out.println(object);
+                        categories = (ArrayList<String>)object;
+
                 } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                 }
