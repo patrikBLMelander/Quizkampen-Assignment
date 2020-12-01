@@ -122,8 +122,7 @@ public class GameViewController implements Initializable{
     }
 
     public void updateGameWindow() throws IOException, ClassNotFoundException {
-        Object temp;
-        temp = in.readObject();
+        Object temp = in.readObject();
         Collections.shuffle(buttonList);
         if (temp instanceof Questions) {
             counterText.setText("Poäng: " + Integer.toString(pointCounter));
