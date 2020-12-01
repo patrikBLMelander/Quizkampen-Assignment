@@ -53,13 +53,16 @@ public class ChooseCategory implements Initializable {
                 int counter = 0;
                 try {
                         out.writeObject("GET_3_CATEGORIES");
-                        categorys = (ArrayList<String>) in.readObject();
+                        if(in.readObject()!=null) {
+                                categorys = (ArrayList<String>) in.readObject();
+                                for (var category : categorys) {
+                                        buttonList.get(counter).setText(category);
+                                        counter++;
+                                }
+                        }
                 } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                 }
-                for (var category : categorys) {
-                        buttonList.get(counter).setText(category);
-                        counter++;
-                }
+
         }
 }
