@@ -59,11 +59,11 @@ public class ChooseCategory implements Initializable {
                 buttonList.addAll(Cat1Btn, Cat2Btn, Cat3Btn);
                 out = ScreenNavigator.outputStreamer;
                 in = ScreenNavigator.inputStreamer;
-                ArrayList<String> categorys = new ArrayList<>();
+                List<String> categorys = new ArrayList<>();
                 int counter = 0;
                 try {
                         out.writeObject("GET_3_CATEGORIES");
-                        categorys = (ArrayList<String>) in.readObject();
+                        categorys = (List<String>) in.readObject();
                 } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                 }

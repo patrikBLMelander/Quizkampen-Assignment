@@ -21,7 +21,7 @@ public class Database implements Serializable {
     ArrayList<Questions> KONST_OCH_KULTUR = new ArrayList<>();
     ArrayList<Questions> SPRÅK_OCH_TEXT = new ArrayList<>();
 
-
+/*
     Questions natur1 = new Questions("Vilket är södermanlands landskapsblomma?", "Vit näckros", "Liljekonvalj", "Gullviva", "Blåklocka", "DJUR OCH NATUR");
     Questions natur2 = new Questions("Vad kallas virket av tall?","Furu", "Granvirke", "Timmer", "Pärlspont", "NATUR");
     Questions natur3 = new Questions("Vad äter delfiner?","Fisk, bläckfisk\noch kräftdjur", "Hajar och rockor", "Musslor och havsväxter", "Avföring och\nnedbrytna djur", "NATUR");
@@ -81,10 +81,12 @@ public class Database implements Serializable {
     Questions språk3 = new Questions("I vilken stad i Sverige pratar man 'sveamål'?","Stockholm", "Jämtland", "Västerbotten", "Fårö", "SPRÅK OCH TEXT");
     Questions språk4 = new Questions("Vad kallas en person som kan 2 eller fler språk flytande?","polygott", "polylang", "multispråklig", "polysagd", "SPRÅK OCH TEXT");
     Questions språk5 = new Questions("Vad betyder det franska ordet 'Au Revoir'?","Adjö", "Hej", "Jag kommer", "Nej Tack", "SPRÅK OCH TEXT");
-
+*/
 
     public Database() {
 
+        deSerialize();
+/*
         DJUR_OCH_NATUR.add(natur1);
         DJUR_OCH_NATUR.add(natur2);
         DJUR_OCH_NATUR.add(natur3);
@@ -155,7 +157,7 @@ public class Database implements Serializable {
         categoryList.add(FILM_OCH_SERIER);
         categoryList.add(KONST_OCH_KULTUR);
         categoryList.add(SPRÅK_OCH_TEXT);
-
+*/
 
     }
     public List chooseCategory(String catRecieved) {
@@ -221,7 +223,7 @@ public class Database implements Serializable {
             categoryList = (List<ArrayList<Questions>>) in.readObject();
             in.close();
             for (var c:categoryList) {
-                System.out.println(c);
+                System.out.println(c.get(0).getQuestion());
             }
         } catch (Exception e) {
             System.out.println("category list not found");
