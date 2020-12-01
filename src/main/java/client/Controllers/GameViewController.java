@@ -81,40 +81,33 @@ public class GameViewController implements Initializable{
 
             if (((Control) event.getSource()) == buttonList.get(0)) {
                 pointCounter++;
-                System.out.println("win");
-
-                
-                System.out.println(pointCounter);
                 ((Button) event.getSource()).setStyle("-fx-background-color: greenyellow");
                 circleArray[counter].setFill(Color.YELLOWGREEN);
                 out.writeObject("NEW_QUESTION"+"true");
                 out.flush();
-
-
             } else {
-                System.out.println("looser");
+                correctButton = correctButton();
                 ((Button) event.getSource()).setStyle("-fx-background-color: red");
+                correctButton.setStyle("-fx-background-color: greenyellow");
                 circleArray[counter].setFill(Color.RED);
-
                 out.writeObject("NEW_QUESTION"+"false");
                 out.flush();
             }
             circleArray[counter].setVisible(true);
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            Button finalCorrectButton = correctButton;
             pause.setOnFinished(e -> {
                 ((Button) event.getSource()).setStyle("-fx-background-color: green");
+                if(finalCorrectButton!=null)
+                    finalCorrectButton.setStyle("-fx-background-color: green");
                 counter++;
                 try {
                     updateGameWindow();
                 } catch (IOException | ClassNotFoundException ioException) {
                     ioException.printStackTrace();
-
                 }
             });
-                pause.play();
-                
-
-
+            pause.play();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -165,13 +158,18 @@ public class GameViewController implements Initializable{
         {
             ((Button) event.getSource()).setStyle(giveUpColor);
             circleArray[counter].setFill(Color.GRAY);
-            
         }
-      
-  
-    
-       
-       
+    }
+
+    public Button correctButton(){
+        Button temp = null;
+        for (Button b: buttonList){
+            if(b==buttonList.get(0)) {
+                temp = b;
+                break;
+            }
+        }
+        return temp;
     }
 }
 
