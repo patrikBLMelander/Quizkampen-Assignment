@@ -137,17 +137,32 @@ public class GameViewController implements Initializable{
     }
     
     
-    public void rButtonGiveUp(ActionEvent event) {
-        pointCounter = 0;
-        int laps = 25;
-        String giveUpColor = "-fx-background-color: #656565";
-        
-        for(int i = 0; i < laps; i++)
+        public void rButtonGiveUp(ActionEvent event) throws IOException
         {
-            ((Button) event.getSource()).setStyle(giveUpColor);
-            circleArray[counter].setFill(Color.GRAY);
+            pointCounter = 0;
+            int laps = 25;
+            String giveUpColor = "-fx-background-color: #656565";
+            Boolean giveUp = true;
+            
+            try
+            {
+                out.writeObject("CONCEDE");
+                
+            }
+            
+            catch(Exception e)
+            {}
+            
+        
+            s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, rButton1);
+            out.writeObject("WAITING");
+            
+            for(int i = 0; i < laps; i++)
+            {
+                ((Button) event.getSource()).setStyle(giveUpColor);
+                circleArray[counter].setFill(Color.GRAY); //Tidigare kod. gör den intryckta knappen grå
+            }
         }
-    }
 
     public Button correctButton(){
         Button temp = null;

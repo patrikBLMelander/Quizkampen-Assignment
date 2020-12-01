@@ -115,6 +115,38 @@ public class Protocol {
             if(roundCounter==userRoundCounter)
                 lastRound = true;
         }
+        
+        else if(input.startsWith("CONCEDE"))
+        {
+            roundCounter = userRoundCounter;
+            
+            
+          /*  countDownLatch.countDown();
+            try {
+                countDownLatch.await();
+            }
+            catch(InterruptedException e){
+                e.printStackTrace();
+            }*/
+    
+    
+            for(User u : database.userList)
+            {
+                if (playerName.equals(u.getUserName()))
+                {
+                    u.invalidatePoints();
+                    
+                }
+            }
+            
+    
+            objectToSend = "WAITING";
+    
+    
+         
+            
+        
+        }
 
         else if(input.startsWith("IS_GAME_OVER")){
             Boolean temp = lastRound; // Denna behövs för att man inte ska skicka "samma objekt" varje gång

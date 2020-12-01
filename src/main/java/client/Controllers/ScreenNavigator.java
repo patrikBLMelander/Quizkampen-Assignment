@@ -22,6 +22,7 @@ public class ScreenNavigator {
     public static final String GAME_OVERVIEW = "GameOverView.fxml";
     public static final String WAITING = "waiting.fxml";
     public static final String POST_WAITING = "PostWaitingView.fxml";
+    public static final String CONCEDE = "GiveUp.fxml";
 
 
     public void setName(String name){

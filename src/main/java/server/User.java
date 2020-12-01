@@ -55,10 +55,29 @@ public class User extends Thread implements Serializable {
         return userName;
     }
 
-    public void addPoints() {
+    public void addPoints()
+    {
         points++;
     }
-
+    
+    public void removePoints()
+    {
+        points--;
+        
+    }
+    
+    public void deletePoints()
+    {
+        points = 0;
+        
+    }
+    
+    public void invalidatePoints()
+    {
+        points = -1;
+        
+    }
+    
     public int getPoints() {
         return points;
     }
