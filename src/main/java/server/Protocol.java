@@ -39,6 +39,29 @@ public class Protocol {
             userQuestionCounter = Integer.parseInt(input.substring(8));
             objectToSend = "GO_TO_CHOOSE_CATEGORY";
         }
+        else if(input.startsWith("GET_3")){
+            String cat1 = Database.randomCategorys();
+            String cat2 = Database.randomCategorys();
+            String cat3 = Database.randomCategorys();
+
+
+            while (true) {
+                if (cat1.equals(cat2) || cat3.equals(cat2)){
+                    cat2 = Database.randomCategorys();
+                }
+                else if (cat1.equals(cat3)){
+                    cat3 = Database.randomCategorys();
+                }
+                else
+                    break;
+            }
+            List<String> categorys = new ArrayList();
+            categorys.add(cat1);
+            categorys.add(cat2);
+            categorys.add(cat3);
+            objectToSend = categorys;
+        }
+
         else if (input.startsWith("CATEGORY")){
             category = input.substring(8);
             listToSend = database.chooseCategory(category);

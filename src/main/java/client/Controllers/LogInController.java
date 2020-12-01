@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 public class LogInController{
     ScreenNavigator s = new ScreenNavigator() ;
 
-
     @FXML
     private TextField logInName;
 
