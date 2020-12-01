@@ -1,7 +1,7 @@
 package server;
 
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +20,7 @@ public class Database implements Serializable {
     ArrayList<Questions> FILM_OCH_SERIER = new ArrayList<>();
     ArrayList<Questions> KONST_OCH_KULTUR = new ArrayList<>();
     ArrayList<Questions> SPRÅK_OCH_TEXT = new ArrayList<>();
+
 
     Questions natur1 = new Questions("Vilket är södermanlands landskapsblomma?", "Vit näckros", "Liljekonvalj", "Gullviva", "Blåklocka", "DJUR OCH NATUR");
     Questions natur2 = new Questions("Vad kallas virket av tall?","Furu", "Granvirke", "Timmer", "Pärlspont", "NATUR");
@@ -80,6 +81,7 @@ public class Database implements Serializable {
     Questions språk3 = new Questions("I vilken stad i Sverige pratar man 'sveamål'?","Stockholm", "Jämtland", "Västerbotten", "Fårö", "SPRÅK OCH TEXT");
     Questions språk4 = new Questions("Vad kallas en person som kan 2 eller fler språk flytande?","polygott", "polylang", "multispråklig", "polysagd", "SPRÅK OCH TEXT");
     Questions språk5 = new Questions("Vad betyder det franska ordet 'Au Revoir'?","Adjö", "Hej", "Jag kommer", "Nej Tack", "SPRÅK OCH TEXT");
+
 
     public Database() {
 
@@ -154,6 +156,7 @@ public class Database implements Serializable {
         categoryList.add(KONST_OCH_KULTUR);
         categoryList.add(SPRÅK_OCH_TEXT);
 
+
     }
     public List chooseCategory(String catRecieved) {
 
@@ -203,4 +206,27 @@ public class Database implements Serializable {
         else
         return "SPRÅK OCH TEXT";
     }
+    public void serialize() {
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("category.ser"));
+            out.writeObject(categoryList);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void deSerialize() {
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("category.ser"));
+            categoryList = (List<ArrayList<Questions>>) in.readObject();
+            in.close();
+            for (var c:categoryList) {
+                System.out.println(c);
+            }
+        } catch (Exception e) {
+            System.out.println("category list not found");
+        }
+    }
 }
+
+
