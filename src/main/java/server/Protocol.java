@@ -8,12 +8,10 @@ import java.util.List;
 
 public class Protocol {
     Database database = new Database();
-    int p1counter = 0;
-    int p2counter = 0;
     int roundCounter = 0;
     Boolean lastRound = false;
     CountDownLatch countDownLatch = new CountDownLatch(2);
-    CountDownLatch startGameCountDownLatch = new CountDownLatch(2);
+
 
     static int userRoundCounter = 2;
     static int userQuestionCounter = 4;
@@ -28,32 +26,26 @@ public class Protocol {
         }
         else if (object instanceof User) {
             User u = (User) object;
-            System.out.println(u.getUserName());
-            database.userList.add(u);
+            database.addUser(u);
         }
         else
-            System.out.println("error");
+            System.out.println("Felaktigt objekt skickat");
 
         Object objectToSend = null;
 
         if (input.startsWith("ROUNDS")) {
             userRoundCounter = Integer.parseInt(input.substring(6, 7));
-            System.out.println("Antalet rundor: " + userRoundCounter);
 
             userQuestionCounter = Integer.parseInt(input.substring(8));
-            System.out.println("Antalet frågor: " + userQuestionCounter);
             objectToSend = "GO_TO_CHOOSE_CATEGORY";
         }
         else if (input.startsWith("CATEGORY")){
             category = input.substring(8);
             listToSend = database.chooseCategory(category);
             Collections.shuffle(listToSend);
-            System.out.println(category);
             objectToSend = category;
         }
         else if(input.startsWith("WAITING")) {
-
-            System.out.println(playerName + "Är i waiting for opponent");
 
             countDownLatch.countDown();
             try {
@@ -62,8 +54,6 @@ public class Protocol {
             catch(InterruptedException e){
                 e.printStackTrace();
             }
-            System.out.println("Countdownlatch: " + countDownLatch.getCount());
-            System.out.println(playerName + " är ur waitingloopen");
 
             objectToSend = "GO_TO_SEND_QUESTION";
             reset();//sätter tillbaka countDownLatch till 2
@@ -73,7 +63,6 @@ public class Protocol {
 
             String answer = input.substring(12);
             for(User u : database.userList) {
-                System.out.println("Roundcounter: " + roundCounter);
                 if (playerName.equals(u.getUserName())) {
                     if (answer.equals("true")) {
                         u.addPoints();
@@ -81,8 +70,7 @@ public class Protocol {
                     }
                     else if (answer.equals("false"))
                         u.setResultArray(roundCounter, u.getCounter()-1, 2);
-                    else
-                        System.out.println("Ingen fråga skickad än.");
+
                     objectToSend = playerQuestionCounter(u);
                     u.addCounter();
                 }
@@ -90,19 +78,15 @@ public class Protocol {
         }
         else if(input.startsWith("END_GAME_WAIT")) {
 
-            System.out.println(playerName + "Är i end game waiting");
-
             countDownLatch.countDown();
             try {
                 countDownLatch.await();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("Countdownlatch: " + countDownLatch.getCount());
-            System.out.println(playerName + " är ur waitingloopen");
 
             objectToSend = "SHOW_OVERVIEW";
-            reset();//sätter tillbaka countDownLatch till 2
+            reset();
             if(playerName.equals("Player 1"))
                 roundCounter++;
             if(roundCounter==userRoundCounter)
@@ -110,7 +94,7 @@ public class Protocol {
         }
 
         else if(input.startsWith("IS_GAME_OVER")){
-            Boolean temp = lastRound;
+            Boolean temp = lastRound; // Denna behövs för att man inte ska skicka "samma objekt" varje gång
             objectToSend = temp;
         }
 
@@ -126,13 +110,7 @@ public class Protocol {
         else if (input.startsWith("PLAYER1")){
             for(User u : database.userList) {
                 if (playerName.equals(u.getUserName())) {
-                    int [][] temp = u.getResultArray();
-                    for (int i = 0; i < temp.length; i++) {
-                        for (int j = 0; j < temp.length; j++) {
-                            System.out.print(temp[i][j] + " ");
-                        }
-                        System.out.println();
-                    }
+                    int [][] temp = u.getResultArray();// Denna behövs för att man inte ska skicka "samma objekt" varje gång
                     objectToSend = temp;
                 }
             }
@@ -141,18 +119,13 @@ public class Protocol {
         else if (input.startsWith("PLAYER2")) {
             for (User u : database.userList) {
                 if (playerName.equals(u.getUserName())) {
-                    int[][] temp = u.getOpponent().getResultArray();
+                    int[][] temp = u.getOpponent().getResultArray();// Denna behövs för att man inte ska skicka "samma objekt" varje gång
                     objectToSend = temp;
                 }
             }
         }
 
-
-        // TODO : Skapa en ny controller till waiting
-        //TODO : Ta emot user i GameOverViewController
-
         else if(input.startsWith("START_NEXT_ROUND")) {
-            System.out.println(playerName + " Är i ny runda");
             for(User u : database.userList) {
 
                 u.resetCounter();
@@ -160,14 +133,12 @@ public class Protocol {
 
             if (roundCounter<userRoundCounter){
 
-                System.out.println(playerName + " Kommit förbi roundCounter");
                 if (roundCounter% 2 != 0){
                     if(playerName.equals("Player 1")) {
                         objectToSend = "WAITING";
 
                     }
                     else if(playerName.equals("Player 2")){
-                        System.out.println(playerName + " inne i if satsen som ska skicka CATEGORY");
                         objectToSend = "GO_TO_CHOOSE_CATEGORY";
                     }
                 }
@@ -186,26 +157,14 @@ public class Protocol {
         }
         return objectToSend;
     }
-
-    //public synchronized Object playerQuestionCounter (String s, int counter){
     public synchronized Object playerQuestionCounter (User u){
         Object o = null;
 
-        if (u.getCounter() < userQuestionCounter) {
+        if (u.getCounter() < userQuestionCounter)
             o = listToSend.get(u.getCounter());
-            System.out.println(u.getUserName() + " Är på fråga " + (u.getCounter()+1));
-        } else if (roundCounter < userRoundCounter) {
-            System.out.println("Poäng " + u.getUserName() + ": " + u.getPoints() +
-                    "Poäng " + u.getOpponent().getUserName() + ": " + u.getOpponent().getPoints());
-            for (int i = 0; i <=roundCounter; i++) {
-                for (int j = 0; j <userQuestionCounter; j++) {
-                    System.out.print(u.getResultArray()[i][j] + " ");
-                }
-                System.out.println();
-            }
+        else if (roundCounter < userRoundCounter)
+            o = "FINAL";
 
-            o = "Final";
-        }
         return o;
     }
     public void reset(){

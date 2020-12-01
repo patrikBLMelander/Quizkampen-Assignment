@@ -5,17 +5,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import server.Questions;
 import java.io.IOException;
@@ -35,16 +30,10 @@ public class GameViewController implements Initializable{
     int counter = 0;
 
     @FXML
-    private AnchorPane screen4;
-
-    @FXML
     private Text counterText;
 
     @FXML
     private Text questionText;
-    
-    @FXML
-    private Button rButton0;
 
     @FXML
     private Button rButton1;
@@ -137,7 +126,6 @@ public class GameViewController implements Initializable{
         temp = in.readObject();
         Collections.shuffle(buttonList);
         if (temp instanceof Questions) {
-            System.out.println("Fråga : " + ((Questions) temp).getQuestion());
             counterText.setText("Poäng: " + Integer.toString(pointCounter));
             questionText.setText(((Questions) temp).getQuestion());
             buttonList.get(0).setText(((Questions) temp).getCorrectAnswer());

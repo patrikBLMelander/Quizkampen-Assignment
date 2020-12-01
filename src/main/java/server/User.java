@@ -4,36 +4,20 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.net.InetAddress;
 import java.net.Socket;
 
-/**
- * Created by Sara Carlsson
- * Date: 13/11/2020
- * Time:10:19
- * Project: Quizkampen1
- * Copywright: MIT
- */
 public class User extends Thread implements Serializable {
     private final String userName;
-    private int player;
-    private InetAddress iadr;
     private int points = 0;
     private int counter = 0;
-    private int [][] resultArray= new int[5][5];
+    private final int [][] resultArray= new int[5][5];
     private User opponent;
     ObjectOutputStream out;
     ObjectInputStream in;
     Protocol p;
 
-    public User(String userName) {
+    public User(String userName, Socket socket, Protocol p) {
         this.userName = userName;
-    }
-
-    public User(String userName, Socket socket, int player, Protocol p) {
-        this.userName = userName;
-        this.iadr = InetAddress.getLoopbackAddress();
-        this.player = player;
         this.p = p;
 
         setArray();
@@ -43,14 +27,13 @@ public class User extends Thread implements Serializable {
             in = new ObjectInputStream(socket.getInputStream());
 
             System.out.println("WELCOME " + getUserName());
-            if(getPlayer()==1){
+            if(getUserName().equals("Player 1")){
                 out.writeObject("1");
-                p.processInput(getUserName(), User.this);
             }
             else {
                 out.writeObject(" ");
-                p.processInput(getUserName(), User.this);
             }
+            p.processInput(getUserName(), User.this);
         } catch (IOException  e) {
             e.printStackTrace();
         }
@@ -67,10 +50,6 @@ public class User extends Thread implements Serializable {
     public void addCounter(){ counter++;}
 
     public void resetCounter(){ this.counter = 0; }
-
-    public int getPlayer() {
-        return player;
-    }
 
     public String getUserName() {
         return userName;
@@ -98,9 +77,7 @@ public class User extends Thread implements Serializable {
 
         try {
             while ((temp = in.readObject()) != null) {
-                System.out.println(getUserName() + " tagit emot " + temp.toString());
                 Object obj = p.processInput(getUserName(), temp);
-                System.out.println(obj);
                 out.reset();
                 out.writeObject(obj);
                 out.flush();

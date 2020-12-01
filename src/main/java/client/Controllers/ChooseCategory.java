@@ -18,7 +18,6 @@ public class ChooseCategory implements Initializable {
 
         ObjectOutputStream out;
         ScreenNavigator s = new ScreenNavigator();
-        Database database = new Database();
         ObservableList<Button> buttonList = FXCollections.observableArrayList();
 
 
@@ -35,16 +34,13 @@ public class ChooseCategory implements Initializable {
         void categoryChosen(ActionEvent event) throws IOException {
 
                 if  ((event.getSource()).equals(Cat1Btn)) {
-                        System.out.println(Cat1Btn.getText());
                         String send = Cat1Btn.getText();
                         out.writeObject("CATEGORY" + send);
                 }
                 else if  ((event.getSource()).equals(Cat2Btn)) {
-                        System.out.println(Cat2Btn.getText());
                         out.writeObject("CATEGORY" + Cat2Btn.getText());
                 }
                 else if  ((event.getSource()).equals(Cat3Btn)) {
-                        System.out.println(Cat3Btn.getText());
                         out.writeObject("CATEGORY" + Cat3Btn.getText());
                 }
 
@@ -57,8 +53,6 @@ public class ChooseCategory implements Initializable {
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
-                System.out.println("är i choseCategory");
-                int counter = 0;
                 buttonList.addAll(Cat1Btn, Cat2Btn, Cat3Btn);
                 out = ScreenNavigator.outputStreamer;
                 String cat1 = Database.randomCategorys();

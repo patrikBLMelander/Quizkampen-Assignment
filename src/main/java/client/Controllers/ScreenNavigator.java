@@ -8,12 +8,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 
 public class ScreenNavigator {
     public static ObjectInputStream inputStreamer;
     public static ObjectOutputStream outputStreamer;
-    public static Socket socket;
     public static String name;
 
     public static final String LOGIN = "LogInView.fxml";
@@ -30,30 +28,13 @@ public class ScreenNavigator {
         this.name = name;
     }
 
-    public ObjectInputStream getInputStreamer() {
-        return inputStreamer;
-    }
-
     public void setInputStreamer(ObjectInputStream in) {
             inputStreamer = in;
-    }
-
-    public ObjectOutputStream getOutputStreamer() {
-        return outputStreamer;
     }
 
     public void setOutputStreamer(ObjectOutputStream out) {
         outputStreamer = out;
     }
-
-    public Socket getSocket() {
-        return socket;
-    }
-
-    public void setSocket(Socket connectToServer) {
-        socket = connectToServer;
-    }
-
 
     public void loadNewScreen(String fxml, Node node) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));

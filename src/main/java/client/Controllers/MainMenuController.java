@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -31,16 +30,7 @@ public class MainMenuController implements Initializable {
     private Text helloText;
 
     @FXML
-    private AnchorPane screen1;
-
-    @FXML
     private Button newGameBtn;
-
-    private String name;
-
-    public void setName(String name){
-        this.name = name;
-    }
 
     @FXML
     void newGameViewAction(ActionEvent event) throws IOException, ClassNotFoundException {
@@ -51,7 +41,6 @@ public class MainMenuController implements Initializable {
         s.setOutputStreamer(out);
 
         if (in.readObject().toString().equals("1")) {
-            System.out.println("Inne i 1st player");
             s.loadNewScreen(ScreenNavigator.NUMBER_OF_ROUNDS, newGameBtn);
         }
         else {

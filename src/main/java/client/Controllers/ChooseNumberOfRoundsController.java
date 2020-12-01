@@ -5,45 +5,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * Created by Sara Carlsson
- * Date: 15/11/2020
- * Time:14:20
- * Project: Quizkampen1
- * Copywright: MIT
- */
 public class ChooseNumberOfRoundsController implements Initializable {
-    static int round;
-    static int questions;
-
-    public static void setRound(int round) {
-        ChooseNumberOfRoundsController.round = round;
-    }
-
-    public static void setQuestions(int questions) {
-        ChooseNumberOfRoundsController.questions = questions;
-    }
-
-    public int getRound() {
-        return round;
-    }
-
-    public int getQuestions() {
-        return questions;
-    }
 
     ScreenNavigator s = new ScreenNavigator();
     ObjectOutputStream out;
-
-    @FXML
-    private AnchorPane screen2;
 
     @FXML
     private ChoiceBox<Integer> scrollRounds;

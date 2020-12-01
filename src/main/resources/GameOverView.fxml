@@ -28,7 +28,7 @@
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="170.0" prefWidth="444.0">
          <children>
 
-            <FlowPane fx:id="hBoxPl1" columnHalignment="CENTER" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" styleClass="box" vgap="10.0">
+            <FlowPane fx:id="fPanePl1" columnHalignment="CENTER" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" styleClass="box" vgap="10.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -40,7 +40,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </FlowPane>
-            <FlowPane fx:id="hBoxpl2" alignment="TOP_RIGHT" columnHalignment="CENTER" hgap="10.0" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" styleClass="box" vgap="10.0">
+            <FlowPane fx:id="fPanePl2" alignment="TOP_RIGHT" columnHalignment="CENTER" hgap="10.0" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" styleClass="box" vgap="10.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -72,7 +72,7 @@
                   <Insets left="8.0" right="8.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="endGameBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#endGameBtnClicked" prefHeight="45.0" prefWidth="85.0" text="Avlsuta" textFill="WHITE">
+            <Button fx:id="endGameBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#endGameBtnClicked" prefHeight="45.0" prefWidth="85.0" text="Avsluta" textFill="WHITE">
                <HBox.margin>
                   <Insets left="8.0" right="8.0" />
                </HBox.margin>

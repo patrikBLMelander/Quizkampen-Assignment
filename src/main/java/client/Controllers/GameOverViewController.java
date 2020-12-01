@@ -34,13 +34,10 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
     private Button playAgainBtn;
 
     @FXML
-    private Button endGameBtn;
+    private FlowPane fPanePl1;
 
     @FXML
-    private FlowPane hBoxPl1;
-
-    @FXML
-    private FlowPane hBoxpl2;
+    private FlowPane fPanePl2;
 
     @FXML
     private FlowPane roundsTextBox;
@@ -98,17 +95,14 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                     }
 
                 } else if (inputObject instanceof int[][]) {
+                    int[][] resultArray = (int[][]) inputObject;
                     if (counter == 0) {
-                        int[][] arrayPl1 = (int[][]) inputObject;
-                        addcircles(arrayPl1, hBoxPl1);
-
+                        addcircles(resultArray, fPanePl1);
                         out.writeObject("PLAYER2");
                         counter++;
 
                     } else if (counter == 1) {
-                        int[][] arrayPl2 = (int[][]) inputObject;
-                        addcircles(arrayPl2, hBoxpl2);
-
+                        addcircles(resultArray, fPanePl2);
                         addRoundText(rounds);
                         break;
                     }

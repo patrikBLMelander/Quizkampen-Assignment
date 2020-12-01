@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,7 +16,6 @@ public class PostWaitingController implements Initializable, Runnable {
     ScreenNavigator s = new ScreenNavigator();
     ObjectInputStream input;
     ObjectOutputStream output;
-    Object temp;
 
     @FXML
     private ImageView image;

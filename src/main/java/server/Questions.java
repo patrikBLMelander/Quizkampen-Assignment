@@ -10,12 +10,12 @@ import java.io.Serializable;
  * Copyright: MIT
  */
 public class Questions implements Serializable {
-    private String question;
-    private String correctAnswer;
-    private String wrongAnswer1;
-    private String wrongAnswer2;
-    private String wrongAnswer3;
-    private String categoryName;
+    private final String question;
+    private final String correctAnswer;
+    private final String wrongAnswer1;
+    private final String wrongAnswer2;
+    private final String wrongAnswer3;
+    private final String categoryName;
 
 
     public Questions(String question, String correctAnswer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String categoryName) {
