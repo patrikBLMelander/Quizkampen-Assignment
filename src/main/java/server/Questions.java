@@ -2,13 +2,6 @@ package server;
 
 import java.io.Serializable;
 
-/**
- * Created by Patrik Melander
- * Date: 2020-11-12
- * Time: 13:21
- * Project: Quiskampen
- * Copyright: MIT
- */
 public class Questions implements Serializable {
     private final String question;
     private final String correctAnswer;

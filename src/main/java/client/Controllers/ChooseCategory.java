@@ -8,15 +8,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import server.Database;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ChooseCategory implements Initializable {
 
 
         ObjectOutputStream out;
+        ObjectInputStream in;
         ScreenNavigator s = new ScreenNavigator();
         ObservableList<Button> buttonList = FXCollections.observableArrayList();
 
@@ -55,23 +58,24 @@ public class ChooseCategory implements Initializable {
         public void initialize(URL url, ResourceBundle resourceBundle) {
                 buttonList.addAll(Cat1Btn, Cat2Btn, Cat3Btn);
                 out = ScreenNavigator.outputStreamer;
-                String cat1 = Database.randomCategorys();
-                String cat2 = Database.randomCategorys();
-                String cat3 = Database.randomCategorys();
-
-
-                while (true) {
-                        if (cat1.equals(cat2) || cat3.equals(cat2)){
-                                cat2 = Database.randomCategorys();
-                        }
-                        else if (cat1.equals(cat3)){
-                                cat3 = Database.randomCategorys();
-                        }
-                        else
-                                break;
+                in = ScreenNavigator.inputStreamer;
+                ArrayList<String> categorys = new ArrayList<>();
+                int counter = 0;
+                try {
+                        out.writeObject("GET_3_CATEGORIES");
+                        categorys = (ArrayList<String>) in.readObject();
+                } catch (IOException | ClassNotFoundException e) {
+                        e.printStackTrace();
                 }
-                Cat1Btn.setText(cat1);
-                Cat2Btn.setText(cat2);
-                Cat3Btn.setText(cat3);
+                for (var category : categorys) {
+                        if (counter==0)
+                                Cat1Btn .setText(category);
+                        if (counter==1)
+                                Cat2Btn .setText(category);
+                        if (counter==2)
+                                Cat3Btn .setText(category);
+                        counter++;
+                }
+
         }
 }
