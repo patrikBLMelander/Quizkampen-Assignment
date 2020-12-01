@@ -23,27 +23,23 @@ public class Protocol {
 
         if (object instanceof String){
             input = (String) object;
-        }
-        else if (object instanceof User) {
+        } else if (object instanceof User) {
             User u = (User) object;
             database.addUser(u);
-        }
-        else
-            System.out.println("Felaktigt objekt skickat");
+        } else System.out.println("Felaktigt objekt skickat");
 
         Object objectToSend = null;
 
         if (input.startsWith("ROUNDS")) {
             userRoundCounter = Integer.parseInt(input.substring(6, 7));
-
             userQuestionCounter = Integer.parseInt(input.substring(8));
             objectToSend = "GO_TO_CHOOSE_CATEGORY";
         }
+
         else if(input.startsWith("GET_3")){
             String cat1 = Database.randomCategorys();
             String cat2 = Database.randomCategorys();
             String cat3 = Database.randomCategorys();
-
 
             while (true) {
                 if (cat1.equals(cat2) || cat3.equals(cat2)){
@@ -68,6 +64,7 @@ public class Protocol {
             Collections.shuffle(listToSend);
             objectToSend = category;
         }
+
         else if(input.startsWith("WAITING")) {
 
             countDownLatch.countDown();
@@ -77,30 +74,24 @@ public class Protocol {
             catch(InterruptedException e){
                 e.printStackTrace();
             }
-
             objectToSend = "GO_TO_SEND_QUESTION";
             reset();//sätter tillbaka countDownLatch till 2
-
         }
+
         else if(input.startsWith("NEW_QUESTION")){
-
             String answer = input.substring(12);
-            for(User u : database.userList) {
-                if (playerName.equals(u.getUserName())) {
-                    if (answer.equals("true")) {
-                        u.addPoints();
-                        u.setResultArray(roundCounter, u.getCounter()-1, 1);
-                    }
-                    else if (answer.equals("false"))
-                        u.setResultArray(roundCounter, u.getCounter()-1, 2);
+            User u = findCorrectUser(playerName);
+            if (answer.equals("true")) {
+                u.addPoints();
+                u.setResultArray(roundCounter, u.getCounter()-1, 1);
+            } else if (answer.equals("false"))
+                u.setResultArray(roundCounter, u.getCounter()-1, 2);
 
-                    objectToSend = playerQuestionCounter(u);
-                    u.addCounter();
-                }
-            }
+            objectToSend = playerQuestionCounter(u);
+            u.addCounter();
         }
-        else if(input.startsWith("END_GAME_WAIT")) {
 
+        else if(input.startsWith("END_GAME_WAIT")) {
             countDownLatch.countDown();
             try {
                 countDownLatch.await();
@@ -121,45 +112,32 @@ public class Protocol {
             objectToSend = temp;
         }
 
-
         else if(input.startsWith("RESULT")){
-            for(User u : database.userList) {
-                if (playerName.equals(u.getUserName())) {
-                    objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints() + roundCounter;
-                }
-            }
+            User u = findCorrectUser(playerName);
+            objectToSend = "POINTS" + u.getPoints() + u.getOpponent().getPoints() + roundCounter;
         }
 
         else if (input.startsWith("PLAYER1")){
-            for(User u : database.userList) {
-                if (playerName.equals(u.getUserName())) {
-                    int [][] temp = u.getResultArray();// Denna behövs för att man inte ska skicka "samma objekt" varje gång
-                    objectToSend = temp;
-                }
-            }
+            User u = findCorrectUser(playerName);
+            int [][] temp = u.getResultArray();// Denna behövs för att man inte ska skicka "samma objekt" varje gång
+            objectToSend = temp;
         }
 
         else if (input.startsWith("PLAYER2")) {
-            for (User u : database.userList) {
-                if (playerName.equals(u.getUserName())) {
-                    int[][] temp = u.getOpponent().getResultArray();// Denna behövs för att man inte ska skicka "samma objekt" varje gång
-                    objectToSend = temp;
-                }
-            }
+            User u = findCorrectUser(playerName);
+            int[][] temp = u.getOpponent().getResultArray();// Denna behövs för att man inte ska skicka "samma objekt" varje gång
+            objectToSend = temp;
         }
 
         else if(input.startsWith("START_NEXT_ROUND")) {
             for(User u : database.userList) {
-
                 u.resetCounter();
             }
-
             if (roundCounter<userRoundCounter){
 
                 if (roundCounter% 2 != 0){
                     if(playerName.equals("Player 1")) {
                         objectToSend = "WAITING";
-
                     }
                     else if(playerName.equals("Player 2")){
                         objectToSend = "GO_TO_CHOOSE_CATEGORY";
@@ -168,7 +146,6 @@ public class Protocol {
                 else{
                     if(playerName.equals("Player 1")) {
                         objectToSend = "GO_TO_CHOOSE_CATEGORY";
-
                     }
                     else if(playerName.equals("Player 2")){
                         objectToSend = "WAITING";
@@ -187,10 +164,21 @@ public class Protocol {
             o = listToSend.get(u.getCounter());
         else if (roundCounter < userRoundCounter)
             o = "FINAL";
-
         return o;
     }
+
     public void reset(){
         countDownLatch = new CountDownLatch(2);
+    }
+
+    public User findCorrectUser(String name) {
+        User user = null;
+        for (User u : database.userList) {
+            if (name.equals(u.getUserName())){
+                user = u;
+                break;
+            }
+        }
+        return user;
     }
 }
