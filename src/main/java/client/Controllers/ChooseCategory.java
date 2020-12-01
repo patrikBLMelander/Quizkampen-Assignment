@@ -37,8 +37,7 @@ public class ChooseCategory implements Initializable {
         void categoryChosen(ActionEvent event) throws IOException {
 
                 if  ((event.getSource()).equals(Cat1Btn)) {
-                        String send = Cat1Btn.getText();
-                        out.writeObject("CATEGORY" + send);
+                        out.writeObject("CATEGORY" + Cat1Btn.getText());
                 }
                 else if  ((event.getSource()).equals(Cat2Btn)) {
                         out.writeObject("CATEGORY" + Cat2Btn.getText());
@@ -59,15 +58,15 @@ public class ChooseCategory implements Initializable {
                 buttonList.addAll(Cat1Btn, Cat2Btn, Cat3Btn);
                 out = ScreenNavigator.outputStreamer;
                 in = ScreenNavigator.inputStreamer;
-                List<String> categorys = new ArrayList<>();
+                List<String> categories = new ArrayList<>();
                 int counter = 0;
                 try {
                         out.writeObject("GET_3_CATEGORIES");
-                        categorys = (List<String>) in.readObject();
+                        categories = (ArrayList<String>) in.readObject();
                 } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                 }
-                for (var category : categorys) {
+                for (var category : categories) {
                         if (counter==0)
                                 Cat1Btn .setText(category);
                         if (counter==1)
