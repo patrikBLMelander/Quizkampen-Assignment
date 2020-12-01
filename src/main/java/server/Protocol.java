@@ -162,12 +162,12 @@ public class Protocol {
 
                     }
                     else if(playerName.equals("Player 2")){
-                        objectToSend = "GO_TO_CHOOSE_CATEGORY";
+                        objectToSend = "START_NEW_ROUND";
                     }
                 }
                 else{
                     if(playerName.equals("Player 1")) {
-                        objectToSend = "GO_TO_CHOOSE_CATEGORY";
+                        objectToSend = "START_NEW_ROUND";
 
                     }
                     else if(playerName.equals("Player 2")){
