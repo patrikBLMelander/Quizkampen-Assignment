@@ -33,6 +33,9 @@ public class MainMenuController implements Initializable {
     private Button newGameBtn;
 
     @FXML
+    private Button musicBtn;
+
+    @FXML
     void newGameViewAction(ActionEvent event) throws IOException, ClassNotFoundException {
         connectToServer = new Socket("127.0.0.1", 55000);
         out = new ObjectOutputStream(connectToServer.getOutputStream());
@@ -46,6 +49,13 @@ public class MainMenuController implements Initializable {
         else {
             s.loadNewScreen(ScreenNavigator.WAITING, newGameBtn);
         }
+    }
+
+    @FXML
+    void turnOnMusicAction(ActionEvent event) {
+        Music music = new Music();
+        music.loadGameMusic("src\\main\\resources\\Kerbal Space Program - Space Music (Track 1).wav");
+        music.playMusic();
     }
 
     @Override
