@@ -13,13 +13,6 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * Created by Sara Carlsson
- * Date: 13/11/2020
- * Time:10:24
- * Project: Quizkampen1
- * Copywright: MIT
- */
 public class MainMenuController implements Initializable {
     ScreenNavigator s = new ScreenNavigator();
     private ObjectInputStream in;
