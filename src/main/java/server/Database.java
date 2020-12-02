@@ -73,9 +73,7 @@ public class Database implements Serializable {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("category.ser"));
             categoryList = (List<ArrayList<Questions>>) in.readObject();
             in.close();
-            for (var c:categoryList) {
-                System.out.println(c.get(0).getQuestion());
-            }
+
         } catch (Exception e) {
             System.out.println("category list not found");
         }
