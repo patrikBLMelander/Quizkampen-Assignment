@@ -77,40 +77,84 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
     }
 
     @Override
-    public void run() {
-        try {
+    public void run()
+    {
+        try
+        {
             int counter = 0;
             out.writeObject("IS_GAME_OVER");
             Object inputObject;
-            while((inputObject = in.readObject())!=null) {
-
-                if (inputObject instanceof Boolean) {
+            
+            while((inputObject = in.readObject())!=null)
+            {
+                if (inputObject instanceof Boolean)
+                {
                     if ((Boolean) inputObject) nextRoundBtn1.setVisible(false);
                     else playAgainBtn.setVisible(false);
                     out.writeObject("RESULT");
 
-                } else if (inputObject instanceof String) {
-                    if (inputObject.toString().startsWith("POINTS")) {
+                }
+                
+                else if (inputObject instanceof String)
+                {
+                    if (inputObject.toString().startsWith("POINTS"))
+                    {
                         addPoints(inputObject.toString());
+                        
                     }
 
-                } else if (inputObject instanceof int[][]) {
+                }
+                
+                else if (inputObject instanceof int[][])
+                {
                     int[][] resultArray = (int[][]) inputObject;
-                    if (counter == 0) {
+                    if(counter == 0)
+                    {
+                        addcircles(resultArray , fPanePl1);
+                        out.writeObject("PLAYER2");
+                        counter++;
+    
+                    }
+
+                    else if(counter == 1)
+                    {
+                        addcircles(resultArray , fPanePl2);
+                        addRoundText(rounds);
+                        break;
+                    }
+                    
+                }
+                
+                else if (inputObject instanceof long[][])
+                {
+                    long[][] resultArray = (long[][]) inputObject;
+                    
+                    if (counter == 0)
+                    {
                         addcircles(resultArray, fPanePl1);
                         out.writeObject("PLAYER2");
                         counter++;
-
-                    } else if (counter == 1) {
+                    
+                    }
+                    
+                    else if (counter == 1)
+                    {
                         addcircles(resultArray, fPanePl2);
                         addRoundText(rounds);
                         break;
                     }
+                
                 }
+                
             }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
         }
+    
+        catch (IOException | ClassNotFoundException e)
+        {
+            e.printStackTrace();
+            
+        }
+        
     }
 
     public void updateGameWindow() throws IOException, ClassNotFoundException {
@@ -124,20 +168,55 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
 
     }
 
-    public void addcircles(int[][] array, FlowPane flowPane) {
-        for (int[] ints : array) {
-            for (int j = 0; j < array.length; j++) {
+    public void addcircles(int[][] array, FlowPane flowPane)
+    {
+        for (int[] ints : array)
+        {
+            for (int j = 0; j < array.length; j++)
+            {
                 Circle c = new Circle();
                 if (ints[j] == 1) c.setFill(Color.GREENYELLOW);
                 else if (ints[j] == 2) c.setFill(Color.RED);
                 else if (ints[j] == 0) c.setVisible(false);
                 c.setRadius(12);
-                Platform.runLater(() -> {
+                
+                Platform.runLater(() ->
+                {
                     flowPane.getChildren().add(c);
+                    
                 });
+                
             }
+            
         }
+        
     }
+    
+    
+    public void addcircles(long[][] array, FlowPane flowPane)
+    {
+        for (long[] longs : array)
+        {
+            for (int j = 0; j < array.length; j++)
+            {
+                Circle c = new Circle();
+                if (longs[j] == 1) c.setFill(Color.GREENYELLOW);
+                else if (longs[j] == 2) c.setFill(Color.RED);
+                else if (longs[j] == 0) c.setVisible(false);
+                c.setRadius(12);
+                
+                Platform.runLater(() ->
+                {
+                    flowPane.getChildren().add(c);
+                    
+                });
+                
+            }
+            
+        }
+        
+    }
+    
 
     public void addRoundText(int qtyRounds) {
         for (int i = 0; i < qtyRounds; i++) {
@@ -152,29 +231,68 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
 
     public void addPoints(String input)
     {
-        String inputCorrecterS;
-        int inputCorrecterInt;
+        String
+            inputCorrecterS,
+            pointsHolder1,
+            pointsHolder2,
+            outputResultS;
+        
+        int
+            inputCorrecterInt;
     
-        inputCorrecterS = input;
-        inputCorrecterInt = inputCorrecterS.indexOf("-1");
+        inputCorrecterInt = input.indexOf("-1");
+        
+        
+        System.out.println("Så här ser poängsträngen ut: " + input);
+        
         
         try
         {
             if(inputCorrecterInt != -1)
             {
+                inputCorrecterS = input.substring(0, inputCorrecterInt);
     
+                if(inputCorrecterS.equals("POINTS"))
+                {
+                    outputResultS = "PLAYER1_CONCEDE";
+                    pointsHolder1 = "0";
+                    pointsHolder2 = input.substring(7 , 8);
+                    
+                }
+                
+                else
+                {
+                    outputResultS = "PLAYER2_CONCEDE";
+                    pointsHolder1 = input.substring(6 , 7);
+                    pointsHolder2 = "0";
+                    
+                }
+                
             }
             
             else
             {
-                int pointPlayer1 = Integer.parseInt(input.substring(6 , 7));
-                int pointPlayer2 = Integer.parseInt(input.substring(7 , 8));
-                this.rounds = Integer.parseInt(input.substring(8));
-                this.resultText.setText(pointPlayer1 + " - " + pointPlayer2);
-                System.out.println(pointPlayer1 + " - " + pointPlayer2);
-                out.writeObject("PLAYER1");
+                outputResultS = "PLAYER1";
+                pointsHolder1 = input.substring(6 , 7);
+                pointsHolder2 = input.substring(7 , 8);
                 
             }
+    
+    
+            int pointPlayer1 = Integer.parseInt(pointsHolder1);
+            int pointPlayer2 = Integer.parseInt(pointsHolder2);
+            this.rounds = Integer.parseInt(input.substring(8));
+            this.resultText.setText(pointPlayer1 + " - " + pointPlayer2);
+            System.out.println(pointPlayer1 + " - " + pointPlayer2);
+            out.writeObject(outputResultS);
+    
+    
+            if(inputCorrecterInt != -1)
+            {
+                s.loadNewScreen("CONCEDE", playAgainBtn);
+                
+            }
+            
             
         }
         

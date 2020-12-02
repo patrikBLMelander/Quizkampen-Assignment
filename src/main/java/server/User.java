@@ -10,7 +10,8 @@ public class User extends Thread implements Serializable {
     private final String userName;
     private int points = 0;
     private int counter = 0;
-    private final int [][] resultArray= new int[5][5];
+    private final int [][] resultArrayInt= new int[5][5];
+    private final long [][] resultArrayLong= new long[5][5];
     private User opponent;
     ObjectOutputStream out;
     ObjectInputStream in;
@@ -20,30 +21,46 @@ public class User extends Thread implements Serializable {
         this.userName = userName;
         this.p = p;
 
-        setArray();
+        setArrayInt();
+        setArrayLong();
 
-        try {
+        try
+        {
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
 
             System.out.println("WELCOME " + getUserName());
+            
             if(getUserName().equals("Player 1")){
                 out.writeObject("1");
+                
             }
-            else {
+            
+            else
+            {
                 out.writeObject(" ");
             }
+            
             p.processInput(getUserName(), User.this);
-        } catch (IOException  e) {
+        }
+        
+        catch (IOException  e)
+        {
             e.printStackTrace();
         }
+        
     }
 
-    public void setResultArray(int row, int column, int x){
-        this.resultArray[row][column] = x;
+    public void setResultArray(int row, int column, int x)
+    {
+        this.resultArrayInt[row][column] = x;
+        this.resultArrayLong[row][column] = x;
+        
     }
 
-    public int [][] getResultArray(){return resultArray;}
+    public int[][] getResultArrayInt(){return resultArrayInt;}
+    
+    public long[][] getResultArrayLong(){return resultArrayLong;}
 
     public int getCounter(){return counter; }
 
@@ -106,11 +123,33 @@ public class User extends Thread implements Serializable {
             e.printStackTrace();
         }
     }
-    public void setArray(){
-        for (int i = 0; i < this.resultArray.length; i++) {
-            for (int j = 0; j < this.resultArray.length; j++) {
-                this.resultArray[i][j]=0;
+    
+    public void setArrayInt()
+    {
+        for (int i = 0; i < this.resultArrayInt.length; i++)
+        {
+            for (int j = 0; j < this.resultArrayInt.length; j++)
+            {
+                this.resultArrayInt[i][j]=0;
+                
             }
+            
         }
+        
     }
+    
+    public void setArrayLong()
+    {
+        for (int i = 0; i < this.resultArrayLong.length; i++)
+        {
+            for (int j = 0; j < this.resultArrayLong.length; j++)
+            {
+                this.resultArrayLong[i][j]=0;
+                
+            }
+            
+        }
+        
+    }
+    
 }

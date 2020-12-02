@@ -174,5 +174,3 @@ public class GiveUpController implements Initializable, Runnable //, Serializabl
 		}
 	}
 }
-
-}

@@ -161,11 +161,35 @@ public class Protocol {
                 }
             }
         }
+        
+        else if (input.startsWith("PLAYER1_CONCEDE"))
+        {
+            for(User u : database.userList) {
+                if (playerName.equals(u.getUserName())) {
+                    long [][] temp = u.getResultArrayLong();// Denna behövs för att man inte ska skicka "samma objekt"
+                    // varje
+                    // gång
+                    objectToSend = temp;
+                }
+            }
+        }
+
+        else if (input.startsWith("PLAYER2_CONCEDE"))
+        {
+            for(User u : database.userList) {
+                if (playerName.equals(u.getUserName())) {
+                    long [][] temp = u.getResultArrayLong();// Denna behövs för att man inte ska skicka "samma objekt"
+                    // varje gång
+                    objectToSend = temp;
+                }
+            }
+        }
 
         else if (input.startsWith("PLAYER1")){
             for(User u : database.userList) {
                 if (playerName.equals(u.getUserName())) {
-                    int [][] temp = u.getResultArray();// Denna behövs för att man inte ska skicka "samma objekt" varje gång
+                    int [][] temp = u.getResultArrayInt();// Denna behövs för att man inte ska skicka "samma objekt"
+                    // varje gång
                     objectToSend = temp;
                 }
             }
@@ -174,7 +198,8 @@ public class Protocol {
         else if (input.startsWith("PLAYER2")) {
             for (User u : database.userList) {
                 if (playerName.equals(u.getUserName())) {
-                    int[][] temp = u.getOpponent().getResultArray();// Denna behövs för att man inte ska skicka "samma objekt" varje gång
+                    int[][] temp = u.getOpponent().getResultArrayInt();// Denna behövs för att man inte ska skicka
+                    // "samma objekt" varje gång
                     objectToSend = temp;
                 }
             }
