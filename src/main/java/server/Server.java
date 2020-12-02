@@ -10,7 +10,6 @@ public class Server {
         try (ServerSocket server = new ServerSocket(55000)){
             System.out.println("Server is Running");
 
-
             while (true) {
                 Protocol p = new Protocol();
                 User player1 = new User("Player 1", server.accept(), p);

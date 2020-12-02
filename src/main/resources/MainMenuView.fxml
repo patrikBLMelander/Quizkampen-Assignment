@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="490.0" prefWidth="420.0" stylesheets="@views.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="client.Controllers.MainMenuController">
+<VBox alignment="CENTER" prefHeight="490.0" prefWidth="420.0" stylesheets="@views.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.Controllers.MainMenuController">
    <children>
       <ImageView fitHeight="79.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -45,6 +45,11 @@
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="musicBtn" mnemonicParsing="false" onAction="#turnOnMusicAction" prefHeight="40.0" prefWidth="142.0" style="-fx-background-color: green;" text="Sätt på musik" textFill="WHITE" translateX="130.0" translateY="65.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

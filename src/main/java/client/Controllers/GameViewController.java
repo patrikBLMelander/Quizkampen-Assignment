@@ -67,21 +67,20 @@ public class GameViewController implements Initializable{
     void rButtonClicked(ActionEvent event){
         Button correctButton = null;
         try {
-
+            toggleButtons();
             if (((Control) event.getSource()) == buttonList.get(0)) {
                 pointCounter++;
                 ((Button) event.getSource()).setStyle("-fx-background-color: greenyellow");
                 circleArray[counter].setFill(Color.YELLOWGREEN);
                 out.writeObject("NEW_QUESTION"+"true");
-                out.flush();
             } else {
                 correctButton = correctButton();
                 ((Button) event.getSource()).setStyle("-fx-background-color: red");
                 correctButton.setStyle("-fx-background-color: greenyellow");
                 circleArray[counter].setFill(Color.RED);
                 out.writeObject("NEW_QUESTION"+"false");
-                out.flush();
             }
+            out.flush();
             circleArray[counter].setVisible(true);
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
             Button finalCorrectButton = correctButton;
@@ -92,6 +91,7 @@ public class GameViewController implements Initializable{
                 counter++;
                 try {
                     updateGameWindow();
+                    toggleButtons();
                 } catch (IOException | ClassNotFoundException ioException) {
                     ioException.printStackTrace();
                 }
@@ -122,8 +122,7 @@ public class GameViewController implements Initializable{
     }
 
     public void updateGameWindow() throws IOException, ClassNotFoundException {
-        Object temp;
-        temp = in.readObject();
+        Object temp = in.readObject();
         Collections.shuffle(buttonList);
         if (temp instanceof Questions) {
             counterText.setText("Poäng: " + Integer.toString(pointCounter));
@@ -159,5 +158,14 @@ public class GameViewController implements Initializable{
         }
         return temp;
     }
+
+    public void toggleButtons() {
+        for (Button b: buttonList) {
+            if(b.isDisabled()) b.setDisable(false);
+            else b.setDisable(true);
+        }
+    }
+
+
 }
 

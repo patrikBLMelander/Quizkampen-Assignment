@@ -14,6 +14,10 @@
     -fx-font-family: "System";
 }
 
+.button:disabled {
+    -fx-opacity: 1;
+}
+
 .box {
     -fx-background-color: "#6495ED";
     -fx-background-radius: 6;

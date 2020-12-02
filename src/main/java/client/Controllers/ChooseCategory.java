@@ -17,12 +17,10 @@ import java.util.ResourceBundle;
 
 public class ChooseCategory implements Initializable {
 
-
         ObjectOutputStream out;
         ObjectInputStream in;
         ScreenNavigator s = new ScreenNavigator();
         ObservableList<Button> buttonList = FXCollections.observableArrayList();
-
 
         @FXML
         private Button Cat1Btn;
@@ -36,22 +34,15 @@ public class ChooseCategory implements Initializable {
         @FXML
         void categoryChosen(ActionEvent event) throws IOException {
 
-                if  ((event.getSource()).equals(Cat1Btn)) {
-                        out.writeObject("CATEGORY" + Cat1Btn.getText());
+                for(Button b : buttonList) {
+                        if ((event.getSource()).equals(b)) {
+                                String send = b.getText();
+                                out.writeObject("CATEGORY" + send);
+                                break;
+                        }
                 }
-                else if  ((event.getSource()).equals(Cat2Btn)) {
-                        out.writeObject("CATEGORY" + Cat2Btn.getText());
-                }
-                else if  ((event.getSource()).equals(Cat3Btn)) {
-                        out.writeObject("CATEGORY" + Cat3Btn.getText());
-                }
-
-
-
                 s.loadNewScreen(ScreenNavigator.WAITING, Cat1Btn);
         }
-
-
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -69,23 +60,16 @@ public class ChooseCategory implements Initializable {
                                 out.writeObject("GET_3_CATEGORIES");
                                 object = in.readObject();
                         }
-
-
                         System.out.println(object);
                         categories = (ArrayList<String>)object;
 
                 } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                 }
-                for (var category : categories) {
-                        if (counter==0)
-                                Cat1Btn .setText(category);
-                        if (counter==1)
-                                Cat2Btn .setText(category);
-                        if (counter==2)
-                                Cat3Btn .setText(category);
+                for (var category : categorys) {
+                        buttonList.get(counter).setText(category);
+
                         counter++;
                 }
-
         }
 }
