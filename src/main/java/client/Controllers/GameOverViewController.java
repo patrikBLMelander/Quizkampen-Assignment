@@ -28,6 +28,9 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
     public Button nextRoundBtn1;
 
     @FXML
+    private Text winnerText;
+
+    @FXML
     private Text resultText;
 
     @FXML
@@ -85,7 +88,10 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
             while((inputObject = in.readObject())!=null) {
 
                 if (inputObject instanceof Boolean) {
-                    if ((Boolean) inputObject) nextRoundBtn1.setVisible(false);
+                    if ((Boolean) inputObject) {
+                        nextRoundBtn1.setVisible(false);
+                        winnerText.setVisible(true);
+                    }
                     else playAgainBtn.setVisible(false);
                     out.writeObject("RESULT");
 
@@ -157,6 +163,12 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
             this.rounds = Integer.parseInt(input.substring(8));
             this.resultText.setText(pointPlayer1 + " - " + pointPlayer2);
             out.writeObject("PLAYER1");
+            if (pointPlayer1>pointPlayer2)
+                winnerText.setText("Du vann!");
+            else if (pointPlayer1==pointPlayer2)
+                winnerText.setText("Det blev oavgjort");
+            else
+                winnerText.setText("Du förlorade!");
         }
         catch(IOException e){
             e.printStackTrace();
