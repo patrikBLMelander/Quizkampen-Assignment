@@ -238,7 +238,8 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
             outputResultS;
         
         int
-            inputCorrecterInt;
+            inputCorrecterInt,
+            roundPlcement;
     
         inputCorrecterInt = input.indexOf("-1");
         
@@ -256,17 +257,23 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                 {
                     outputResultS = "PLAYER1_CONCEDE";
                     pointsHolder1 = "0";
-                    pointsHolder2 = input.substring(7 , 8);
+                    pointsHolder2 = input.substring(8 , 9);
+    
+                    System.out.println("SPELARE 1 GAVE UPP");
                     
                 }
                 
                 else
                 {
                     outputResultS = "PLAYER2_CONCEDE";
-                    pointsHolder1 = input.substring(6 , 7);
+                    pointsHolder1 = input.substring(7 , 8);
                     pointsHolder2 = "0";
+    
+                    System.out.println("SPELARE 2 GAVE UPP");
                     
                 }
+    
+                roundPlcement = 9;
                 
             }
             
@@ -275,13 +282,14 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
                 outputResultS = "PLAYER1";
                 pointsHolder1 = input.substring(6 , 7);
                 pointsHolder2 = input.substring(7 , 8);
+                roundPlcement = 8;
                 
             }
     
     
             int pointPlayer1 = Integer.parseInt(pointsHolder1);
             int pointPlayer2 = Integer.parseInt(pointsHolder2);
-            this.rounds = Integer.parseInt(input.substring(8));
+            this.rounds = Integer.parseInt(input.substring(roundPlcement));
             this.resultText.setText(pointPlayer1 + " - " + pointPlayer2);
             System.out.println(pointPlayer1 + " - " + pointPlayer2);
             out.writeObject(outputResultS);
