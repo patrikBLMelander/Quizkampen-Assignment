@@ -156,7 +156,6 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
             int pointPlayer2 = Integer.parseInt(input.substring(7, 8));
             this.rounds = Integer.parseInt(input.substring(8));
             this.resultText.setText(pointPlayer1 + " - " + pointPlayer2);
-            System.out.println(pointPlayer1 + " - " + pointPlayer2);
             out.writeObject("PLAYER1");
         }
         catch(IOException e){

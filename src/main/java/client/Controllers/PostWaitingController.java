@@ -27,7 +27,7 @@ public class PostWaitingController implements Initializable, Runnable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         input = ScreenNavigator.inputStreamer;
         output = ScreenNavigator.outputStreamer;
-        System.out.println("Waiting");
+
         thread.start();
     }
 
@@ -38,9 +38,7 @@ public class PostWaitingController implements Initializable, Runnable {
             output.writeObject("END_GAME_WAIT");
             String s2;
             while((s2 = input.readObject().toString())!=null) {
-                System.out.println(s2);
                 if (s2.equals("SHOW_OVERVIEW")) {
-                    System.out.println("Båda i waiting");
                     Platform.runLater(() -> {
                         try {
                             s.loadNewScreen(ScreenNavigator.GAME_OVERVIEW, image);

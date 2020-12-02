@@ -59,7 +59,6 @@ public class ChooseCategory implements Initializable {
                                 out.writeObject("GET_3_CATEGORIES");
                                 object = in.readObject();
                         }
-                        System.out.println(object);
                         categories = (ArrayList<String>)object;
 
                 } catch (IOException | ClassNotFoundException e) {
