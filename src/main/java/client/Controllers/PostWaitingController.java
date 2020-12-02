@@ -35,7 +35,7 @@ public class PostWaitingController implements Initializable, Runnable {
     public void run() {
 
         try {
-            output.writeObject("END_GAME_WAIT");
+
             String s2;
             while((s2 = input.readObject().toString())!=null) {
                 if (s2.equals("SHOW_OVERVIEW")) {

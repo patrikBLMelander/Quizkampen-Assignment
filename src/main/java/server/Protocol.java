@@ -90,6 +90,18 @@ public class Protocol {
             objectToSend = playerQuestionCounter(u);
             u.addCounter();
         }
+        else if (input.startsWith("GIVEUP")){
+            countDownLatch.countDown();
+            try {
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            objectToSend = "SHOW_OVERVIEW";
+            reset();
+            lastRound = true;
+        }
 
         else if(input.startsWith("END_GAME_WAIT")) {
             countDownLatch.countDown();

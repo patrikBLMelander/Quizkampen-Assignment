@@ -95,8 +95,10 @@ public class GameViewController implements Initializable{
             buttonList.get(1).setText(((Questions) temp).getWrongAnswer1());
             buttonList.get(2).setText(((Questions) temp).getWrongAnswer2());
             buttonList.get(3).setText(((Questions) temp).getWrongAnswer3());
-        }else
+        }else {
+            out.writeObject("END_GAME_WAIT");
             s.loadNewScreen(ScreenNavigator.POST_WAITING, rButton1);
+        }
     }
 
 
@@ -149,6 +151,12 @@ public class GameViewController implements Initializable{
         {
             ((Button) event.getSource()).setStyle(giveUpColor);
             circleArray[counter].setFill(Color.GRAY);
+        }
+        try {
+            out.writeObject("GIVEUP");
+            s.loadNewScreen(ScreenNavigator.POST_WAITING, rButton1);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

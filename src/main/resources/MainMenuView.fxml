@@ -38,7 +38,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </VBox.margin>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="179.0" style="-fx-background-color: gold;" text="Se ditt highscore" textFill="#6c6c6c">
+      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="179.0" style="-fx-background-color: gold;" text="Se ditt highscore" textFill="#6c6c6c" visible="false">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
