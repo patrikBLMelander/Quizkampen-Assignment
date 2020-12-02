@@ -49,12 +49,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="musicBtn" mnemonicParsing="false" onAction="#turnOnMusicAction" prefHeight="40.0" prefWidth="142.0" style="-fx-background-color: green;" text="Sätt på musik" textFill="WHITE" translateX="-130.0" translateY="65.0">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="musicBtn1" mnemonicParsing="false" onAction="#turnOffMusicAction" prefHeight="40.0" prefWidth="142.0" style="-fx-background-color: green;" text="Stäng av musik" textFill="WHITE" translateX="130.0" translateY="25.0">
+      <Button fx:id="musicBtn" mnemonicParsing="false" onAction="#turnOnMusicAction" prefHeight="40.0" prefWidth="142.0" style="-fx-background-color: green;" text="Sätt på musik" textFill="WHITE" translateX="130.0" translateY="65.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

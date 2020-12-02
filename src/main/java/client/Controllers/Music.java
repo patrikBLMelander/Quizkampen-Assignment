@@ -16,8 +16,6 @@ public class Music {
                 AudioInputStream readMusic = AudioSystem.getAudioInputStream(music);
                 play = AudioSystem.getClip();
                 play.open(readMusic);
-                play.start();
-                play.loop(Clip.LOOP_CONTINUOUSLY);
 
                 FloatControl gainControl =
                         (FloatControl) play.getControl(FloatControl.Type.MASTER_GAIN);
