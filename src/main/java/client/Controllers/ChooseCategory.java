@@ -66,7 +66,7 @@ public class ChooseCategory implements Initializable {
                 } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                 }
-                for (var category : categorys) {
+                for (var category : categories) {
                         buttonList.get(counter).setText(category);
 
                         counter++;
