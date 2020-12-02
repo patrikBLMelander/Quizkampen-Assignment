@@ -20,13 +20,13 @@ public class MainMenuController implements Initializable {
     private Socket connectToServer;
 
     @FXML
+    private Button musicBtn;
+
+    @FXML
     private Text helloText;
 
     @FXML
     private Button newGameBtn;
-
-    @FXML
-    private Button musicBtn;
 
     @FXML
     void newGameViewAction(ActionEvent event) throws IOException, ClassNotFoundException {
