@@ -66,6 +66,39 @@ public class GameViewController implements Initializable{
     @FXML
     private Circle circle5;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        pointCounter = 0;
+        circleArray = new Circle[]{circle1, circle2, circle3, circle4, circle5};
+        buttonList.addAll(rButton1, rButton2, rButton3, rButton4);
+
+        try {
+            in = ScreenNavigator.inputStreamer;
+            out = ScreenNavigator.outputStreamer;
+
+            out.writeObject("NEW_QUESTION" + "0");
+            out.flush();
+            updateGameWindow();
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateGameWindow() throws IOException, ClassNotFoundException {
+        Object temp = in.readObject();
+        Collections.shuffle(buttonList);
+        if (temp instanceof Questions) {
+            counterText.setText("Poäng: " + Integer.toString(pointCounter));
+            questionText.setText(((Questions) temp).getQuestion());
+            buttonList.get(0).setText(((Questions) temp).getCorrectAnswer());
+            buttonList.get(1).setText(((Questions) temp).getWrongAnswer1());
+            buttonList.get(2).setText(((Questions) temp).getWrongAnswer2());
+            buttonList.get(3).setText(((Questions) temp).getWrongAnswer3());
+        }else
+            s.loadNewScreen(ScreenNavigator.POST_WAITING, rButton1);
+    }
+
 
     @FXML
     void rButtonClicked(ActionEvent event){
@@ -106,44 +139,7 @@ public class GameViewController implements Initializable{
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        pointCounter = 0;
-        circleArray = new Circle[]{circle1, circle2, circle3, circle4, circle5};
-        buttonList.addAll(rButton1, rButton2, rButton3, rButton4);
 
-        try {
-            in = ScreenNavigator.inputStreamer;
-            out = ScreenNavigator.outputStreamer;
-
-            out.writeObject("NEW_QUESTION" + "0");
-            out.flush();
-            updateGameWindow();
-            progressBar.setProgress(100.0);
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateGameWindow() throws IOException, ClassNotFoundException {
-        Object temp = in.readObject();
-        Collections.shuffle(buttonList);
-        if (temp instanceof Questions) {
-            counterText.setText("Poäng: " + Integer.toString(pointCounter));
-            questionText.setText(((Questions) temp).getQuestion());
-            buttonList.get(0).setText(((Questions) temp).getCorrectAnswer());
-            buttonList.get(1).setText(((Questions) temp).getWrongAnswer1());
-            buttonList.get(2).setText(((Questions) temp).getWrongAnswer2());
-            buttonList.get(3).setText(((Questions) temp).getWrongAnswer3());
-            Thread thread = new Thread(new bg_Thread());
-            thread.start();
-
-        }else
-            s.loadNewScreen(ScreenNavigator.POST_WAITING, rButton1);
-    }
-
-    
     public void rButtonGiveUp(ActionEvent event) {
         pointCounter = 0;
         int laps = 25;

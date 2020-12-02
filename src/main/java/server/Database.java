@@ -17,30 +17,6 @@ public class Database implements Serializable {
         deSerialize();
 
     }
-    public List chooseCategory(String catRecieved) {
-
-        List<Questions> tempList = new ArrayList<>();
-        int counter = 0;
-        for (var v: categoryList) {
-            if (v.get(counter).getCategoryName().equalsIgnoreCase(catRecieved)){
-                tempList = v;
-            }
-        }
-        return tempList;
-    }
-
-    public void addUser(User u) {
-        userList.add(u);
-    }
-
-    public List<User> getUsers() {
-        return userList;
-    }
-
-    public void removeUser(User u) {
-        userList.remove(u);
-    }
-
     public static String randomCategorys(){
         Random r = new Random();
         int temp = r.nextInt(10);
@@ -63,8 +39,26 @@ public class Database implements Serializable {
         else if (temp==9)
             return "KONST OCH KULTUR";
         else
-        return "SPRÅK OCH TEXT";
+            return "SPRÅK OCH TEXT";
     }
+    public List chooseCategory(String catRecieved) {
+
+        List<Questions> tempList = new ArrayList<>();
+        int counter = 0;
+        for (var v: categoryList) {
+            if (v.get(counter).getCategoryName().equalsIgnoreCase(catRecieved)){
+                tempList = v;
+            }
+        }
+        return tempList;
+    }
+
+    public void addUser(User u) {
+        userList.add(u);
+    }
+
+
+
     public void serialize() {
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("category.ser"));

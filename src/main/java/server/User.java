@@ -14,11 +14,11 @@ public class User extends Thread implements Serializable {
     private User opponent;
     ObjectOutputStream out;
     ObjectInputStream in;
-    Protocol p;
+    Protocol protocol;
 
-    public User(String userName, Socket socket, Protocol p) {
+    public User(String userName, Socket socket, Protocol protocol) {
         this.userName = userName;
-        this.p = p;
+        this.protocol = protocol;
 
         setArray();
 
@@ -33,7 +33,7 @@ public class User extends Thread implements Serializable {
             else {
                 out.writeObject(" ");
             }
-            p.processInput(getUserName(), User.this);
+            protocol.processInput(getUserName(), User.this);
         } catch (IOException  e) {
             e.printStackTrace();
         }
@@ -71,15 +71,16 @@ public class User extends Thread implements Serializable {
         this.opponent = opponent;
     }
 
+    @Override
     public void run() {
         System.out.println("MESSAGE All players connected");
         Object temp;
 
         try {
             while ((temp = in.readObject()) != null) {
-                Object obj = p.processInput(getUserName(), temp);
+                Object obj = protocol.processInput(getUserName(), temp);
                 out.reset();
-                out.writeObject(obj);
+                out.writeObject(obj); // Gjort det i flera steg för att förtydliga
                 out.flush();
             }
         }
