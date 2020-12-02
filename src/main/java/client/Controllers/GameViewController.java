@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -28,6 +29,9 @@ public class GameViewController implements Initializable{
     Circle [] circleArray = new Circle[5];
     int pointCounter = 0;
     int counter = 0;
+
+    @FXML
+    private ProgressBar progressBar;
 
     @FXML
     private Text counterText;
@@ -135,6 +139,7 @@ public class GameViewController implements Initializable{
         }
     }
 
+
     public void rButtonGiveUp(ActionEvent event) {
         pointCounter = 0;
         int laps = 25;
@@ -165,6 +170,19 @@ public class GameViewController implements Initializable{
         }
     }
 
+    class bg_Thread implements Runnable {
 
+        @Override
+        public void run() {
+            try {
+                for (int i = 100; i > 0; i--) {
+                    progressBar.setProgress(i / 100.0);
+                    Thread.sleep(250);
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+
+            }
+        }
+    }
 }
-

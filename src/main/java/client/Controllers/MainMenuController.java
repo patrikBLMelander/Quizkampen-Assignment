@@ -19,14 +19,17 @@ public class MainMenuController implements Initializable {
     private ObjectOutputStream out;
     private Socket connectToServer;
 
+    int counter = 0;
+    Music music = new Music();
+
+    @FXML
+    private Button musicBtn;
+
     @FXML
     private Text helloText;
 
     @FXML
     private Button newGameBtn;
-
-    @FXML
-    private Button musicBtn;
 
     @FXML
     void newGameViewAction(ActionEvent event) throws IOException, ClassNotFoundException {
@@ -46,13 +49,21 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void turnOnMusicAction(ActionEvent event) {
-        Music music = new Music();
-        music.loadGameMusic("src\\main\\resources\\Kerbal Space Program - Space Music (Track 1).wav");
-        music.playMusic();
+        if (counter % 2 != 0) {
+            music.stopMusic();
+            musicBtn.setText("Sätt påmusik");
+            counter++;
+        }
+        else {
+            music.playMusic();
+            musicBtn.setText("Stäng av musik");
+            counter++;
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         helloText.setText("Hej " + ScreenNavigator.name);
+        music.loadGameMusic("src\\main\\resources\\Kerbal Space Program - Space Music (Track 1).wav");
     }
 }
