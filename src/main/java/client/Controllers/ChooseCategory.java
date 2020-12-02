@@ -55,7 +55,6 @@ public class ChooseCategory implements Initializable {
                 try {
                         out.writeObject("GET_3_CATEGORIES");
                         Object object = in.readObject();
-                        System.out.println(object);
                         if (object.equals("GO_TO_CHOOSE_CATEGORY")) {
                                 out.writeObject("GET_3_CATEGORIES");
                                 object = in.readObject();
