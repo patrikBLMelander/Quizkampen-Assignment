@@ -6,13 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import server.Database;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ChooseCategory implements Initializable {
@@ -49,16 +49,26 @@ public class ChooseCategory implements Initializable {
                 buttonList.addAll(Cat1Btn, Cat2Btn, Cat3Btn);
                 out = ScreenNavigator.outputStreamer;
                 in = ScreenNavigator.inputStreamer;
-                ArrayList<String> categorys = new ArrayList<>();
+                List<String> categories = new ArrayList<>();
+
                 int counter = 0;
                 try {
                         out.writeObject("GET_3_CATEGORIES");
-                        categorys = (ArrayList<String>) in.readObject();
+                        Object object = in.readObject();
+                        System.out.println(object);
+                        if (object.equals("GO_TO_CHOOSE_CATEGORY")) {
+                                out.writeObject("GET_3_CATEGORIES");
+                                object = in.readObject();
+                        }
+                        System.out.println(object);
+                        categories = (ArrayList<String>)object;
+
                 } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                 }
                 for (var category : categorys) {
                         buttonList.get(counter).setText(category);
+
                         counter++;
                 }
         }

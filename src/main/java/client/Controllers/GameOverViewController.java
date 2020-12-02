@@ -119,7 +119,7 @@ public class GameOverViewController implements Initializable, Runnable, Serializ
         if (temp.equals("WAITING"))
             s.loadNewScreen(ScreenNavigator.WAITING, nextRoundBtn1);
 
-        else if (temp.equals("GO_TO_CHOOSE_CATEGORY"))
+        else if (temp.equals("START_NEW_ROUND"))
             s.loadNewScreen(ScreenNavigator.SELECT_CATEGORY, nextRoundBtn1);
 
     }
