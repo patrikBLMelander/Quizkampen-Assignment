@@ -32,6 +32,7 @@
   - Visa att det är denna klass vi använder när vi byter fönster
 
 ## Visa Databasen (Serializerad) **SIMON**
+  - Visa Questions och dess variabler
   - Visa Databasen och att den är Serializerad,
   - Kategorierna är listor med Questions
     - Varje objekt innehåller: En fråga, ett rätt svar samt tre fel svar
